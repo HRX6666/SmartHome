@@ -34,7 +34,7 @@
             android:textSize="15dp" />
 
         <com.example.smarthome.View.FButton
-            android:id="@+id/primary_button"
+            android:id="@+id/trail_open"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_gravity="left|top"
@@ -55,7 +55,7 @@
             android:layout_marginTop="60dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/primary_button"
+            android:layout_toEndOf="@id/trail_open"
             android:text="关灯" />
 
 

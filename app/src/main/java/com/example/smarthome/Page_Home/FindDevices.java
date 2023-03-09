@@ -2,10 +2,12 @@ package com.example.smarthome.Page_Home;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.Switch;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,6 +44,12 @@ public class FindDevices extends AppCompatActivity {
         swipeRefreshLayout=findViewById(R.id.swipeRefresh);
         aSwitch=findViewById(R.id.switch1);
 
+
+        Device device=new Device();
+        device.setToDefault("isUpdate");
+        device.updateAll();
+        //防止不打开按钮一刷新就显示了
+
         clientMQTT=new ClientMQTT("light");
         try {
             clientMQTT.Mqtt_innit();
@@ -69,7 +77,7 @@ public class FindDevices extends AppCompatActivity {
                     @Override
                     public void run() {
                         try {
-                            Thread.sleep(2000);
+                            Thread.sleep(4000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -77,7 +85,7 @@ public class FindDevices extends AppCompatActivity {
                             @Override
                             public void run() {
                                 deviceList.clear();
-                                devicelist= LitePal.order("source_command desc").where("flag= ? and isUpdate= ?","0","1").find(Device.class);
+                                devicelist= LitePal.order("device_type desc").where("flag= ? and isUpdate= ?","0","1").find(Device.class);
                                 initContent();
                                 RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_devices);
                                 LinearLayoutManager linearLayout = new LinearLayoutManager(FindDevices.this);
@@ -99,7 +107,7 @@ public class FindDevices extends AppCompatActivity {
                     //之后在数据库加一个是否是点击入网后能够获得的电器isupdate,解析那里的litepal要记得让isupdate为1，这里switch变成false后再全弄为0
 //                    clientMQTT.Subscribe();//没有显示不要担心，做一个下拉刷新就好了
 
-                    clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x0000","0xFF", "0x0002");
+                    clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0002","0x02");
                     deviceList.clear();
                     initContent();
                     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_devices);
@@ -125,17 +133,28 @@ public class FindDevices extends AppCompatActivity {
         super.onStart();
 
     }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Device device=new Device();
+        device.setIsUpdate(0);
+        device.updateAll();
+
+    }
     private void initContent()
     {
 
 
         for(Device devices:devicelist) {
-            String source_long_address = devices.getSource_long_address();
+            String source_long_address = devices.getTarget_long_address();
             int flag = devices.getFlag();
-            String source_command = devices.getSource_command();
+            String source_command = devices.getDevice_type();
+            String target_short_adress=devices.getTarget_short_address();
             Map<String, String> map = new HashMap<>();
-            map.put("source_command", source_command);
-            map.put("source_long_address", String.valueOf(source_long_address));
+            map.put("device_type", source_command);
+            map.put("target_short_address",target_short_adress);
+            map.put("target_long_address", String.valueOf(source_long_address));
             map.put("flag", String.valueOf(flag));
             deviceList.add(map);
 

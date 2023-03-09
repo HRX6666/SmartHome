@@ -20,6 +20,8 @@
     <color name="card1">#D0BBF5</color>
     <color name="fbutton_default_color">#EFE37B</color>
     <color name="fbutton_default_shadow_color">#EFE37B</color>
+    <color name="yellow4">#F2F0DB</color>
     <color name="outColor">#8a8a8a</color>
     <color name="inColor">#660D92DD</color>
+    <color name="pink1">#F4E6F6</color>
 </resources>

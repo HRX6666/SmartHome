@@ -15,16 +15,23 @@ import android.widget.Toast;
 
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
+import com.example.smarthome.View.FButton;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 public class AdjustTheLights extends AppCompatActivity {
     Toolbar lights_tb;
     private    ClientMQTT clientMQTT;
-    private Button open_light;
-    private Button shut_light;
+    private FButton open_light;
+    private FButton shut_light;
     private Spinner spinner_model;
     private Spinner spinner_home;
     private String target_short_address;
@@ -33,7 +40,7 @@ public class AdjustTheLights extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjust_the_lights);
         lights_tb=findViewById(R.id.lights_tb);
-//        open_light=findViewById(R.id.trail_open);
+        open_light=findViewById(R.id.trail_open);
         shut_light=findViewById(R.id.trail_shut);
         spinner_model=findViewById(R.id.lights_choose_model);
         spinner_home=findViewById(R.id.lights_choose_home);
@@ -71,26 +78,27 @@ public class AdjustTheLights extends AppCompatActivity {
 
             }
         });
-//        open_light.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                clientMQTT.startReconnect(AdjustTheLights.this);
-//                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x01", "0x0101");
-//                Toast.makeText(AdjustTheLights.this, "开灯!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        open_light.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                clientMQTT.startReconnect(AdjustTheLights.this);
+                clientMQTT.publishMessagePlus(null,"0x4AA5","0x01", "0x0101","0x02");
+                Toast.makeText(AdjustTheLights.this, "开灯!", Toast.LENGTH_SHORT).show();
+            }
+        });
         shut_light.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 //                clientMQTT.startReconnect(AdjustTheLights.this);
-                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x01", "0x0100");
-//                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//                LocalDateTime localDateTime = LocalDateTime.now();
-//                Date date = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
-//                String format = DateUtil.format(date, df);
-//                System.err.println(format);
+                clientMQTT.publishMessagePlus(null,"0x4AA5","0x01", "0x0100","0x02");
+                DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
-                Toast.makeText(AdjustTheLights.this, "关灯!", Toast.LENGTH_SHORT).show();
+                LocalDateTime localDateTime = LocalDateTime.now();
+                DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE_TIME;
+                String iso=dateTimeFormatter.format(localDateTime);
+
+
+                Toast.makeText(AdjustTheLights.this, iso, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -123,8 +131,8 @@ public class AdjustTheLights extends AppCompatActivity {
 //                Toast.makeText(AdjustTheLights.this, String.valueOf(position), Toast.LENGTH_SHORT).show();
                 //灯控模式
                 switch (position){//不同房间类型和全屋进入应该是有不同短地址来区分，通过判断选择哪个屋子执行，在根据此来发送不同的短地址
-                    case 1:clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x01", "0x0105");
-                    case 2:clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x01", "0x0106");;
+//                    case 1:clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x01", "0x0105");
+//                    case 2:clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x01", "0x0106");;
 
                 }
             }

@@ -53,17 +53,19 @@ public class HuijuFrament extends Fragment {
     ExtendHeadAdapter addadapter;
     AddHomeAdapter addHomeAdapter;
     List<String> mDatas = new ArrayList<>();
-    private ClientMQTT clientMQTT;
+    //    private ClientMQTT clientMQTT;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        clientMQTT=new ClientMQTT("light");
-        try {
-            clientMQTT.Mqtt_innit();
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }
-        clientMQTT.startReconnect(getContext());
+//        clientMQTT=new ClientMQTT("light");
+//        try {
+//            clientMQTT.Mqtt_innit();
+//        } catch (MqttException e) {
+//            e.printStackTrace();
+//        }
+//      //
+//        clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0002","0x02");
+//////
         return inflater.inflate(R.layout.huiju_fragment,container,false);
 
     }

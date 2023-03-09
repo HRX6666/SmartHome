@@ -28,6 +28,14 @@ public class FirstActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first);
+        clientMQTT=new ClientMQTT("light");
+        try {
+            clientMQTT.Mqtt_innit();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        clientMQTT.startReconnect(FirstActivity.this);
+
         topAnimation= AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottomAnimation= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
         middleAnimation= AnimationUtils.loadAnimation(this,R.anim.middle_animation);
@@ -45,25 +53,37 @@ public class FirstActivity extends AppCompatActivity {
         fourth.setAnimation(topAnimation);
         fifth.setAnimation(topAnimation);
         sixth.setAnimation(topAnimation);
-       app_name.setAnimation(middleAnimation);
-       tagLine.setAnimation(bottomAnimation);
-//        clientMQTT=new ClientMQTT("light");
-//        try {
-//            clientMQTT.Mqtt_innit();
-//        } catch (MqttException e) {
-//            e.printStackTrace();
-//        }
-//        clientMQTT.startReconnect(FirstActivity.this);
+        app_name.setAnimation(middleAnimation);
+        tagLine.setAnimation(bottomAnimation);
 
-       new Handler().postDelayed(new Runnable() {
-           @Override
-           public void run() {
-               Intent intent=new Intent(FirstActivity.this,BottomSmartHome.class);
-               startActivity(intent);
-               finish();
-           }
-       },5000);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent=new Intent(FirstActivity.this,BottomSmartHome.class);
+                startActivity(intent);
+                finish();
+            }
+        },5000);
         Connector.getDatabase();
+        Thread thread=new Thread(new MyRunnable());
+        thread.start();
     }
+
+class MyRunnable implements Runnable{
+
+
+    @Override
+    public void run() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0002","0x02");
+    }
+}
+
+
 
 }

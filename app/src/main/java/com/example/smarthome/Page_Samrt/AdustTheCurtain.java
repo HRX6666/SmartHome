@@ -29,7 +29,7 @@ public class AdustTheCurtain extends AppCompatActivity {
     private Spinner spinner_choose_home;
     private Spinner spinner_choose_model;
     private Button bt_openAll;
-//    private Button bt_openMid;
+    //    private Button bt_openMid;
     private Button bt_closeCurtain;
     private int home_choose;
     private String s_home_choose;
@@ -51,21 +51,10 @@ public class AdustTheCurtain extends AppCompatActivity {
             e.printStackTrace();
         }
         clientMQTT.startReconnect(AdustTheCurtain.this);
-        List<Device> devicelist= LitePal.where("flag = ? and source_command = ?","1","0x03").find(Device.class);
+        List<Device> devicelist= LitePal.where("flag = ? and device_type = ?","1","0x03").find(Device.class);
         List<Map<String,String>> deviceList=new ArrayList<>();
         Map<String,String> map=new HashMap<>();
-//        for(Device device:devicelist){
-//            Room room=device.getRoom();
-//            int a=room.getCategory();
-//            String home="0x0"+a;
-//            if(home.equals(s_home_choose)){
-//        //  map.put("")
-//
-//            deviceList.add(map);
-//            }
-//
-//
-//        }
+
         bt_openAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,15 +64,15 @@ public class AdustTheCurtain extends AppCompatActivity {
                     String home="0x0"+a;
                     if(home.equals(s_home_choose)){
                         map.put("misc","0x00");
-                        map.put("target_short_address",device.getSource_short_address());
-                        map.put("target_command",device.getSource_command());
+                        map.put("target_short_address",device.getTarget_short_address());
+                        map.put("device_type",device.getDevice_type());
 //                        clientMQTT.publishMessagePlusWithMap(map,"0x01");
 
                     }
 
                 }
                 //clientMQTT.publishMessagePlusWithMap(deviceList);
-                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x03", "0x0101");
+//                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x03", "0x0101");
             }
         });
 
@@ -96,15 +85,15 @@ public class AdustTheCurtain extends AppCompatActivity {
                     String home="0x0"+a;
                     if(home.equals(s_home_choose)){
                         map.put("misc","0x00");
-                        map.put("target_short_address",device.getSource_short_address());
-                        map.put("target_command",device.getSource_command());
+                        map.put("target_short_address",device.getTarget_short_address());
+                        map.put("device_type",device.getDevice_type());
 //                        clientMQTT.publishMessagePlusWithMap(map,"0x00");
 
                     }
 
 
                 }
-                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x03", "0x0100");
+//                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x03", "0x0100");
 
             }
         });
@@ -133,6 +122,6 @@ public class AdustTheCurtain extends AppCompatActivity {
 //
 //
 //        }
-    }
+}
 
 

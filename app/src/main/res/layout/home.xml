@@ -72,12 +72,12 @@
         android:id="@+id/home_test"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text=" Test"
+        android:text=" 发现设备"
         android:textSize="15dp"
         android:fontFamily="sans-serif-black"
         android:textColor="@color/lighthui"
         android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/wangguan"/>
+        android:drawableEnd="@drawable/smart_add"/>
     <TextView
         android:id="@+id/home_set"
         android:layout_width="match_parent"

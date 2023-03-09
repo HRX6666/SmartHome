@@ -22,6 +22,8 @@ import org.fusesource.mqtt.client.MQTT;
 import org.fusesource.mqtt.codec.MessageSupport;
 
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,8 +45,8 @@ public class ClientMQTT {
     private static final String password = "ESP32-C3-password";
     private String device_name="vivo";
     public  static final String serverURI="tcp://broker.emqx.io:1883";
-//   public  static final String serverURI="tcp://192.168.203.217:1883";
-        private String device_id=MqttClient.generateClientId();
+//       public  static final String serverURI="tcp://192.168.112.217:1883";
+    private String device_id=MqttClient.generateClientId();
 
     private String topicName;
     private final MemoryPersistence memoryPersistence=new MemoryPersistence();
@@ -88,9 +90,9 @@ public class ClientMQTT {
 
             @Override
             public void messageArrived(String topic, MqttMessage message) throws Exception {
-                 String jsonData=new String(message.getPayload());
+                String jsonData=new String(message.getPayload());
                 ParseJson parseJson=new ParseJson();
-                parseJson.parseJsonAndUpdateDatabase(jsonData);
+                parseJson.ParseJsonData(jsonData);
                 System.out.println("messageArrived----------");
             }
 
@@ -196,7 +198,7 @@ public class ClientMQTT {
             return;
         }
         MqttMessage message = new MqttMessage();
-        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",userName,device_id,map.get("misc"),map.get("target_short_address"),map.get("target_command"),target_data);
+        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z",device_id,map.get("misc"),map.get("target_short_address"),map.get("device_type"),target_data,"0x02");
         message.setPayload(jsonString.toString().getBytes());
         try {
             client.publish("APPtoESP32",message);//上传信息
@@ -205,34 +207,37 @@ public class ClientMQTT {
             e.printStackTrace();
         }
     }
-        public void publishMessagePlusWithMap(List<Map<String,String>> deviceList){
+    public void publishMessagePlusWithMap(List<Map<String,String>> deviceList){
 
         Map<String,String> map=new HashMap<>();
         for (int i = 0; i <deviceList.size(); i++) {
-             map=deviceList.get(i);
+            map=deviceList.get(i);
 
-        if (client == null || !client.isConnected()) {
+            if (client == null || !client.isConnected()) {
 
-            return;
-        }
-        MqttMessage message = new MqttMessage();
-        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",userName,device_id,map.get("misc"),map.get("target_short_address"),map.get("target_command"),map.get("target_data"));
-        message.setPayload(jsonString.toString().getBytes());
-        try {
-            client.publish("APPtoESP32",message);//上传信息
-        } catch (MqttException e) {
+                return;
+            }
+            MqttMessage message = new MqttMessage();
+            JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",device_id,map.get("misc"),map.get("target_short_address"),map.get("target_command"),map.get("target_data"));
+            message.setPayload(jsonString.toString().getBytes());
+            try {
+                client.publish("APPtoESP32",message);//上传信息
+            } catch (MqttException e) {
 
-            e.printStackTrace();
-        }
-    }}
-    public void publishMessagePlus(String timestamp,String firmware_version,String misc,String target_short_address,String target_command,String target_data)
+                e.printStackTrace();
+            }
+        }}
+    public void publishMessagePlus(String misc,String target_short_address,String device_type,String valid_data,String valid_data_length)
     {
-        if (client == null || !client.isConnected()) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE_TIME;
+        String timestamp=dateTimeFormatter.format(localDateTime);
 
+        if (client == null || !client.isConnected()) {
             return;
         }
         MqttMessage message = new MqttMessage();
-        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",userName,device_id,misc,target_short_address,target_command,target_data);
+        JsonString jsonString=new JsonString(timestamp,device_id,misc,target_short_address,device_type,valid_data,valid_data_length);
         message.setPayload(jsonString.toString().getBytes());
         try {
             client.publish("APPtoESP32",message);//上传信息
