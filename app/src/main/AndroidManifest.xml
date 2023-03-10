@@ -35,6 +35,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Scan.ScanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Page_Samrt.GoHome"
             android:exported="false">
             <meta-data

@@ -30,10 +30,15 @@ android {
         viewBinding true
     }
 }
-
+configurations {
+    all*.exclude group: 'com.android.support', module: 'support-v4'
+}
 dependencies {
+    implementation ('androidx.core:core:1.0.0') {
+        exclude group: 'com.android.support', module: 'support-v4'}
+    implementation 'com.google.zxing:core:3.4.1'
 
-//    implementation  'com.journeyapps:zxing-android-embedded:3.5.0'
+   implementation  'com.journeyapps:zxing-android-embedded:3.6.0'
     implementation 'info.hoang8f:fbutton:1.0.5'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'org.litepal.guolindev:core:3.2.3'
