@@ -9,7 +9,7 @@ public class Device extends LitePalSupport {
 //    private String misc;//
 //    private String network_flag;//电器是否自动入网(电器重启后自动组网)
 //    private String source_data;//这玩意是开关键决定的，不需要保存
-//
+
     private String misc;
     private String target_short_address;
     private String device_type;//设备码

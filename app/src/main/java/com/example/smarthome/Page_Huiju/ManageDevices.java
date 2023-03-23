@@ -63,7 +63,8 @@ public class ManageDevices extends AppCompatActivity {
         deviceList.clear();
         devicelist= LitePal.order("device_type desc").where("flag= ?","1").find(Device.class);
         for(Device devices:devicelist) {
-            String source_long_address = devices.getTarget_long_address();
+            int count=0;
+            String target_long_address = devices.getTarget_long_address();
             int flag = devices.getFlag();
             String source_command = devices.getDevice_type();
             String target_short_adress=devices.getTarget_short_address();
@@ -73,10 +74,16 @@ public class ManageDevices extends AppCompatActivity {
             map.put("device_type", source_command);
             map.put("network_flag",network_flag);
             map.put("target_short_address",target_short_adress);
-            map.put("target_long_address", source_long_address);
+            map.put("target_long_address", target_long_address);
             map.put("flag", String.valueOf(flag));
             map.put("controller_long_address",controller_long_address);
-            deviceList.add(map);
+            for(Map<String,String> map2:deviceList) {
+                String target_long_address2=map2.get("target_long_address");
+                if(target_long_address2.equals(target_long_address))
+                    count++;
+            }
+            if(count==0)
+                deviceList.add(map);
 
         }
     }

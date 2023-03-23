@@ -53,46 +53,65 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-<LinearLayout
-    android:id="@+id/linear_addCondition"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintTop_toBottomOf="@id/add_name"
-    >
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="触发事件"
-    android:textSize="20sp"
-    />
 
-    <Button
-        android:id="@+id/add_task"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-       android:layout_marginLeft="250dp"
-        android:background="@drawable/add" />
-
-
-</LinearLayout>
-
-<LinearLayout
-    android:id="@+id/linear_addTask"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-
-
-
-</LinearLayout>
-    <Button
-        android:id="@+id/add_condition"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/linear_addCondition"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="20dp"
-        android:background="@color/fbutton_default_color"
-        android:text="添加条件"
-         />
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/add_name">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="触发事件"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/add_condition"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="250dp"
+            android:background="@drawable/add" />
+
+
+    </LinearLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_condition"
+        android:layout_width="0dp"
+        android:layout_height="158dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_addCondition" />
+
+    <LinearLayout
+        android:id="@+id/linear_addMission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/recy_condition">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="执行任务"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/add_mission"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="250dp"
+            android:background="@drawable/add" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_mission"
+        android:layout_width="0dp"
+        android:layout_height="155dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear_addMission" />
 </androidx.constraintlayout.widget.ConstraintLayout>

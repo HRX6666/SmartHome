@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.smarthome.Database.Scene.Temp;
 import com.example.smarthome.R;
 import com.example.smarthome.View.FButton;
 
@@ -32,7 +33,9 @@ private void initLayout(){
         hand_click.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
+                Temp temp=new Temp();
+                temp.setIsClick("1");
+                temp.save();
 //conditionList整体用wrapcontent,确保随内容变化大小
                 return true;
             }
