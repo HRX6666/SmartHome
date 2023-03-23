@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toTopOf="@+id/add_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/close"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/close" />
+
+        <Button
+            android:id="@+id/save_scene"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="290dp"
+            android:background="@drawable/save" />
+
+
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/head_iamge"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        android:background="@mipmap/ic_launcher_round"
+        app:layout_constraintBottom_toTopOf="@+id/add_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/add_name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="479dp"
+        android:hint="给场景取个名字"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+<LinearLayout
+    android:id="@+id/linear_addCondition"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintTop_toBottomOf="@id/add_name"
+    >
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="触发事件"
+    android:textSize="20sp"
+    />
+
+    <Button
+        android:id="@+id/add_task"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+       android:layout_marginLeft="250dp"
+        android:background="@drawable/add" />
+
+
+</LinearLayout>
+
+<LinearLayout
+    android:id="@+id/linear_addTask"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+
+
+</LinearLayout>
+    <Button
+        android:id="@+id/add_condition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/fbutton_default_color"
+        android:text="添加条件"
+         />
+</androidx.constraintlayout.widget.ConstraintLayout>

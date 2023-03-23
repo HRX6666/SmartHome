@@ -4,14 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.smarthome.Database.Device;
-import com.example.smarthome.Database.Room;
+import com.example.smarthome.Database.Home;
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
 
@@ -59,7 +56,7 @@ public class AdustTheCurtain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for(Device device:devicelist){
-                    Room room=device.getRoom();
+                    Home room=device.getRoom();
                     int a=room.getCategory();
                     String home="0x0"+a;
                     if(home.equals(s_home_choose)){
@@ -80,7 +77,7 @@ public class AdustTheCurtain extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 for(Device device:devicelist){
-                    Room room=device.getRoom();
+                    Home room=device.getRoom();
                     int a=room.getCategory();
                     String home="0x0"+a;
                     if(home.equals(s_home_choose)){

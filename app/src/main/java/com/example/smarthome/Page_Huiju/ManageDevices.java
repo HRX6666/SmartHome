@@ -1,6 +1,8 @@
 package com.example.smarthome.Page_Huiju;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Switch;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,8 +14,10 @@ import com.example.smarthome.Adapter.ManageAdaptor;
 import com.example.smarthome.Database.Device;
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.Page_Home.FindDevices;
+import com.example.smarthome.Page_Samrt.AdjustTheLights;
 import com.example.smarthome.R;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
@@ -25,11 +29,12 @@ public class ManageDevices extends AppCompatActivity {
     private List<Map<String,String>> deviceList=new ArrayList<Map<String,String>>();
     private  List<Device> devicelist=new ArrayList<>();
     private ClientMQTT clientMQTT;
+    private Button update_device;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.managedevices);
-
+        update_device=findViewById(R.id.update_device);
         initContent();
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_manage);
         LinearLayoutManager linearLayout = new LinearLayoutManager(ManageDevices.this);
@@ -37,11 +42,24 @@ public class ManageDevices extends AppCompatActivity {
         ManageAdaptor manageAdaptor = new ManageAdaptor(deviceList);
         recyclerView.setAdapter(manageAdaptor);
         manageAdaptor.notifyDataSetChanged();
+        update_device.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clientMQTT=new ClientMQTT("light");
+                try {
+                    clientMQTT.Mqtt_innit();
+                } catch (MqttException e) {
+                    e.printStackTrace();
+                }
+                clientMQTT.startReconnect(ManageDevices.this);
+                clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0003","0x02");
+                manageAdaptor.notifyDataSetChanged();
+            }
+        });
     }
 
     private void initContent()
     {
-
         deviceList.clear();
         devicelist= LitePal.order("device_type desc").where("flag= ?","1").find(Device.class);
         for(Device devices:devicelist) {
@@ -49,11 +67,15 @@ public class ManageDevices extends AppCompatActivity {
             int flag = devices.getFlag();
             String source_command = devices.getDevice_type();
             String target_short_adress=devices.getTarget_short_address();
+            String network_flag=devices.getNetwork_flag();
+            String controller_long_address=devices.getController_long_address();
             Map<String, String> map = new HashMap<>();
             map.put("device_type", source_command);
+            map.put("network_flag",network_flag);
             map.put("target_short_address",target_short_adress);
             map.put("target_long_address", source_long_address);
             map.put("flag", String.valueOf(flag));
+            map.put("controller_long_address",controller_long_address);
             deviceList.add(map);
 
         }

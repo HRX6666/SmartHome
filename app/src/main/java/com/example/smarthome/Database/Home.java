@@ -4,8 +4,17 @@ import org.litepal.crud.LitePalSupport;
 
 import java.util.List;
 
-public class Room extends LitePalSupport {
+public class Home extends LitePalSupport {
     private int category;
+    private String title;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     private List<Light> lightList;
     private List<Curtain> curtainList;
@@ -52,6 +61,6 @@ public class Room extends LitePalSupport {
         this.deviceList = deviceList;
     }
 
-    public Room() {
+    public Home() {
     }
 }

@@ -4,6 +4,7 @@
     <!--允许程序打开网络套接字-->
     <uses-permission android:name="android.permission.INTERNET" />
     <!--允许程序获取网络状态-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:name="org.litepal.LitePalApplication"
+        android:extractNativeLibs="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,8 +22,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHome"
         tools:targetApi="31">
+        <service android:name="com.baidu.speech.VoiceRecognitionService" android:exported="false" />
         <activity
             android:name=".Page_Home.FindDevices"
+            android:launchMode="singleTask"
+            android:taskAffinity="com.example.test.second"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -35,7 +40,43 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Scene.ConditionActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.AddOrEditScene"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.HomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Add"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
             android:name=".Scan.ScanActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Test"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

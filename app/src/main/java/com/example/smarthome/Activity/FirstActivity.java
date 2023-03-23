@@ -80,7 +80,7 @@ class MyRunnable implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0002","0x02");
+        clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0003","0x02");
     }
 }
 

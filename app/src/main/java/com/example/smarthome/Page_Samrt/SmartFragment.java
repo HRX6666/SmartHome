@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,7 +25,7 @@ public class SmartFragment extends Fragment{
     RecyclerView.Adapter adapter;
     AddSmartAdapter rvadapter;
     ImageView go_off,go_home,night,addroom;
-
+    RelativeLayout relativeLayout;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,6 +40,7 @@ public class SmartFragment extends Fragment{
         go_home=getActivity().findViewById(R.id.go_home);
         night=getActivity().findViewById(R.id.night);
         addroom=getActivity().findViewById(R.id.add_home);
+        relativeLayout=getActivity().findViewById(R.id.more_model);
         recyclerView();
         initlongcard();//长按卡片进入具体模式的设置
         initcard(); //点击卡片上的文字，向云端发送信号，开启模式设置
@@ -61,6 +63,13 @@ public class SmartFragment extends Fragment{
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        relativeLayout.setClickable(true);
+        relativeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent();
             }
         });
     }

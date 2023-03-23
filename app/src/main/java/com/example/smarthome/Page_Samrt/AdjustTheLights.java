@@ -3,6 +3,7 @@ package com.example.smarthome.Page_Samrt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,14 +11,17 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
 import com.example.smarthome.View.FButton;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.w3c.dom.Text;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,22 +32,35 @@ import java.util.Date;
 
 
 public class AdjustTheLights extends AppCompatActivity {
+    public static final String DEVICE_TYPE="device_type";
+    public static final String NETWORK_FLAG="network_flag";
+    public static final String TARGET_LONG_ADDRESS="target_long_address";
+    public static final String TARGET_SHORT_ADDRESS="target_short_address";
+    public static final String CONTROLLER_LONG_ADDRESS="controller_long_address";
+
     Toolbar lights_tb;
     private    ClientMQTT clientMQTT;
+    private TextView isOnline;
     private FButton open_light;
     private FButton shut_light;
     private Spinner spinner_model;
     private Spinner spinner_home;
     private String target_short_address;
+    private String controller_long_address;
+    private String target_long_address;
+    private String network_flag;
+    private String device_type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjust_the_lights);
+        isOnline=findViewById(R.id.isOnline);
         lights_tb=findViewById(R.id.lights_tb);
         open_light=findViewById(R.id.trail_open);
         shut_light=findViewById(R.id.trail_shut);
         spinner_model=findViewById(R.id.lights_choose_model);
         spinner_home=findViewById(R.id.lights_choose_home);
+        SeekBar seekBar_bright=findViewById(R.id.brightness);
         lights_tb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,7 +76,28 @@ public class AdjustTheLights extends AppCompatActivity {
             e.printStackTrace();
         }
         clientMQTT.startReconnect(AdjustTheLights.this);
-        SeekBar seekBar_bright=findViewById(R.id.brightness);
+
+        Intent intent=getIntent();
+        controller_long_address=intent.getStringExtra(AdjustTheLights.CONTROLLER_LONG_ADDRESS);
+        target_short_address=intent.getStringExtra(AdjustTheLights.TARGET_SHORT_ADDRESS);
+        target_long_address=intent.getStringExtra(AdjustTheLights.TARGET_LONG_ADDRESS);
+        network_flag=intent.getStringExtra(AdjustTheLights.NETWORK_FLAG);
+        device_type=intent.getStringExtra(AdjustTheLights.DEVICE_TYPE);
+        if(device_type!=null)
+            switch (network_flag){
+            case "00":isOnline.setText("离线");
+                open_light.setEnabled(false);
+                shut_light.setEnabled(false);
+                open_light.setBackgroundResource(R.drawable.gray_bt);
+                shut_light.setBackgroundResource(R.drawable.gray_bt);
+                break;//////////////加入一个入网判断，判断是否入网，否则直接推出network显示在线，应该再次获取终端信息
+            case "01":isOnline.setText("在线");
+                open_light.setBackgroundResource(R.drawable.gray_bt);
+                shut_light.setBackgroundResource(R.drawable.gray_bt);
+                open_light.setEnabled(true);
+                shut_light.setEnabled(true);
+                break;
+        }
         seekBar_bright.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -82,7 +120,7 @@ public class AdjustTheLights extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                clientMQTT.startReconnect(AdjustTheLights.this);
-                clientMQTT.publishMessagePlus(null,"0x4AA5","0x01", "0x0101","0x02");
+                clientMQTT.publishMessagePlus(null,target_short_address,"0x01", "0x0401","0x02");
                 Toast.makeText(AdjustTheLights.this, "开灯!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -90,7 +128,7 @@ public class AdjustTheLights extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                clientMQTT.startReconnect(AdjustTheLights.this);
-                clientMQTT.publishMessagePlus(null,"0x4AA5","0x01", "0x0100","0x02");
+                clientMQTT.publishMessagePlus(null,target_short_address,"0x01", "0x0401","0x02");
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
                 LocalDateTime localDateTime = LocalDateTime.now();
@@ -143,7 +181,14 @@ public class AdjustTheLights extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Device device=new Device();
+        device.setIsUpdate(0);//这个还是留着好
+        device.updateAll();
+       clientMQTT=null;//防止后台多次处理数据，这个由于退出后switch仍保存之前状态，那就不能置null了
+    }
     private void initmodel() {
         ArrayAdapter starAdapter_model= ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_lights_model, android.R.layout.simple_spinner_item);
         Spinner sp_dropdown=findViewById(R.id.lights_choose_model);

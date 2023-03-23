@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 import com.example.smarthome.Scan.ScanActivity;
+import com.example.smarthome.Test;
 //import com.example.smarthome.Scan.ScanActivity;
 
 public class HomeFragment extends Fragment {
@@ -41,6 +42,15 @@ public class HomeFragment extends Fragment {
                 startActivity(intent1);
             }
         });
+        home_scene.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent1=new Intent(getActivity(), HomeScene.class);
+                Intent intent1=new Intent(getActivity(), ManageDevices.class);
+//                Intent intent1=new Intent(getActivity(),SetVoice.class);
+                startActivity(intent1);
+            }
+        });
         home_set_voice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,14 +72,7 @@ public class HomeFragment extends Fragment {
                 startActivity(intent1);
             }
         });
-        home_scene.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent1=new Intent(getActivity(), HomeScene.class);
-               Intent intent1=new Intent(getActivity(), ScanActivity.class);
-                startActivity(intent1);
-            }
-        });
+
         home_wifi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +83,7 @@ public class HomeFragment extends Fragment {
         home_wangguan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(getActivity(), WangGuan.class);
+                Intent intent1=new Intent(getActivity(), ScanActivity.class);
                 startActivity(intent1);
             }
         });

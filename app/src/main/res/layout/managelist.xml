@@ -80,12 +80,22 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/deletedevice" />
 
+        <TextView
+            android:id="@+id/isOnline"
+            android:layout_width="44dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:layout_marginTop="50dp"
+            android:textSize="19sp"
+            android:text="在线" />
+
         <info.hoang8f.widget.FButton
             android:id="@+id/manage_light_open"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="100dp"
+
             android:text="开灯" />
 
         <info.hoang8f.widget.FButton

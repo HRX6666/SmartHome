@@ -11,8 +11,8 @@ public class JsonString {
     private String device_type;
     private String valid_data;
     private String valid_data_length;
-
-    public JsonString( String timestamp,String device_id, String misc, String target_short_address, String device_type, String valid_data, String valid_data_length) {
+    private String controller_long_address="0x70E46125004B1200";
+    public JsonString( String timestamp,String controller_long_address,String device_id, String misc, String target_short_address, String device_type, String valid_data, String valid_data_length) {
         this.timestamp=timestamp;
         this.device_id = device_id;
         this.misc = misc;
@@ -24,7 +24,9 @@ public class JsonString {
 
     @Override
     public String toString() {
+        misc=null;
         return "{" +"\"firmware_version\":"+"\"1.2.3\","+
+                "\"controller_long_address\":\""+controller_long_address+"\","+
                 "\"device_id\":\""+device_id+"\"," +
                 "\"other_data\": {" +
                 "\"misc\":\""+misc+"\"}," +

@@ -32,20 +32,21 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class ClientMQTT {
-    private ClientMQTT mqttClient;
+
     private ScheduledExecutorService scheduler;
     private MQTT mqtt;
     private MqttClient client;
+    private MqttClient mqttClient;
     private Handler handler;
-    private String topic_subscribe;
-    MqttConnectOptions options;
-    int qos = 2;
+    private MqttConnectOptions options;
+    private MqttConnectOptions options1;
     private String topic="light";
     private static final String userName = "ESP32-C3-username";
-    private static final String password = "ESP32-C3-password";
-    private String device_name="vivo";
-    public  static final String serverURI="tcp://broker.emqx.io:1883";
-//       public  static final String serverURI="tcp://192.168.112.217:1883";
+//    private static final String password = "ESP32-C3-password";
+    private static final String password = "sUFhMRm3FUx6RqhKWYnRQBGQF6y1YZYHLsrVtaoYKA2GrPu9";
+//    public  static final String serverURI="tcp://broker.emqx.io:1883";
+  public  static final String serverURI="tcp://home.towo.eu.org";
+
     private String device_id=MqttClient.generateClientId();
 
     private String topicName;
@@ -161,7 +162,7 @@ public class ClientMQTT {
                         Toast.makeText(context,"连接失败" ,Toast.LENGTH_SHORT).show();
                         break;
                     case 31:   //连接成功
-                        Toast.makeText(context,"连接成功" ,Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context,"连接成功" ,Toast.LENGTH_SHORT).show();
                         try {
                             client.subscribe("ESP32toAPP",0);
                         } catch (MqttException e) {
@@ -175,69 +176,127 @@ public class ClientMQTT {
         };
 
     }
-    public void Subscribe(){
+    public void Subscribe(Context context1){
         try {
-            client.subscribe("ESP32toAPP",0);
+//            client.subscribe("ESP32toAPP",0);
+ mqttClient=new MqttClient(serverURI,device_id,memoryPersistence);;
+ options1=new MqttConnectOptions();
 
+            options1=new MqttConnectOptions();
+            options1.setAutomaticReconnect(true);
+            options1.setCleanSession(false);
+            //设置连接的用户名
+            options1.setUserName(userName);
+            //设置连接的密码
+            options1.setPassword(ClientMQTT.password.toCharArray());
+            // 设置超时时间 单位为秒
+            options1.setConnectionTimeout(10);
+            // 设置会话心跳时间 单位为秒 服务器会每隔1.5*20秒的时间向客户端发送个消息判断客户端是否在线，但这个方法并没有重连的机制
+            options1.setKeepAliveInterval(20);
+            if (!mqttClient.isConnected()) {
+                MqttConnectOptions finalOptions = options1;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            if(!(mqttClient.isConnected()))
+                            {
+
+                                finalOptions.setUserName(userName);
+                                //设置连接的密码
+                                finalOptions.setPassword(ClientMQTT.password.toCharArray());
+                                mqttClient.connect(finalOptions);
+//                                mqttClient.subscribe("ESP32toAPP",0);
+                                MqttMessage message = new MqttMessage();
+                                message.setPayload("666".getBytes());
+                                mqttClient.publish("APPtoESP32",message);
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
         } catch (MqttException e) {
             e.printStackTrace();
         }
+
     }
+    //为活动专门设计的，配置多个而不会重复接收数据
+public void publishMessagePlusForActivity(String misc,String target_short_address,String device_type,String valid_data,String valid_data_length){
+    LocalDateTime localDateTime = LocalDateTime.now();
+    DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE_TIME;
+    String timestamp=dateTimeFormatter.format(localDateTime);
+String controller_long_address="70E46125004B1200";
+    if (mqttClient == null || !client.isConnected()) {
+        return;
+    }
+    MqttMessage message = new MqttMessage();
+    JsonString jsonString=new JsonString(timestamp,controller_long_address,device_id,misc,target_short_address,device_type,valid_data,valid_data_length);
+    message.setPayload(jsonString.toString().getBytes());
+    try {
+        mqttClient.publish("APPtoESP32",message);//上传信息
+    } catch (MqttException e) {
+
+        e.printStackTrace();
+    }
+}
+
     public void unSubscribe(){
         try {
-            client.unsubscribe("ESP32toAPP");
+            mqttClient.unsubscribe("ESP32toAPP");
 
         } catch (MqttException e) {
             e.printStackTrace();
         }
     }
     //这边的map改成List<Map<String,String>>，毕竟设备不只是一个
-    public void publishMessagePlusWithMap( Map<String,String> map,String target_data){
-        if (client == null || !client.isConnected()) {
-
-            return;
-        }
-        MqttMessage message = new MqttMessage();
-        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z",device_id,map.get("misc"),map.get("target_short_address"),map.get("device_type"),target_data,"0x02");
-        message.setPayload(jsonString.toString().getBytes());
-        try {
-            client.publish("APPtoESP32",message);//上传信息
-        } catch (MqttException e) {
-
-            e.printStackTrace();
-        }
-    }
-    public void publishMessagePlusWithMap(List<Map<String,String>> deviceList){
-
-        Map<String,String> map=new HashMap<>();
-        for (int i = 0; i <deviceList.size(); i++) {
-            map=deviceList.get(i);
-
-            if (client == null || !client.isConnected()) {
-
-                return;
-            }
-            MqttMessage message = new MqttMessage();
-            JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",device_id,map.get("misc"),map.get("target_short_address"),map.get("target_command"),map.get("target_data"));
-            message.setPayload(jsonString.toString().getBytes());
-            try {
-                client.publish("APPtoESP32",message);//上传信息
-            } catch (MqttException e) {
-
-                e.printStackTrace();
-            }
-        }}
+//    public void publishMessagePlusWithMap( Map<String,String> map,String target_data){
+//        if (client == null || !client.isConnected()) {
+//
+//            return;
+//        }
+//        MqttMessage message = new MqttMessage();
+//        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z",device_id,map.get("misc"),map.get("target_short_address"),map.get("device_type"),target_data,"0x02");
+//        message.setPayload(jsonString.toString().getBytes());
+//        try {
+//            client.publish("APPtoESP32",message);//上传信息
+//        } catch (MqttException e) {
+//
+//            e.printStackTrace();
+//        }
+//    }
+//    public void publishMessagePlusWithMap(List<Map<String,String>> deviceList){
+//
+//        Map<String,String> map=new HashMap<>();
+//        for (int i = 0; i <deviceList.size(); i++) {
+//            map=deviceList.get(i);
+//
+//            if (client == null || !client.isConnected()) {
+//
+//                return;
+//            }
+//            MqttMessage message = new MqttMessage();
+//            JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",device_id,map.get("misc"),map.get("target_short_address"),map.get("target_command"),map.get("target_data"));
+//            message.setPayload(jsonString.toString().getBytes());
+//            try {
+//                client.publish("APPtoESP32",message);//上传信息
+//            } catch (MqttException e) {
+//
+//                e.printStackTrace();
+//            }
+//        }}
     public void publishMessagePlus(String misc,String target_short_address,String device_type,String valid_data,String valid_data_length)
     {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE_TIME;
         String timestamp=dateTimeFormatter.format(localDateTime);
-
+        String controller_long_address="70E46125004B1200";
         if (client == null || !client.isConnected()) {
             return;
         }
         MqttMessage message = new MqttMessage();
-        JsonString jsonString=new JsonString(timestamp,device_id,misc,target_short_address,device_type,valid_data,valid_data_length);
+        JsonString jsonString=new JsonString(timestamp,controller_long_address,device_id,misc,target_short_address,device_type,valid_data,valid_data_length);
         message.setPayload(jsonString.toString().getBytes());
         try {
             client.publish("APPtoESP32",message);//上传信息

@@ -1,5 +1,7 @@
 package com.example.smarthome.Scan;
 import android.Manifest;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,22 +11,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.smarthome.Json.ParseJson;
+import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
 import com.google.zxing.Result;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
 import com.journeyapps.barcodescanner.CompoundBarcodeView;
+
+import org.eclipse.paho.client.mqttv3.MqttClient;
+
 import java.util.List;
 public class ScanActivity extends AppCompatActivity {
     private static final int CAMERA_PERMISSION_REQUEST_CODE = 100;
     private CompoundBarcodeView barcodeView;
+    private ClientMQTT clientMQTT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scan);
         barcodeView = findViewById(R.id.barcode_scanner);
         barcodeView.decodeContinuous(callback);
+       clientMQTT=new ClientMQTT("test");
+       clientMQTT.Subscribe(ScanActivity.this);;
     }
     @Override
     protected void onResume() {
@@ -60,7 +70,10 @@ public class ScanActivity extends AppCompatActivity {
         public void barcodeResult(BarcodeResult result) {
             if (result.getText() != null) {
                 Log.d("ScanActivity", "Scan result: " + result.getText());
+                ParseJson parseJson=new ParseJson();
+                parseJson.ParseJsonData(result.getText());
                 // 处理扫描结果
+                //解析数据那边用try catch只要报错就显示数据接受异常
                 Toast.makeText(ScanActivity.this,result.getText(),Toast.LENGTH_SHORT).show();
             }
         }

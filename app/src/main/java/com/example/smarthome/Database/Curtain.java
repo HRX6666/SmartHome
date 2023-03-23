@@ -11,7 +11,7 @@ public class Curtain {
 
     //表关联
     private Model model;
-    private Room room;
+    private Home room;
 
     public int getSource_command() {
         return source_command;
@@ -61,11 +61,11 @@ public class Curtain {
         this.model = model;
     }
 
-    public Room getRoom() {
+    public Home getRoom() {
         return room;
     }
 
-    public void setRoom(Room room) {
+    public void setRoom(Home room) {
         this.room = room;
     }
 }

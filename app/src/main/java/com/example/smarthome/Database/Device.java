@@ -17,8 +17,34 @@ public class Device extends LitePalSupport {
     private String valid_data_length;
     private String network_flag;
     private String target_long_address;
+    private String controller_long_address;
+    private String data;//存放jsonDate
 
-//    timestamp 时间戳，ISO 8601格式
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getController_long_address() {
+        return controller_long_address;
+    }
+
+    public void setController_long_address(String controller_long_address) {
+        this.controller_long_address = controller_long_address;
+    }
+
+    public Home getHome() {
+        return home;
+    }
+
+    public void setHome(Home home) {
+        this.home = home;
+    }
+
+    //    timestamp 时间戳，ISO 8601格式
 //
 //    device_id 设备的唯一标识符，用于区分不同的设备
 //
@@ -31,17 +57,41 @@ public class Device extends LitePalSupport {
 //    valid_data 有效数据
 //
 //    valid_data_length 有效数据长度，十六进制编码
-
-
+private int curtain_extent;//窗帘程度
+    //表关联
+    private Model model;//离家模式等等等。。。。。。
+    private Home home;//房间
 
     private int flag;//是否同意允许该家器接入
     private int isUpdate;//判断app开启电器入网是否收到了这条电器信息
-
+    private String light_id;
     private int light_brightness;//亮度
     private int light_temp;//色温
-
+    private String wetness;
     private int air_HotOrCold;//制热还是制冷
     private String air_temp;//空调温度
+    //condition_一个电器可以有多个相同类别的条件，比如温度
+    //因此condition要对应
+    //一个场景多个条件
+    //所以一个条件对应几个电器？
+    //一个电器可以对应多个同一类的条件，而区分这些条件的就是场景
+
+
+    public String getWetness() {
+        return wetness;
+    }
+
+    public String getLight_id() {
+        return light_id;
+    }
+
+    public void setLight_id(String light_id) {
+        this.light_id = light_id;
+    }
+
+    public void setWetness(String wetness) {
+        this.wetness = wetness;
+    }
 
     public String getTarget_long_address() {
         return target_long_address;
@@ -51,10 +101,6 @@ public class Device extends LitePalSupport {
         this.target_long_address = target_long_address;
     }
 
-    private int curtain_extent;//窗帘程度
-    //表关联
-    private Model model;//离家模式等等等。。。。。。
-    private Room room;//房间
 
     public String getNetwork_flag() {
         return network_flag;
@@ -170,12 +216,12 @@ public class Device extends LitePalSupport {
         this.model = model;
     }
 
-    public Room getRoom() {
-        return room;
+    public Home getRoom() {
+        return home;
     }
 
-    public void setRoom(Room room) {
-        this.room = room;
+    public void setRoom(Home home) {
+        this.home = home;
     }
 
 

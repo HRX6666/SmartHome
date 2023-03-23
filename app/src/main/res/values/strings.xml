@@ -14,6 +14,7 @@
     <string name="forgot"><font colcor='#c4c4c4'>忘记密码？</font><b>获取帮助</b></string>
     <string name="sign_up"><font color='#c4c4c4'>还没有账号></font><b>注册</b></string>
     <string name="enroll">注册</string>
+    <string name="hand_click">手动点击</string>
     <string-array name="choose_home">
         <item>全屋</item>
         <item>卧室</item>

@@ -93,7 +93,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
         sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parenAt, View view, int arg2, long id) {
-                List<Device> deviceList= LitePal.where("device_type= ?","0x02").find(Device.class);
+                List<Device> deviceList= LitePal.where("device_type= ?","02").find(Device.class);
                 if(!deviceList.isEmpty())
                     for(Device devices:deviceList) {
                         String source_long_address = devices.getTarget_long_address();
