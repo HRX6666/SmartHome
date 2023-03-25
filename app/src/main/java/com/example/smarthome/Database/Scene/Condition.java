@@ -10,7 +10,7 @@ public class Condition extends LitePalSupport {
 
     //场景控制就用    Scene就好
     //点击
-
+    private int id;
     private Scene scene;//这个是condition属于什么场景
 
     //由于这些设备的短地址和长地址重复，那么想要设置数据肯定要save，更新条件也要通过category和和一些其他的属性来判断，scene一定要有，指不定不同场景有这个设备，而这个设备的条件还都一样

@@ -24,4 +24,5 @@
     <color name="outColor">#8a8a8a</color>
     <color name="inColor">#660D92DD</color>
     <color name="pink1">#F4E6F6</color>
+    <color name="background">#FFFFFF</color>
 </resources>

@@ -4,13 +4,30 @@ import org.litepal.crud.LitePalSupport;
 
 public class C_Time extends LitePalSupport {
     //时间可以设置多个
+    private int id;
     private Condition condition;
     private Temp temp;
     private Scene scene;
 
+    private String time;
     private String hours;
     private String minute;
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Condition getCondition() {
         return condition;

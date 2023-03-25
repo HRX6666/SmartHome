@@ -10,7 +10,7 @@ public class Scene extends LitePalSupport {
     //基本属性
     private List<Condition> conditionList;
     private Temp temp;
-
+    private int id;
     //加time和device的LIST
     private String isClick;
     private String schedule;//每天每周
@@ -18,6 +18,13 @@ public class Scene extends LitePalSupport {
     private List<C_Time> CTimeList;//多个时间点
     private List<S_Device> s_deviceList;//智能设备什么开灯时啊，什么检测到烟雾，逻辑交给服务器，咱们只需要做好保存条件和发送信息即可
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public List<Condition> getConditionList() {
         return conditionList;

@@ -4,6 +4,7 @@ import org.litepal.crud.LitePalSupport;
 
 public class S_Device extends LitePalSupport {
     private String category;//判断是条件电器还是执行电器
+    private int id;
    //只需要记录设备长地址短地址
     //条件就一个，同一设备多条件就在condition中同一个设备放多个，只不过条件不同来表示
     private Condition condition;
@@ -18,9 +19,34 @@ public class S_Device extends LitePalSupport {
     private String close_light;
     private String air_open;
     private String air_close;
-
+    private String curtain_open;
+    private String curtain_close;
     //发现设备的·那个switch退出应用后仍然保存状态
 
+
+    public String getCurtain_open() {
+        return curtain_open;
+    }
+
+    public void setCurtain_open(String curtain_open) {
+        this.curtain_open = curtain_open;
+    }
+
+    public String getCurtain_close() {
+        return curtain_close;
+    }
+
+    public void setCurtain_close(String curtain_close) {
+        this.curtain_close = curtain_close;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCategory() {
         return category;

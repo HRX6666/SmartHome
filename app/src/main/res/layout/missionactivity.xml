@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<Button
-    android:id="@+id/add_condition_back"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:background="@drawable/activity_back"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    />
+    <Button
+        android:id="@+id/add_condition_back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/activity_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
 
     <LinearLayout
-        android:id="@+id/hand_click"
+        android:id="@+id/smart_device"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
@@ -38,20 +38,20 @@
                 android:layout_height="60dp"
                 android:textSize="23sp"
                 android:gravity="center_vertical"
-                android:text="@string/hand_click" />
+                android:text="智能设备" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/time"
+        android:id="@+id/sysMessage"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/hand_click"
+        app:layout_constraintTop_toBottomOf="@+id/smart_device"
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
@@ -66,7 +66,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="时间日程"
+                android:text="系统功能"
                 android:textSize="23sp"
                 android:gravity="center_vertical"
                 />
@@ -76,13 +76,13 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/smart_device"
+        android:id="@+id/scene_control"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
         android:layout_marginTop="12dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/time"
+        app:layout_constraintTop_toBottomOf="@+id/sysMessage"
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
@@ -97,7 +97,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="智能设备"
+                android:text="控制场景"
                 android:textSize="23sp"
                 android:gravity="center_vertical"
                 />
@@ -106,34 +106,4 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/scene_control"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/smart_device"
-        tools:layout_editor_absoluteX="3dp">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/scene" />
-        <LinearLayout
-            android:layout_width="330dp"
-            android:layout_height="60dp"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:text="场景控制"
-                android:textSize="23sp"
-                android:gravity="center_vertical"
-                />
-
-        </LinearLayout>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
