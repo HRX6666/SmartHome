@@ -2,11 +2,11 @@
     android:width="375dp"
     android:height="1100dp"
     android:viewportWidth="375"
-    android:viewportHeight="1290">
+    android:viewportHeight="1000">
     <path
         android:pathData="M0,0h375v812h-375z"
-        android:fillColor="#ffffff"/>
+        android:fillColor="#FFFCE4"/>
     <path
         android:pathData="M0,0H375V318C375,340.091 357.091,358 335,358H40C17.909,358 0,340.091 0,318V0Z"
-        android:fillColor="#473F97"/>
+        android:fillColor="#FFF8B9"/>
 </vector>

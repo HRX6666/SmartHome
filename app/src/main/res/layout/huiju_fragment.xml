@@ -5,102 +5,56 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/pull_extend"
-    android:background="@color/purple_100">
+    android:background="@drawable/smart">
     <com.example.smarthome.View.pullextend.ExtendListHeader
         android:id="@+id/extend_header"
         android:layout_width="match_parent"
         android:layout_height="460dp"
-        android:background="@color/purple_100"/>
+        android:background="@drawable/sky"/>
     <LinearLayout
         android:id="@+id/huiju_ll"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:background="@drawable/smart_bg"
+        android:background="#4CFFFFFF"
         android:orientation="vertical"
         android:paddingLeft="10dp"
         android:paddingTop="10dp">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/huiju_tb"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:titleTextColor="@color/white"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            app:titleTextColor="#000000"
             app:title="@string/app_name"
-            app:menu="@menu/smarthome_menu"
-            android:layout_gravity="end"
-            android:layout_margin="15dp"/>
+            app:menu="@menu/smarthome_menu"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="欢迎回家\n主人"
             android:textSize="35dp"
-            android:textColor="#fff"
+            android:textColor="#DCDCDC"
             android:textStyle="bold"
             android:fontFamily="sans-serif-black"
             android:letterSpacing="0.03"
             android:layout_marginTop="30dp"
             android:layout_marginLeft="10dp"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/bg"
-            android:orientation="vertical"
-            android:padding="30dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-black"
-                android:letterSpacing="0.035"
-                android:text="开启\n惠居之旅"
-                android:textColor="#305f72"
-                android:textSize="26dp" />
-
-            <LinearLayout
-                android:layout_width="161dp"
-                android:layout_height="34dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg2"
-                android:gravity="center_vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="35dp"
-                    android:text="了解详情"
-                    android:textColor="#fff"
-                    android:textSize="14dp" />
-
-                <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginLeft="20dp"
-                    android:src="@drawable/enroll_next" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="1.5dp"
-                android:layout_weight="1"
-                android:background="#ECA9A9AA" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.recyclerview.widget.RecyclerView
+            <com.example.smarthome.View.SeekPage.ViewDrag
                 android:id="@+id/add_view"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_marginRight="10dp"
-                android:background="@color/purple_150"
+                android:layout_width="300dp"
+                android:layout_height="430dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
                 android:descendantFocusability="blocksDescendants"
-                android:orientation="horizontal" />
-        </RelativeLayout>
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+
+
+
 
     </LinearLayout>
 

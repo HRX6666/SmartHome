@@ -3,28 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="0dp"
-            android:layout_height="60dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/time_back"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/activity_back" />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/add_time_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="添加时间"
+        app:titleTextColor="@color/lighthui"></androidx.appcompat.widget.Toolbar>
 
-        </LinearLayout>
         <LinearLayout
             android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/linearLayout2"
-
+            app:layout_constraintTop_toBottomOf="@id/add_time_toolbar"
             >
             <TextView
                 android:layout_width="200dp"
@@ -34,37 +30,52 @@
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 />
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_time"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_margin="10dp"
-                android:textColor="@color/blue2"
+                android:layout_height="wrap_content"
                 android:text="添加时间"
-                android:background="@drawable/bg_smart1"
-                />
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:padding="12dp"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="#C6D2A5"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                app:cornerRadius="4dp"/>
 
 
         </LinearLayout>
-        <Button
-            android:id="@+id/add_repeat"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
-            android:background="@drawable/bg_smart1"
-            android:text="日期和重复"
-            />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/add_repeat"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
+        android:backgroundTint="#C6D2A5"
+        android:padding="12dp"
+        android:text="日期和重复"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:cornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/time_save"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/bg_smart1"
-        android:layout_marginTop="60dp"
-        android:text="下一步"
         app:layout_constraintTop_toBottomOf="@id/add_repeat"
-        />
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="下一步"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#C6D2A5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:cornerRadius="4dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,307 +3,192 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white1"
+    android:background="@drawable/huiju"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white1"
+        android:background="#44FFFFFF"
         android:orientation="vertical">
 
-        <RelativeLayout
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <ImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/menu1" />
+
+        <ImageView
+            android:id="@+id/add_home"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="5dp"
+            android:src="@drawable/smart_add" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:src="@drawable/menu1" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
 
-            <ImageView
-                android:id="@+id/add_home"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@color/darkhui"
-                android:padding="5dp"
-                android:src="@drawable/smart_add" />
+                <TextView
+                    android:id="@+id/smart"
+                    android:layout_width="58dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:text="@string/title_dashboard"
+                    android:textSize="24sp" />
+            </RelativeLayout>
 
-        </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/add_medal"
+                android:layout_width="317dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_card"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/title1"
+                    android:layout_width="100dp"
+                    android:layout_height="165dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_smart1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/alfa_slab_one"
+                        android:text=" 在\n 线\n 设\n 备"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/add_smart"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_toRightOf="@+id/title1"
+                    android:layout_marginTop="10dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical" />
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_margin="20dp"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/bg_card"
+                app:cardCornerRadius="25dp"
+                app:cardElevation="5dp">
+
+                <LinearLayout
+                    android:id="@+id/title2"
+                    android:layout_width="100dp"
+                    android:layout_height="165dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_smart2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginLeft="30dp"
+                        android:text=" 离\n 线\n 设\n 备"
+                        android:fontFamily="@font/alfa_slab_one"
+                        android:textColor="@color/black"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/add_smart_leave"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@+id/title1"
+                    android:descendantFocusability="blocksDescendants"
+                    android:orientation="vertical" />
+
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="30dp"
+                android:orientation="vertical"
+                android:padding="20dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center">
+                    android:layout_height="wrap_content">
+
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="sans-serif-black"-->
+<!--                        android:text="更多玩法"-->
+<!--                        android:textAllCaps="true"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="20sp" />-->
 
                     <TextView
-                        android:id="@+id/smart"
-                        android:layout_width="58dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/title_dashboard"
-                        android:textSize="24sp" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="..." />
+
                 </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="317dp"
-                    android:layout_height="120dp"
-                    android:layout_gravity="center">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:id="@+id/go_off"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/leave_home" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="离家模式"
-                            android:textAlignment="center" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:id="@+id/go_home"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/back_home" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="回家模式"
-                            android:textAlignment="center" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:id="@+id/night"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/night" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="夜间模式"
-                            android:textAlignment="center" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <RelativeLayout
-                            android:id="@+id/more_model"
-                            android:layout_width="60dp"
-                            android:layout_height="60dp"
-                            android:layout_margin="10dp"
-                            android:background="@drawable/card_1"
-                            android:elevation="8dp">
-
-                            <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_centerInParent="true"
-                                android:src="@drawable/more" />
-                        </RelativeLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:text="更多模式"
-                            android:textAlignment="center" />
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <androidx.cardview.widget.CardView
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:background="@color/darkhui"
-                    app:cardCornerRadius="25dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:id="@+id/title1"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_smart1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="50dp"
-                            android:text="在线\n设备"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="25dp" />
-
-                    </LinearLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/add_smart"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginLeft="110dp"
-                        android:layout_toRightOf="@+id/title1"
-                        android:layout_marginTop="10dp"
-                        android:descendantFocusability="blocksDescendants"
-                        android:orientation="vertical" />
-
-
-                </androidx.cardview.widget.CardView>
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:background="@color/darkhui"
-                    app:cardCornerRadius="25dp"
-                    app:cardElevation="5dp">
-
-                    <LinearLayout
-                        android:id="@+id/title2"
-                        android:layout_width="100dp"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_smart2"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="50dp"
-                            android:text="离线\n设备"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="25dp" />
-
-                    </LinearLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/add_smart_leave"
-                        android:layout_width="match_parent"
-                        android:layout_height="200dp"
-                        android:layout_marginLeft="110dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toRightOf="@+id/title1"
-                        android:descendantFocusability="blocksDescendants"
-                        android:orientation="vertical" />
-
-
-                </androidx.cardview.widget.CardView>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical"
-                    android:padding="20dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-black"
-                            android:text="更多玩法"
-                            android:textAllCaps="true"
-                            android:textColor="@color/black"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="..." />
-
-                    </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
-                </LinearLayout>
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
-        </ScrollView>
+
+        </LinearLayout>
+    </ScrollView>
 
 
-    </LinearLayout>
+</LinearLayout>
 </ScrollView>

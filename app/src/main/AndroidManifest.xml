@@ -63,7 +63,35 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Samrt.HomeActivity"
+            android:name=".Scene.More"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Condition1"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Set_air"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Set_curtain"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Set_lights"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -71,13 +99,77 @@
         </activity>
 
         <activity
+            android:name=".Page_Samrt.HomeActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Tesk"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Humidity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.MissionActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Samrt.Temperature"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Add"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <activity
+            android:name=".View.TestScene"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <receiver
+            android:name=".Adapter.Widget.WidgetProvider"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.lyl.widget.UPDATE_ALL" />
+                <action android:name="com.lyl.widget.ALIVE" />
+            </intent-filter>
 
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_wighet" />
+        </receiver> <!-- 用来计时，发送 通知桌面部件更新 -->
+        <service
+            android:name=".Service.WidgetService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APP_WIDGET_SERVICE" />
+            </intent-filter>
+        </service>
+        <service
+            android:name=".Service.MyJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
         <activity
             android:name=".Scan.ScanActivity"
             android:exported="false">

@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<Button
-    android:id="@+id/add_condition_back"
-    android:layout_width="50dp"
-    android:layout_height="50dp"
-    android:background="@drawable/activity_back"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintLeft_toLeftOf="parent"
-    />
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/add_condition_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back"
+        app:title="添加条件"
+        app:titleTextColor="@color/lighthui">
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/hand_click"
@@ -24,8 +25,9 @@
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/hand_click" />
 
         <LinearLayout
@@ -55,8 +57,9 @@
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/time" />
         <LinearLayout
             android:layout_width="330dp"
@@ -76,7 +79,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/smart_device"
+        android:id="@+id/smart_sensors"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
@@ -86,9 +89,11 @@
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/ic_dashboard_black_24dp" />
+
         <LinearLayout
             android:layout_width="330dp"
             android:layout_height="60dp"
@@ -97,10 +102,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:text="智能设备"
-                android:textSize="23sp"
                 android:gravity="center_vertical"
-                />
+                android:text="传感器"
+                android:textSize="23sp" />
 
         </LinearLayout>
 
@@ -113,12 +117,13 @@
         android:layout_margin="10dp"
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/smart_device"
+        app:layout_constraintTop_toBottomOf="@+id/smart_sensors"
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/scene" />
         <LinearLayout
             android:layout_width="330dp"

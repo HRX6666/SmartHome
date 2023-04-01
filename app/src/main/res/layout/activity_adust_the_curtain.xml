@@ -1,79 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/yellow1"
+    tools:context=".Page_Samrt.AdjustTheLights"
     android:orientation="vertical"
-    tools:context=".Page_Samrt.AdjustTheLights">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/curtain_tb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:logo="@drawable/back"
-        app:title="窗帘"
-        app:titleTextColor="@color/lighthui"></androidx.appcompat.widget.Toolbar>
-
+    android:background="#F6F9FE">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal">
+        tools:context=".Page_Samrt.AdjustTheLights"
+        android:orientation="vertical"
+        android:background="#F6F9FE"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:background="@drawable/bg_cr">
 
 
-        <TextView
-            android:id="@+id/curtain_tv"
-            android:layout_width="180dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="25dp"
-            android:drawableStart="@drawable/curtain_smart"
-            android:fontFamily="sans-serif-black"
-            android:text=" 窗帘控制"
-            android:textColor="@color/lighthui"
-            android:textSize="15dp" />
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/curtain_tb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:logo="@drawable/back"
+                app:title="窗帘"
+                app:titleTextColor="@color/lighthui" />
 
-    </LinearLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/open_all"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="47dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#E7F6FF"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="10dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="vertical">
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/curtain_open" />
 
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="80dp"
+                    android:text="全开" />
 
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:splitTrack="true"
-        android:thumb="@drawable/curtain_seekbar" />
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
+            </androidx.cardview.widget.CardView>
 
-        <com.example.smarthome.View.FButton
-            android:id="@+id/open_all"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/close_curtain"
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="207dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginRight="20dp"
+                android:backgroundTint="#E7F6FF"
+                app:cardCornerRadius="35dp"
+                app:cardElevation="10dp">
 
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="50dp"
-            android:text="全开" />
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/curtain_close" />
 
-        <com.example.smarthome.View.FButton
-            android:id="@+id/close_curtain"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="30dp"
-            android:layout_toRightOf="@+id/open_all"
-            android:text="全关"
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="20dp"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="80dp"
+                    android:text="全关" />
 
-            />
-    </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+
+            <com.example.smarthome.View.ArcSeekBar
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="250dp"
+                android:background="#DCF0FF"
+                app:arc_seek_bar_alpha="0.4"
+                app:indicator_color="#32B1C4"
+                app:left_padding="15dp"
+                app:right_padding="15dp" />
+
+
+        </RelativeLayout>
+        <androidx.cardview.widget.CardView
+            android:layout_width="300dp"
+            android:layout_height="90dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#E0E0E0"
+            app:cardCornerRadius="35dp"
+            app:cardElevation="10dp">
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:text="设备已连接"
+                android:textSize="20dp"/>
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="210dp"
+                android:textColor="#00515E"
+                android:text="删除设备"
+                android:textSize="13dp"/>
+
+        </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>
+
+</ScrollView>
+
+

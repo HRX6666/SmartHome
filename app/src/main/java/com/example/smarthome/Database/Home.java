@@ -16,34 +16,9 @@ public class Home extends LitePalSupport {
         this.title = title;
     }
 
-    private List<Light> lightList;
-    private List<Curtain> curtainList;
-    private List<AirConditioner> airConditionerList;
+
     private List<Device> deviceList;
 
-    public List<Light> getLightList() {
-        return lightList;
-    }
-
-    public void setLightList(List<Light> lightList) {
-        this.lightList = lightList;
-    }
-
-    public List<Curtain> getCurtainList() {
-        return curtainList;
-    }
-
-    public void setCurtainList(List<Curtain> curtainList) {
-        this.curtainList = curtainList;
-    }
-
-    public List<AirConditioner> getAirConditionerList() {
-        return airConditionerList;
-    }
-
-    public void setAirConditionerList(List<AirConditioner> airConditionerList) {
-        this.airConditionerList = airConditionerList;
-    }
 
     public int getCategory() {
         return category;
@@ -63,4 +38,21 @@ public class Home extends LitePalSupport {
 
     public Home() {
     }
+    public String getHomename() {
+        return homename;
+    }
+
+    public void setHomename(String homename) {
+        this.homename = homename;
+    }
+
+    private String homename;
+
+    @Override
+    public String toString() {
+        return "Home{" +
+                ", homename='" + homename + '\'' +
+                '}';
+    }
+
 }

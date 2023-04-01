@@ -78,11 +78,9 @@ public class FindDeviceAdapter extends RecyclerView.Adapter<FindDeviceAdapter.Vi
             case "03":holder.imageView.setImageResource(R.drawable.curtain_smart);category="窗帘";break;
             case "04":holder.imageView.setImageResource(R.drawable.lock_smart);category="门锁";break;
             case "05":holder.imageView.setImageResource(R.drawable.music);category="音响";break;
-
         }
 
         holder.showCategory.setText(category);
-
 
         holder.bt_approve.setOnClickListener(new View.OnClickListener() {
             @Override

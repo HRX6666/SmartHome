@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page_Samrt.AdjustTheMusic"
+    android:orientation="vertical"
+    android:background="#D1FEFEFE">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/air_tb"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:logo="@drawable/back"
+        app:title="音乐"
+        app:titleTextColor="@color/lighthui"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_wind"
+        android:layout_width="290dp"
+        android:layout_height="280dp"
+        android:layout_gravity="center"
+        android:backgroundTint="#FFFFFF"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="5dp"></androidx.cardview.widget.CardView>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_music">
+
+
+
+
+
+    </RelativeLayout>
+
+</LinearLayout>

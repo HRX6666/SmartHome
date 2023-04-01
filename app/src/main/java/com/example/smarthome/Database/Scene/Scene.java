@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Scene extends LitePalSupport {
     //基本属性
-    private List<Condition> conditionList;
+    private List<Condition> conditionList;//条件
     private Temp temp;
     private int id;
     //加time和device的LIST

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.smarthome.Database.Scene.Temp;
 import com.example.smarthome.R;
@@ -17,6 +18,7 @@ public class MissionActivity extends AppCompatActivity {
     LinearLayout sysMessage;
     LinearLayout smart_device;
     LinearLayout scene_control;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +27,17 @@ public class MissionActivity extends AppCompatActivity {
         sysMessage=findViewById(R.id.sysMessage);
         smart_device=findViewById(R.id.smart_device);
         scene_control=findViewById(R.id.scene_control);
+        toolbar=findViewById(R.id.add_mission_back);
         initLayout();
     }
 
     private void initLayout(){
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         sysMessage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -41,7 +49,8 @@ public class MissionActivity extends AppCompatActivity {
         smart_device.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
+            Intent intent=new Intent(MissionActivity.this,SmartActivity.class);
+            startActivity(intent);
                 return true;
             }
         });

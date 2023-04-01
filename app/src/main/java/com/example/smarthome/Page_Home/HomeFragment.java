@@ -20,6 +20,7 @@ import com.example.smarthome.R;
 import com.example.smarthome.Scan.ScanActivity;
 import com.example.smarthome.Scene.AddOrEditScene;
 import com.example.smarthome.Test;
+import com.example.smarthome.View.TestScene;
 
 import org.litepal.LitePal;
 
@@ -108,7 +109,7 @@ public class HomeFragment extends Fragment {
         home_wangguan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(getActivity(), ScanActivity.class);
+                Intent intent1=new Intent(getActivity(), TestScene.class);
                 startActivity(intent1);
             }
         });

@@ -1,123 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Page_Samrt.AdjustTheLights"
     android:orientation="vertical"
-    android:background="@color/yellow1">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/lights_tb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:logo="@drawable/back"
-        app:title="智能灯"
-        app:titleTextColor="@color/lighthui">
-    </androidx.appcompat.widget.Toolbar>
+    tools:context=".Page_Samrt.AdjustTheLights"
+    android:background="@drawable/light2">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
+        android:background="@color/touming"
         android:orientation="horizontal">
 
 
-        <TextView
-            android:id="@+id/lights_tv"
-            android:layout_width="130dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="30dp"
-            android:drawableStart="@drawable/turn_the_lights_off"
-            android:fontFamily="sans-serif-black"
-            android:text=" 智能灯"
-            android:textColor="@color/lighthui"
-            android:textSize="15dp" />
+        <com.example.smarthome.View.SwapTb.ViewPagerIndicator
+            android:id="@+id/indicator"
+            android:layout_width="210dp"
+            android:layout_gravity="center"
+            android:layout_height="36dp">
 
-        <com.example.smarthome.View.FButton
-            android:id="@+id/trail_open"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
-            android:layout_marginStart="10dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toRightOf="@id/lights_tv"
-            android:text="开灯" />
-
-        <com.example.smarthome.View.FButton
-            android:id="@+id/trail_shut"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left|top"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_toEndOf="@id/trail_open"
-            android:text="关灯" />
+        </com.example.smarthome.View.SwapTb.ViewPagerIndicator>
+    </LinearLayout>
 
 
-    </RelativeLayout>
-
-    <RelativeLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="vertical">
-        <Spinner
-            android:id="@+id/lights_choose_home"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:spinnerMode="dropdown"/>
-
-    </RelativeLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="亮度"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-black" />
-
-    <SeekBar
-        android:id="@+id/brightness"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:thumb="@drawable/adjust_lights" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:text="色温"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-black" />
-
-    <SeekBar
-        android:id="@+id/color_temper"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:thumb="@drawable/adjust_lights"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:orientation="vertical">
-
-        <Spinner
-            android:id="@+id/lights_choose_model"
-            android:layout_width="match_parent"
-            android:layout_height="20dp"
-            android:spinnerMode="dropdown" />
-
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/isOnline"
-        android:layout_width="match_parent"
-        android:layout_height="115dp"
-        android:gravity="center"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:text="在线" />
-
-
+        android:layout_height="match_parent"></androidx.viewpager.widget.ViewPager>
 </LinearLayout>

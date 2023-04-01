@@ -14,12 +14,21 @@ public class Temp extends LitePalSupport {//暂时储存创建场景前的信息
     private List<C_Time> c_timeList;
     private Scene c_scene;//XX场景执行就执行，应该会跟上面那个分开，毕竟一个数据库有都多个int类的都没事
     private Scene m_scene;//被执行场景
+    private List<Condition> conditionList;//条件
     //暂时先不进行多场景关联把
 
     // getter and setter methods
 
     // 定义设备与房间之间的关联，使用litepal中的注解 @OneToMany
 
+
+    public List<Condition> getConditionList() {
+        return conditionList;
+    }
+
+    public void setConditionList(List<Condition> conditionList) {
+        this.conditionList = conditionList;
+    }
 
     public Scene getM_scene() {
         return m_scene;

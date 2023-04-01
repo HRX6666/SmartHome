@@ -34,7 +34,7 @@
         android:layout_marginBottom="65dp"
         android:hint="0-10"
         app:layout_constraintBottom_toBottomOf="@+id/test_light_normal"
-        app:layout_constraintEnd_toStartOf="@+id/delete_device"
+        app:layout_constraintEnd_toStartOf="@+id/delete_device2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

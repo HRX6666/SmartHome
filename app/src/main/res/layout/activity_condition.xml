@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page_Home.SetVoice"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/set_tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:logo="@drawable/back"
+        app:title="选择条件"
+        app:titleTextColor="@color/lighthui">
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/set_air"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text=" 空调"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
+
+    <TextView
+        android:id="@+id/set_lights"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text=" 灯"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
+
+
+    <TextView
+        android:id="@+id/set_curtain"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text=" 窗帘"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
+
+
+</LinearLayout>

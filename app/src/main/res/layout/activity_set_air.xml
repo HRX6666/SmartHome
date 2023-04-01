@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/seekbar">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addhome_tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/back"
+        app:title="空调设置"
+        app:titleTextColor="@color/lighthui">
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="房间选择"
+        android:textSize="15dp"
+        android:textColor="#004D7D"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/select_air"
+        android:layout_width="300dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="风速选择"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#004D7D"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#EBF5CD"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+        <ImageView
+            android:id="@+id/ib_wind_min"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/wind_min"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="低风"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="50dp"
+                android:textSize="17dp"
+                android:textColor="#292929" />
+
+            <View
+                android:id="@+id/view_wind_min"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ib_wind_min"
+                android:layout_marginBottom="15dp"
+                android:background="#59CBD0CD" />
+        <ImageView
+            android:id="@+id/ib_wind_mid"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/wind_mid"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/view_wind_min"
+            android:layout_marginRight="20dp"/>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/view_wind_min"
+                android:text="中风"
+                android:textColor="#292929"
+                android:textSize="17dp" />
+            <View
+                android:id="@+id/view_wind_mid"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ib_wind_mid"
+                android:layout_marginBottom="15dp"
+                android:background="#59CBD0CD" />
+        <ImageView
+            android:id="@+id/ib_wind_max"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/wind_mid"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/view_wind_mid"
+            android:layout_marginRight="20dp"/>
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:text="高风"
+            android:textColor="#292929"
+            android:layout_marginTop="60dp"
+            android:textSize="17dp"
+            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/view_wind_mid"
+            android:layout_marginRight="20dp"/>
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="模式选择"
+        android:textSize="15dp"
+        android:layout_marginTop="10dp"
+        android:textColor="#004D7D"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="30dp"
+        android:backgroundTint="#EBF5CD"
+        android:elevation="8dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="5dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/ib_set_warm"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/air_condition_wrom"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginRight="20dp" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="制热"
+                android:layout_marginTop="60dp"
+                android:layout_marginLeft="50dp"
+                android:textSize="17dp"
+                android:textColor="#292929" />
+
+            <View
+                android:id="@+id/view_set_worm"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ib_set_warm"
+                android:layout_marginBottom="15dp"
+                android:background="#59CBD0CD" />
+
+            <ImageView
+                android:id="@+id/ib_set_clod"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/view_set_worm"
+                android:background="@drawable/air_condition_clod"/>
+
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="60dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/view_set_worm"
+                android:text="制冷"
+                android:textColor="#292929"
+                android:textSize="17dp" />
+            <View
+                android:id="@+id/view_set_clod"
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ib_set_clod"
+                android:layout_marginBottom="15dp"
+                android:background="#59CBD0CD" />
+
+            <ImageView
+                android:id="@+id/ib_set_wind"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="0dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@id/view_set_clod"
+                android:background="@drawable/air_condition_wind" />
+            <TextView
+                android:layout_width="60dp"
+                android:layout_height="50dp"
+                android:text="通风"
+                android:layout_marginTop="60dp"
+                android:textSize="17dp"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@id/view_set_clod"
+                android:layout_marginRight="20dp"
+                android:textColor="#292929"/>
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <com.example.smarthome.View.CustomizeGoodsAddView
+        android:id="@+id/select_temp"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"/>
+    <com.google.android.material.button.MaterialButton
+                android:id="@+id/create_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:padding="12dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#C6D2A5"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                app:cornerRadius="4dp"/>
+
+
+
+
+</LinearLayout>

@@ -5,6 +5,11 @@
         android:startColor="@color/purple_150"
         android:endColor="@color/purple_150"
         android:centerColor="@color/purple_200"/>
+    <corners
+        android:topRightRadius="30dp"
+        android:topLeftRadius="30dp"
+        android:bottomRightRadius="30dp"
+        android:bottomLeftRadius="30dp"/>
 
 
 

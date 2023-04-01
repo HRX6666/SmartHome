@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/seekbar">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addhome_tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:logo="@drawable/back"
+        app:title="温度设置"
+        app:titleTextColor="@color/lighthui">
+    </androidx.appcompat.widget.Toolbar>
+
+    <EditText
+        android:id="@+id/home_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:layout_marginTop="30dp"
+        android:hint="请输入当前需要的湿度"
+        android:background="@drawable/bg_edit_text"/>
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#C6D2A5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:cornerRadius="4dp"/>
+
+</LinearLayout>

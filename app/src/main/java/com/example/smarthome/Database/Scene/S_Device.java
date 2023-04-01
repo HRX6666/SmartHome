@@ -3,9 +3,10 @@ package com.example.smarthome.Database.Scene;
 import org.litepal.crud.LitePalSupport;
 
 public class S_Device extends LitePalSupport {
-    private String category;//判断是条件电器还是执行电器
+    private String category;//判断是条件电器还是执行电器,1为执行的，0为条件
     private int id;
    //只需要记录设备长地址短地址
+    private String target_long_address;
     //条件就一个，同一设备多条件就在condition中同一个设备放多个，只不过条件不同来表示
     private Condition condition;
     private Temp temp;
@@ -17,12 +18,65 @@ public class S_Device extends LitePalSupport {
 //执行电器该有的属性
     private String open_light;
     private String close_light;
+    private String light_model;//1:normal   2:sleep 3:breathe 4:自定义
+    private int brightness;
     private String air_open;
     private String air_close;
+    private String air_model;//1,2,3制热，制冷，通风
+    private String wind;//1,2,3小，中，大
     private String curtain_open;
     private String curtain_close;
+    private String curtain_deep;
     //发现设备的·那个switch退出应用后仍然保存状态
 
+
+    public String getLight_model() {
+        return light_model;
+    }
+
+    public void setLight_model(String light_model) {
+        this.light_model = light_model;
+    }
+
+    public int getBrightness() {
+        return brightness;
+    }
+
+    public void setBrightness(int brightness) {
+        this.brightness = brightness;
+    }
+
+    public String getWind() {
+        return wind;
+    }
+
+    public void setWind(String wind) {
+        this.wind = wind;
+    }
+
+    public String getAir_model() {
+        return air_model;
+    }
+
+    public void setAir_model(String air_model) {
+        this.air_model = air_model;
+    }
+
+    public String getCurtain_deep() {
+        return curtain_deep;
+    }
+
+    public void setCurtain_deep(String curtain_deep) {
+        this.curtain_deep = curtain_deep;
+    }
+
+    public String getTarget_long_address() {
+        return target_long_address;
+    }
+
+    public void setTarget_long_address(String target_long_address) {
+        this.target_long_address = target_long_address;
+    }
 
     public String getCurtain_open() {
         return curtain_open;

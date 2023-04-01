@@ -212,24 +212,24 @@ public class Test extends AppCompatActivity {
             }
         });
         test_curtain_et_deep.addTextChangedListener(new
-
                                                             TextWatcher() {
-                                                                @Override
-                                                                public void beforeTextChanged (CharSequence charSequence,int i, int i1, int i2){
+                                                                            @Override
+                                                                            public void beforeTextChanged (CharSequence charSequence,int i, int i1, int i2){
 
-                                                                }
+                                                                            }
 
-                                                                @Override
-                                                                public void onTextChanged (CharSequence charSequence,int i, int i1, int i2){
-                                                                    String s_deep = charSequence.toString();
-                                                                    deep = Integer.valueOf(s_deep);
-                                                                }
+                                                                            @Override
+                                                                            public void onTextChanged (CharSequence charSequence,int i, int i1, int i2){
+                                                                                String s_deep = charSequence.toString();
+                                                                                deep = Integer.valueOf(s_deep);
+                                                                            }
 
-                                                                @Override
-                                                                public void afterTextChanged (Editable editable){
+                                                                            @Override
+                                                                            public void afterTextChanged (Editable editable){
 
-                                                                }
-                                                            });
+                                                                            }
+                                                                        });
+
 
     }
 

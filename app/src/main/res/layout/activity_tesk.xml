@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page_Home.SetVoice"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/set_tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:logo="@drawable/back"
+        app:title="选择任务"
+        app:titleTextColor="@color/lighthui">
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/set_terperature"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text=" 温度设置"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
+
+    <TextView
+        android:id="@+id/set_time"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text=" 时间设置"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
+
+
+    <TextView
+        android:id="@+id/set_humidity"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text=" 湿度设置"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
+</LinearLayout>

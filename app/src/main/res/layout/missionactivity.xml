@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <Button
-        android:id="@+id/add_condition_back"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:background="@drawable/activity_back"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/add_mission_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
+        app:logo="@drawable/back"
+        app:title="选择任务"
+        app:titleTextColor="@color/lighthui"
         />
 
     <LinearLayout
@@ -20,12 +21,13 @@
         android:layout_margin="10dp"
         android:layout_marginTop="112dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@+id/add_condition_back"
+        app:layout_constraintTop_toBottomOf="@+id/add_mission_back"
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/hand_click" />
 
         <LinearLayout
@@ -55,8 +57,9 @@
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/time" />
         <LinearLayout
             android:layout_width="330dp"
@@ -86,8 +89,9 @@
         tools:layout_editor_absoluteX="3dp">
 
         <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/ic_dashboard_black_24dp" />
         <LinearLayout
             android:layout_width="330dp"
