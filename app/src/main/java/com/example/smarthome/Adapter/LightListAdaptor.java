@@ -63,7 +63,10 @@ public class LightListAdaptor extends RecyclerView.Adapter<LightListAdaptor.View
 
     @Override
     public int getItemCount() {
-        return mLightList.size();
+        if(mLightList==null)
+        return 0;
+        else
+            return mLightList.size();
     }
 
     // 定义 Item 点击事件的监听器接口

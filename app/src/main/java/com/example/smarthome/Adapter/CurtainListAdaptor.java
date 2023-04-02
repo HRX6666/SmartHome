@@ -61,7 +61,10 @@ public class CurtainListAdaptor extends RecyclerView.Adapter<CurtainListAdaptor.
 
     @Override
     public int getItemCount() {
-        return mCurtainList.size();
+        if(mCurtainList==null)
+            return 0;
+        else
+            return mCurtainList.size();
     }
     // 定义 Item 点击事件的监听器接口
     public interface OnItemClickListener {

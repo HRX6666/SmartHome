@@ -18,15 +18,16 @@
         app:titleTextColor="@color/lighthui">
     </androidx.appcompat.widget.Toolbar>
 
-        <com.example.smarthome.View.air_utils.AirBoardView
-            android:id="@+id/airView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginBottom="20dp"
-            android:layout_gravity="center"
-            app:tempStrArray="@array/temp" />
-        <RelativeLayout
+    <com.example.smarthome.View.air_utils.AirBoardView
+        android:id="@+id/airView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        app:tempStrArray="@array/temp" />
+
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <androidx.cardview.widget.CardView

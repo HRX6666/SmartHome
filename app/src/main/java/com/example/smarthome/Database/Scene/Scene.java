@@ -15,6 +15,7 @@ public class Scene extends LitePalSupport {
     private String isClick;
     private String schedule;//每天每周
 
+    private Device device;//一个场景对于同一个设备只能对应一次
     private List<C_Time> CTimeList;//多个时间点
     private List<S_Device> s_deviceList;//智能设备什么开灯时啊，什么检测到烟雾，逻辑交给服务器，咱们只需要做好保存条件和发送信息即可
 

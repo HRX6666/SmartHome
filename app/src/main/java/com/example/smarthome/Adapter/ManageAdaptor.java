@@ -31,28 +31,24 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
     private Context context;
     private ClientMQTT clientMQTT;
     private  String source_short_address;
+    private int flag;//通过函数传入的参数，来判断是离线的recyclerView用的Adaptor还是在线的recyclerView
     public ManageAdaptor(List<Map<String,String>> deviceList){
         mDeviceList=deviceList;
     }
-
+    public void InputFlag(int flag){
+        this.flag=flag;
+    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView showCategory;
-        Button manage_light_open;
-        Button manage_light_close;
-        Button delete_device;
-        TextView isOnline;
         View deviceView;
-        private ImageView imageView;
+        ImageView imageView;
         public ViewHolder(@NonNull View view){//通过转化为view的布局获得控件实例
             super(view);
             deviceView=view;
-            showCategory=view.findViewById(R.id.manage_category_display);
-            manage_light_close=view.findViewById(R.id.manage_light_close);
-            manage_light_open=view.findViewById(R.id.manage_light_open);
-            imageView=view.findViewById(R.id.manage_image2);
-            delete_device=view.findViewById(R.id.delete_device);
-            isOnline=view.findViewById(R.id.isOnline);
+            showCategory=view.findViewById(R.id.add_tv);
+            imageView=view.findViewById(R.id.add_im);
+
         }
     }
 
@@ -60,7 +56,9 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
     @NonNull
     @Override
     public ManageAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.managelist,parent,false);
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.add_smart,parent,false);
+        //可以在不同的recyclerView初始化那边通过这里设计的一个函数传入一个参数flag，帮助这里分在线和离线分别显示
+
         final ManageAdaptor.ViewHolder holder=new ManageAdaptor.ViewHolder(view);
 
         clientMQTT=new ClientMQTT("light");
@@ -74,6 +72,7 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
         holder.deviceView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                根据devicetype分类
                 int position= holder.getAdapterPosition();//获得点击的位置
                 String controller_long_address=mDeviceList.get(position).get("controller_long_address");//获得List中的第position个map中的特定数据，之前一个map中传入了一个item的所有数据
                 String target_short_address=mDeviceList.get(position).get("target_short_address");
@@ -99,18 +98,18 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
         String category=mDeviceList.get(holder.getAdapterPosition()).get("device_type");//在解析完中控传过来的数据，数据早已存入数据库了，现在的工作只是Update就可以，保存是否组网，没组网就显示这个设备，传入的list、应该在外面先判断一下再传入未租网的list，
         String source_long_address=mDeviceList.get(holder.getAdapterPosition()).get("target_long_address");
         String network_flag=mDeviceList.get(holder.getAdapterPosition()).get("network_flag");
-        switch (network_flag){
-            case "00":holder.isOnline.setText("离线");
-            holder.manage_light_open.setEnabled(false);
-            holder.manage_light_close.setEnabled(false);
-            holder.manage_light_open.setBackgroundResource(R.drawable.gray_bt);
-            holder.manage_light_close.setBackgroundResource(R.drawable.gray_bt);
-            break;//////////////加入一个入网判断，判断是否入网，否则直接推出network显示在线，应该再次获取终端信息
-            case "01":holder.isOnline.setText("在线");
-            holder.manage_light_open.setEnabled(true);
-            holder.manage_light_close.setEnabled(true);
-            break;
-        }
+//        switch (network_flag){
+//            case "00":holder.isOnline.setText("离线");
+//            holder.manage_light_open.setEnabled(false);
+//            holder.manage_light_close.setEnabled(false);
+//            holder.manage_light_open.setBackgroundResource(R.drawable.gray_bt);
+//            holder.manage_light_close.setBackgroundResource(R.drawable.gray_bt);
+//            break;//////////////加入一个入网判断，判断是否入网，否则直接推出network显示在线，应该再次获取终端信息
+//            case "01":holder.isOnline.setText("在线");
+//            holder.manage_light_open.setEnabled(true);
+//            holder.manage_light_close.setEnabled(true);
+//            break;
+//        }
 
         if (holder.imageView != null) {
 
@@ -141,44 +140,44 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
 
         holder.showCategory.setText(category);
 
-        holder.delete_device.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");
-                source_short_address="0x"+source_short_address_1;
-                clientMQTT.publishMessagePlus(null,"0x00","0xFF", "0x0004"+source_long_address,"0x02");
-                LitePal.deleteAll("target_long_address = ?",source_short_address_1);
-                mDeviceList.remove(holder.getAdapterPosition());
-                notifyDataSetChanged();
-            }
-        });
-        holder.manage_light_open.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Device device=new Device();
-//                device.setFlag(1);
-//                device.updateAll("target_long_address = ?",source_long_address);
-                //向中控发送APP同意入网信息
-                String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");
-                source_short_address="0x"+source_short_address_1;
-                clientMQTT.publishMessagePlus(null,source_short_address,"0x01", "0x0401","0x02");
-            }
-        });
-        holder.manage_light_close.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //发送拒绝指令
-//                Device device=new Device();
-//                device.setFlag(1);
-//                device.updateAll("target_long_address = ?",source_long_address);
-                //向中控发送APP同意入网信息
-                String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");
-                source_short_address="0x"+source_short_address_1;
-                clientMQTT.publishMessagePlus(null,source_short_address,"0x01", "0x0400","0x02");
-
-            }
-        });
+//        holder.delete_device.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");
+//                source_short_address="0x"+source_short_address_1;
+//                clientMQTT.publishMessagePlus(null,"0x00","0xFF", "0x0004"+source_long_address,"0x02");
+//                LitePal.deleteAll("target_long_address = ?",source_short_address_1);
+//                mDeviceList.remove(holder.getAdapterPosition());
+//                notifyDataSetChanged();
+//            }
+//        });
+//        holder.manage_light_open.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Device device=new Device();
+////                device.setFlag(1);
+////                device.updateAll("target_long_address = ?",source_long_address);
+//                //向中控发送APP同意入网信息
+//                String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");
+//                source_short_address="0x"+source_short_address_1;
+//                clientMQTT.publishMessagePlus(null,source_short_address,"0x01", "0x0401","0x02");
+//            }
+//        });
+//        holder.manage_light_close.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //发送拒绝指令
+////                Device device=new Device();
+////                device.setFlag(1);
+////                device.updateAll("target_long_address = ?",source_long_address);
+//                //向中控发送APP同意入网信息
+//                String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");
+//                source_short_address="0x"+source_short_address_1;
+//                clientMQTT.publishMessagePlus(null,source_short_address,"0x01", "0x0400","0x02");
+//
+//            }
+//        });
     }
 
     @Override

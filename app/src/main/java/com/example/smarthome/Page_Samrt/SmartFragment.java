@@ -15,21 +15,29 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Adapter.AddModelAdapter2;
 import com.example.smarthome.Adapter.AddSmartAdapter;
+import com.example.smarthome.Adapter.ManageAdaptor;
 import com.example.smarthome.Database.AddModel;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.C_Time;
+import com.example.smarthome.Database.Scene.Condition;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Scene;
 import com.example.smarthome.Database.Scene.Temp;
 import com.example.smarthome.Helper.AddSmartHelper;
+import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 import com.example.smarthome.Scene.More;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SmartFragment extends Fragment{
+    private List<Map<String,String>> deviceList;
+    private List<Device> devicelist;
     String name_m;
     RecyclerView addsmart,addmedel;
     AddSmartAdapter rvadapter;
@@ -62,17 +70,21 @@ public class SmartFragment extends Fragment{
                         LitePal.deleteAll(C_Time.class,"temp_id=?",temp_id);
                         LitePal.deleteAll(S_Device.class,"temp_id=?",temp_id);
                         LitePal.deleteAll(Scene.class,"temp_id=?",temp_id);
+                        LitePal.deleteAll(Condition.class,"temp_id=?",temp_id);
                         i++;
                     }
                 }
                 //最后记得删除t所有temp
                 LitePal.deleteAll(Temp.class);
+                Temp temp=new Temp();
+                temp.save();
                    startActivity(intent3);
             }
         });
-        recyclerView();
-//        recyclerView2();
-        recyclerView3();
+        initRecyclerViewOnline();
+//        recyclerView();
+////        recyclerView2();
+//        recyclerView3();
     }
 
     private void recyclerView3() {
@@ -141,6 +153,8 @@ public class SmartFragment extends Fragment{
     private void recyclerView() {
         addsmart.setHasFixedSize(true);
         addsmart.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        //ManageDEVICES.CLASS
+
         ArrayList<AddSmartHelper> addSmartHelpers = new ArrayList<>();
         addSmartHelpers.add(new AddSmartHelper(R.drawable.lights_smart, "灯光"));
         addSmartHelpers.add(new AddSmartHelper(R.drawable.air_condition_smart, "空调"));
@@ -178,5 +192,42 @@ public class SmartFragment extends Fragment{
         });
 
     }
+    private void initRecyclerViewOnline(){
+        initContent();
+        LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity());
+        addsmart.setLayoutManager(linearLayout);
+        ManageAdaptor manageAdaptor = new ManageAdaptor(deviceList);
+        manageAdaptor.InputFlag(1);
+        addsmart.setAdapter(manageAdaptor);
+        manageAdaptor.notifyDataSetChanged();
+    }
+    private void initContent()
+    {
+        deviceList.clear();
+        devicelist= LitePal.order("device_type desc").where("flag= ? and network_flag = ?","1","1").find(Device.class);
+        for(Device devices:devicelist) {
+            int count=0;
+            String target_long_address = devices.getTarget_long_address();
+            int flag = devices.getFlag();
+            String source_command = devices.getDevice_type();
+            String target_short_adress=devices.getTarget_short_address();
+            String network_flag=devices.getNetwork_flag();
+            String controller_long_address=devices.getController_long_address();
+            Map<String, String> map = new HashMap<>();
+            map.put("device_type", source_command);
+            map.put("network_flag",network_flag);
+            map.put("target_short_address",target_short_adress);
+            map.put("target_long_address", target_long_address);
+            map.put("flag", String.valueOf(flag));
+            map.put("controller_long_address",controller_long_address);
+            for(Map<String,String> map2:deviceList) {
+                String target_long_address2=map2.get("target_long_address");
+                if(target_long_address2.equals(target_long_address))
+                    count++;
+            }
+            if(count==0)
+                deviceList.add(map);
 
+        }
+    }
     }

@@ -27,6 +27,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -224,10 +225,16 @@ public class ClientMQTT {
     }
     //为活动专门设计的，配置多个而不会重复接收数据
 public void publishMessagePlusForActivity(String misc,String target_short_address,String device_type,String valid_data,String valid_data_length){
+//    LocalDateTime localDateTime = LocalDateTime.now();
+//    DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE_TIME;
+//    String timestamp=dateTimeFormatter.format(localDateTime);
+    // 设置系统默认时区为 CST（即中国标准时间）
+    TimeZone.setDefault(TimeZone.getTimeZone("GMT+8"));
+// 获取当前北京时间
     LocalDateTime localDateTime = LocalDateTime.now();
-    DateTimeFormatter dateTimeFormatter=DateTimeFormatter.ISO_DATE_TIME;
-    String timestamp=dateTimeFormatter.format(localDateTime);
-String controller_long_address="70E46125004B1200";
+// 使用 ISO-8601 格式化器将其转换为字符串
+    String timestamp = DateTimeFormatter.ISO_DATE_TIME.format(localDateTime);
+    String controller_long_address="70E46125004B1200";
     if (mqttClient == null || !client.isConnected()) {
         return;
     }

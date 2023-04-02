@@ -133,47 +133,50 @@ public class Set_air extends AppCompatActivity {
                     List<Condition> conditionList=LitePal.where("time = ?",Set_air.TIME).find(Condition.class);
                     condition=conditionList.get(0);
                 }
-                if(mid==-1&&min==-1&&max==-1)
-                    Toast.makeText(Set_air.this,"请选择风速",Toast.LENGTH_SHORT).show();
-                else {
-                    if(cold==-1&&warm==-1&&wind==-1){
-                        Toast.makeText(Set_air.this,"请选择模式",Toast.LENGTH_SHORT).show();
-                    }else {
-                        if(!positionList.isEmpty())
-                        {
-                            Temp temp= LitePal.findLast(Temp.class);
-                            for (int i = 0; i < positionList.size(); i++) {
-                                int n=positionList.get(i);
-                                String target_long_address=mAirList.get(n).get("target_long_address");
-                                S_Device s_device=new S_Device();
-                                if(warm!=-1)
-                                    s_device.setAir_model("1");
-                                if(cold!=-1)
-                                    s_device.setAir_model("2");
-                                if(wind!=-1)
-                                    s_device.setAir_model("3");
-                                if(min!=-1)
-                                    s_device.setWind("1");
-                                if(mid!=-1)
-                                    s_device.setWind("2");
-                                if(max!=-1)
-                                    s_device.setAir_model("3");
-                                if(flag==0)
-                                {
-                                    s_device.setCondition(condition);
-                                    s_device.save();
+                if(positionList!=null){
+                    if(mid==-1&&min==-1&&max==-1)
+                        Toast.makeText(Set_air.this,"请选择风速",Toast.LENGTH_SHORT).show();
+                    else {
+                        if(cold==-1&&warm==-1&&wind==-1){
+                            Toast.makeText(Set_air.this,"请选择模式",Toast.LENGTH_SHORT).show();
+                        }else {
+                            if(!positionList.isEmpty())
+                            {//如果没有设备就“请添加执行的设备”
+                                //好像忘了temp.setCondition
+                                Temp temp= LitePal.findLast(Temp.class);
+                                for (int i = 0; i < positionList.size(); i++) {
+                                    int n=positionList.get(i);
+                                    String target_long_address=mAirList.get(n).get("target_long_address");
+                                    S_Device s_device=new S_Device();
+                                    if(warm!=-1)
+                                        s_device.setAir_model("1");
+                                    if(cold!=-1)
+                                        s_device.setAir_model("2");
+                                    if(wind!=-1)
+                                        s_device.setAir_model("3");
+                                    if(min!=-1)
+                                        s_device.setWind("1");
+                                    if(mid!=-1)
+                                        s_device.setWind("2");
+                                    if(max!=-1)
+                                        s_device.setAir_model("3");
+                                    if(flag==0)
+                                    {
+
+                                        s_device.setCondition(condition);
+                                        s_device.save();
+                                    }
+                                    else
+                                        s_device.updateAll("target_long_address = ?",target_long_address);
+                                    finish();
                                 }
-                                else
-                                    s_device.updateAll("target_long_address = ?",target_long_address);
-                                finish();
-                            }
+                            }else
+                                Toast.makeText(Set_air.this,"请选择电器！",Toast.LENGTH_SHORT).show();
                         }
-
-
                     }
 
-
-                }
+                }else
+                    Toast.makeText(Set_air.this,"请添加电器！",Toast.LENGTH_SHORT).show();
             }
         });
         wind_min=findViewById(R.id.ib_wind_min);

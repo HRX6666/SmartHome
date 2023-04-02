@@ -8,9 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.example.smarthome.Adapter.AirListAdaptor;
 import com.example.smarthome.Adapter.LightListAdaptor;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Condition;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Temp;
@@ -38,6 +40,7 @@ public class Set_lights extends AppCompatActivity {
     private MaterialButton create;
     private LightListAdaptor lightListAdaptor;
     private List<Map<String, String>> mLightList;
+    private List<Device> lightList;
     private List<Integer> positionList;//储存选择的电器
     private int count = -1;
     private int bright=-1;
@@ -73,6 +76,8 @@ public class Set_lights extends AppCompatActivity {
     private void recyclerView() {
         recyclerView = findViewById(R.id.select_light);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        lightList=LitePal.where("device_type = ?","01").find(Device.class);
+        //有任务的不能显示，再Parse那里的短地址
         lightListAdaptor = new LightListAdaptor(mLightList);
         lightListAdaptor.setOnItemClickListener(new LightListAdaptor.OnItemClickListener() {
             @Override
@@ -114,32 +119,38 @@ public class Set_lights extends AppCompatActivity {
                     List<Condition> conditionList = LitePal.where("time = ?", Set_curtain.TIME).find(Condition.class);
                     condition = conditionList.get(0);
                 }
-                if (!positionList.isEmpty()) {
-                    Temp temp = LitePal.findLast(Temp.class);
-                    for (int i = 0; i < positionList.size(); i++) {
-                        int n = positionList.get(i);
-                        String target_long_address = mLightList.get(n).get("target_long_address");
-                        S_Device s_device = new S_Device();
-                        if (normal != -1)
-                            s_device.setLight_model("1");
-                        else if (sleep != -1)
-                            s_device.setLight_model("1");
-                        if (breathe != -1)
-                            s_device.setLight_model("1");
-                        if (other != -1)
-                            s_device.setLight_model("1");
-                        s_device.setTarget_long_address(target_long_address);
-                        s_device.setCategory("1");
-                        if (flag == 0) {
-                            s_device.setCondition(condition);
-                            s_device.save();
-                        } else
-                            s_device.updateAll("target_long_address = ?", target_long_address);
-                        finish();
-                    }
+                if(positionList==null)
+                    Toast.makeText(Set_lights.this,"请添加电器！",Toast.LENGTH_SHORT).show();
+            else
+                if(normal==-1&&sleep==-1&&breathe==-1&&other==-1)
+                    Toast.makeText(Set_lights.this,"请选择模式！",Toast.LENGTH_SHORT).show();
+                else
+                    if (!positionList.isEmpty()) {
+                        Temp temp = LitePal.findLast(Temp.class);
+                        for (int i = 0; i < positionList.size(); i++) {
+                            int n = positionList.get(i);
+                            String target_long_address = mLightList.get(n).get("target_long_address");
+                            S_Device s_device = new S_Device();
+                            if (normal != -1)
+                                s_device.setLight_model("1");
+                            else if (sleep != -1)
+                                s_device.setLight_model("1");
+                            if (breathe != -1)
+                                s_device.setLight_model("1");
+                            if (other != -1)
+                                s_device.setLight_model("1");
+                            s_device.setTarget_long_address(target_long_address);
+                            s_device.setCategory("1");
+                            if (flag == 0) {
+                                s_device.setCondition(condition);
+                                s_device.save();
+                            } else
+                                s_device.updateAll("target_long_address = ?", target_long_address);
+                            finish();
+                        }
 
-                    //不为0就通过时间搜索
-                }
+                        //不为0就通过时间搜索
+                    }
             }
         });
 
@@ -176,7 +187,7 @@ public class Set_lights extends AppCompatActivity {
                 if(breathe==-1)
                 {
                     breathe=1;
-                    normal=1;
+                    normal=-1;
                     sleep=-1;
                     other=-1;
                     light_sleep.setOpened(false);//应该是让
@@ -193,13 +204,13 @@ public class Set_lights extends AppCompatActivity {
             public void onClick(View v) {
                 if(sleep==-1)
                 {
-                    normal=1;
+                    normal=-1;
                     breathe=-1;
                     other=-1;
                     sleep=1;
                     light_breathe.setOpened(false);//应该是让
-                    light_normal.setOpened(false);
                     light_else.setOpened(false);
+                    light_normal.setOpened(false);
                 }
 
                 else
@@ -211,13 +222,13 @@ public class Set_lights extends AppCompatActivity {
             public void onClick(View v) {
                 if(other==-1)
                 {
-                    normal=1;
+                    normal=-1;
                     sleep=-1;
                     breathe=-1;
                     other=1;
                     light_breathe.setOpened(false);//应该是让
-                    light_normal.setOpened(false);
                     light_sleep.setOpened(false);
+                    light_normal.setOpened(false);
                 }
 
                 else

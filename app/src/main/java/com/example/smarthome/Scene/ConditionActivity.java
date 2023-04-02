@@ -80,23 +80,23 @@ private void initLayout(){
             return true;
         }
     });
-        customizeGoodsAddView=findViewById(R.id.select_temp);
-        customizeGoodsAddView.setMaxValue(30);
-        customizeGoodsAddView.setMinValue(16);
-        customizeGoodsAddView.setValue(temperature);//用来更新选择不同房间后下方温度的变化
-        customizeGoodsAddView.setOnValueChangeListene(new CustomizeGoodsAddView.OnValueChangeListener() {
-            @Override
-            public void onValueChange(int value) {
-                if(value>30){
-                    customizeGoodsAddView.setValue(30);
-
-
-                }else if(value<16){
-                    customizeGoodsAddView.setValue(16);
-
-                }
-            }
-        });
+//        customizeGoodsAddView=findViewById(R.id.select_temp);
+//        customizeGoodsAddView.setMaxValue(30);
+//        customizeGoodsAddView.setMinValue(16);
+//        customizeGoodsAddView.setValue(temperature);//用来更新选择不同房间后下方温度的变化
+//        customizeGoodsAddView.setOnValueChangeListene(new CustomizeGoodsAddView.OnValueChangeListener() {
+//            @Override
+//            public void onValueChange(int value) {
+//                if(value>30){
+//                    customizeGoodsAddView.setValue(30);
+//
+//
+//                }else if(value<16){
+//                    customizeGoodsAddView.setValue(16);
+//
+//                }
+//            }
+//        });
 }
 
 

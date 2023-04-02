@@ -1,7 +1,7 @@
 <?xml version="1" encoding="utf-8"?>
 <litepal>
     <dbname value="Users"></dbname>
-    <version value="20" ></version>
+    <version value="21" ></version>
     <list>
         <mapping class="com.example.smarthome.Database.Model"></mapping>
         <mapping class="com.example.smarthome.Database.Device"></mapping>
@@ -14,6 +14,7 @@
         <mapping class="com.example.smarthome.Database.Scene.S_Device"></mapping>
         <mapping class="com.example.smarthome.Database.Scene.Scene"></mapping>
         <mapping class="com.example.smarthome.Database.Scene.Temp"></mapping>
+        <mapping class="com.example.smarthome.Database.Sensor"></mapping>
 
 
 

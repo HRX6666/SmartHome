@@ -116,43 +116,42 @@ public class Set_curtain extends AppCompatActivity {
                     condition=conditionList.get(0);
                 }
                 //如果open,deep,close不等于-1就保存
-                if(open!=-1||close!=-1||deep!=-1) {
-                    if(!positionList.isEmpty()){
-                        Temp temp= LitePal.findLast(Temp.class);
-                        for (int i = 0; i < positionList.size(); i++) {
-                            int n=positionList.get(i);
-                            String target_long_address=curtainList.get(n).get("target_long_address");
-                            S_Device s_device=new S_Device();
-                            if(open!=-1)
-                                s_device.setCurtain_open("1");
-                            else if(close!=-1)
-                                s_device.setCurtain_open("0");
-                            if(deep!=-1)
-                                s_device.setCurtain_deep(""+deep);
-                            s_device.setTarget_long_address(target_long_address);
-                            s_device.setCategory("1");
-//                            s_device.setTemp(temp);应该让condition跟temp关联，要不然要temp干嘛
-                            //Condition是进入条件的时候创建的，
-                            //如果退出创建场景时|Condition没有删除，由于Condition是跟Temp绑定的，就通过刚进入场景时的删除操作删除数据库中残留的Condition
-                            //我该怎么知到这次进来是再次编辑条件还是创建新的条件
-                            if(flag==0)
-                            {
-                                s_device.setCondition(condition);
-                                s_device.save();
+                if(positionList!=null) {
+                    if (open != -1 || close != -1 || deep != -1) {
+                        if (!positionList.isEmpty()) {
+                            Temp temp = LitePal.findLast(Temp.class);
+                            for (int i = 0; i < positionList.size(); i++) {
+                                int n = positionList.get(i);
+                                String target_long_address = curtainList.get(n).get("target_long_address");
+                                S_Device s_device = new S_Device();
+                                if (open != -1)
+                                    s_device.setCurtain_open("1");
+                                else if (close != -1)
+                                    s_device.setCurtain_open("0");
+                                if (deep != -1)
+                                    s_device.setCurtain_deep("" + deep);
+                                s_device.setTarget_long_address(target_long_address);
+                                s_device.setCategory("1");
+                                //                            s_device.setTemp(temp);应该让condition跟temp关联，要不然要temp干嘛
+                                //Condition是进入条件的时候创建的，
+                                //如果退出创建场景时|Condition没有删除，由于Condition是跟Temp绑定的，就通过刚进入场景时的删除操作删除数据库中残留的Condition
+                                //我该怎么知到这次进来是再次编辑条件还是创建新的条件
+                                if (flag == 0) {
+                                    s_device.setCondition(condition);
+                                    s_device.save();
+                                } else
+                                    s_device.updateAll("target_long_address = ?", target_long_address);
+                                finish();
                             }
-                            else
-                                s_device.updateAll("target_long_address = ?",target_long_address);
-                            finish();
-                        }
-                    }else
-                        Toast.makeText(Set_curtain.this,"请选择设备！",Toast.LENGTH_SHORT).show();
+                        } else
+                            Toast.makeText(Set_curtain.this, "请选择设备！", Toast.LENGTH_SHORT).show();
 
-                } else
-                {
-                    Toast.makeText(Set_curtain.this,"请选择要执行的任务！",Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(Set_curtain.this, "请选择要执行的任务！", Toast.LENGTH_SHORT).show();
 
-                }
-
+                    }
+                }else
+                    Toast.makeText(Set_curtain.this,"请添加电器！",Toast.LENGTH_SHORT).show();
 
             }
         });

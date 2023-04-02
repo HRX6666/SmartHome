@@ -62,7 +62,10 @@ public class AirListAdaptor extends RecyclerView.Adapter<AirListAdaptor.ViewHold
 
     @Override
     public int getItemCount() {
-        return mAirList.size();
+        if(mAirList==null)
+            return 0;
+        else
+            return mAirList.size();
     }
 
     // 定义 Item 点击事件的监听器接口

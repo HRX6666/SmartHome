@@ -7,6 +7,7 @@ public class S_Device extends LitePalSupport {
     private int id;
    //只需要记录设备长地址短地址
     private String target_long_address;
+    private String target_short_address;
     //条件就一个，同一设备多条件就在condition中同一个设备放多个，只不过条件不同来表示
     private Condition condition;
     private Temp temp;
@@ -29,6 +30,14 @@ public class S_Device extends LitePalSupport {
     private String curtain_deep;
     //发现设备的·那个switch退出应用后仍然保存状态
 
+
+    public String getTarget_short_address() {
+        return target_short_address;
+    }
+
+    public void setTarget_short_address(String target_short_address) {
+        this.target_short_address = target_short_address;
+    }
 
     public String getLight_model() {
         return light_model;

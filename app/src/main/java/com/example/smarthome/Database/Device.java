@@ -1,6 +1,10 @@
 package com.example.smarthome.Database;
 
+import com.example.smarthome.Database.Scene.Scene;
+
 import org.litepal.crud.LitePalSupport;
+
+import java.util.List;
 
 public class Device extends LitePalSupport {
     //    private String source_command;//种类，根据种类查询
@@ -61,7 +65,9 @@ private int curtain_extent;//窗帘程度
     //表关联
     private Model model;//离家模式等等等。。。。。。
     private Home home;//房间
-
+    private List<Scene> sceneList;//一个设备能在多个场景中，添加关联目的是通过储存的
+   通过Temp?
+//设备是一个场景中只能用一次，还是说多个条件可以用同一个设备，或者任务里面还可以重用设备
     private int flag;//是否同意允许该家器接入
     private int isUpdate;//判断app开启电器入网是否收到了这条电器信息
     private String light_id;
@@ -79,6 +85,14 @@ private int curtain_extent;//窗帘程度
 
     public String getWetness() {
         return wetness;
+    }
+
+    public List<Scene> getSceneList() {
+        return sceneList;
+    }
+
+    public void setSceneList(List<Scene> sceneList) {
+        this.sceneList = sceneList;
     }
 
     public String getLight_id() {
