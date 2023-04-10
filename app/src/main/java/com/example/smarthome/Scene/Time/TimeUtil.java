@@ -1,4 +1,4 @@
-package com.example.smarthome.Scene;
+package com.example.smarthome.Scene.Time;
 
 import java.time.LocalDate;
 import java.time.ZoneId;

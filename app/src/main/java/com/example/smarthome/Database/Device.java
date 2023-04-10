@@ -24,6 +24,8 @@ public class Device extends LitePalSupport {
     private String controller_long_address;
     private String data;//存放jsonDate
 
+
+
     public String getData() {
         return data;
     }
@@ -61,12 +63,13 @@ public class Device extends LitePalSupport {
 //    valid_data 有效数据
 //
 //    valid_data_length 有效数据长度，十六进制编码
+    private String name;//电器命名
 private int curtain_extent;//窗帘程度
     //表关联
     private Model model;//离家模式等等等。。。。。。
     private Home home;//房间
     private List<Scene> sceneList;//一个设备能在多个场景中，添加关联目的是通过储存的
-   通过Temp?
+   //通过Temp?
 //设备是一个场景中只能用一次，还是说多个条件可以用同一个设备，或者任务里面还可以重用设备
     private int flag;//是否同意允许该家器接入
     private int isUpdate;//判断app开启电器入网是否收到了这条电器信息
@@ -82,6 +85,14 @@ private int curtain_extent;//窗帘程度
     //所以一个条件对应几个电器？
     //一个电器可以对应多个同一类的条件，而区分这些条件的就是场景
 
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getWetness() {
         return wetness;

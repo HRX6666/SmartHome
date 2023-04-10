@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/seekbar">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addhome_tb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:navigationIcon="@drawable/back"
+        app:title="灯光设置"
+        app:titleTextColor="@color/lighthui">
+    </androidx.appcompat.widget.Toolbar>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="灯泡选择"
+        android:textSize="15dp"
+        android:textColor="#004D7D"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/select_light"
+        android:layout_width="358dp"
+        android:layout_height="171dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="84dp"
+        android:layout_marginTop="20dp">
+    <TextView
+        android:id="@+id/set_light_1"
+        android:layout_width="95dp"
+        android:layout_height="70dp"
+        android:background="@drawable/kuang"
+        android:layout_gravity="center_vertical"
+        android:text="1"
+        android:gravity="center"
+        android:textSize="50sp"
+        android:layout_marginLeft="5sp"
+        />
+        <TextView
+            android:id="@+id/set_light_2"
+            android:layout_width="95dp"
+            android:layout_height="70dp"
+            android:background="@drawable/kuang"
+            android:layout_gravity="center_vertical"
+            android:text="2"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:layout_marginLeft="5sp"
+
+            />
+        <TextView
+            android:id="@+id/set_light_3"
+            android:layout_width="95dp"
+            android:layout_height="70dp"
+            android:background="@drawable/kuang"
+            android:text="3"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5sp"
+
+            />
+        <TextView
+            android:id="@+id/set_light_4"
+            android:layout_width="93dp"
+            android:layout_height="70dp"
+            android:background="@drawable/kuang"
+            android:text="4"
+            android:gravity="center"
+            android:textSize="50sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5sp"
+
+            />
+    </LinearLayout>
+    <com.example.smarthome.View.StepSeekBar
+        android:id="@+id/brightness"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        app:cursorBackground="@drawable/adjust_lights"
+        app:markTextArray="@array/markArray"
+        app:spaceBetween="10dp"
+        app:textSize="15sp" />
+
+    <LinearLayout
+        android:id="@+id/cv_model"
+        android:layout_width="349dp"
+        android:layout_height="85dp"
+        android:layout_marginLeft="29dp"
+        android:layout_marginTop="37dp"
+        android:background="@drawable/bg_card"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="20dp"
+            android:backgroundTint="#0EFFF1DC"
+            android:text="模式选择"
+            android:textColor="#004E8D"
+            android:textSize="17dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="-15dp"
+            android:layout_marginBottom="20dp"
+            android:text="呼吸灯"
+            android:textColor="#030303" />
+
+        <com.github.iielse.switchbutton.SwitchView
+            android:id="@+id/light_breathe"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="75dp"
+            android:layout_marginTop="-45dp"
+            android:layout_marginBottom="20dp"
+            app:isOpened="false"
+            app:primaryColor="#FFE28C" />
+        <TextView
+            android:id="@+id/set_all_lights"
+            android:layout_width="93dp"
+            android:layout_height="70dp"
+            android:background="@drawable/kuang"
+            android:text="1~4"
+            android:gravity="center"
+            android:layout_marginTop="-85dp"
+            android:layout_marginBottom="20dp"
+            android:textSize="30sp"
+            android:layout_marginLeft="180dp"
+
+            />
+
+    </LinearLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="#C6D2A5"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:cornerRadius="4dp"/>
+
+</LinearLayout>

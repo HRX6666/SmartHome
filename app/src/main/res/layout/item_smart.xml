@@ -21,10 +21,7 @@
             android:layout_height="390dp"
             android:scaleType="centerCrop"
             android:background="@drawable/drwaing"
-
-
-
-            />
+            app:radius="7.5dp" />
 
     </RelativeLayout>
 
@@ -36,7 +33,7 @@
         android:background="@drawable/bg">
 
         <TextView
-            android:id="@+id/tv_name"
+            android:id="@+id/room_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -48,12 +45,12 @@
 
 
 </LinearLayout>
-<!--    com.example.smarthome.View.SeekPage.RoundImageView-->
-<!--    android:id="@+id/iv_avatar"-->
-<!--    android:layout_width="260dp"-->
-<!--    android:layout_marginLeft="15dp"-->
-<!--    android:layout_marginTop="10dp"-->
-<!--    android:layout_marginBottom="10dp"-->
-<!--    android:layout_height="390dp"-->
-<!--    android:scaleType="centerCrop"-->
-<!--    app:radius="7.5dp" />-->
+    <!--    com.example.smarthome.View.SeekPage.RoundImageView-->
+    <!--    android:id="@+id/iv_avatar"-->
+    <!--    android:layout_width="260dp"-->
+    <!--    android:layout_marginLeft="15dp"-->
+    <!--    android:layout_marginTop="10dp"-->
+    <!--    android:layout_marginBottom="10dp"-->
+    <!--    android:layout_height="390dp"-->
+    <!--    android:scaleType="centerCrop"-->
+    <!--    app:radius="7.5dp" />-->

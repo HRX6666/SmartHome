@@ -13,13 +13,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smarthome.Activity.SetAllShow;
 import com.example.smarthome.Adapter.AddModelAdapter2;
 import com.example.smarthome.Adapter.AddSmartAdapter;
 import com.example.smarthome.Adapter.ManageAdaptor;
+import com.example.smarthome.Adapter.SceneAdaptor;
 import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.C_Time;
 import com.example.smarthome.Database.Scene.Condition;
+import com.example.smarthome.Database.Scene.Mission;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Scene;
 import com.example.smarthome.Database.Scene.Temp;
@@ -27,23 +30,28 @@ import com.example.smarthome.Helper.AddSmartHelper;
 import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 import com.example.smarthome.Scene.More;
+import com.example.smarthome.Scene.SceneActivity;
 
 import org.litepal.LitePal;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class SmartFragment extends Fragment{
-    private List<Map<String,String>> deviceList;
-    private List<Device> devicelist;
+    private List<Map<String,String>> deviceList=new ArrayList<>();
+    private List<Device> devicelist=new ArrayList<>();
+    private List<Scene> sceneList=new ArrayList<>();
+    private ImageView scene;
     String name_m;
-    RecyclerView addsmart,addmedel;
+    RecyclerView addsmart,recy_scene;
     AddSmartAdapter rvadapter;
     AddModelAdapter2 addModelAdapter2;
     private int i=0;
-//    AddModel addModel=new AddModel(addmedel);
+//    AddModel addModel=new AddModel(recy_scene);
     ImageView add;
     List<AddModel> list = new ArrayList<>();
     @Override
@@ -54,63 +62,81 @@ public class SmartFragment extends Fragment{
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         addsmart=getActivity().findViewById(R.id.add_smart);
-        addmedel=getActivity().findViewById(R.id.add_medal);
+        recy_scene=getActivity().findViewById(R.id.recy_scene);
+        scene=getActivity().findViewById(R.id.scene);
         super.onActivityCreated(savedInstanceState);
         add=getActivity().findViewById(R.id.add_home);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent3 = new Intent(getActivity(), More.class);
-                List<Temp> tempList=LitePal.findAll(Temp.class);
+                List<Temp> tempList=new ArrayList<>();
+                tempList=LitePal.findAll(Temp.class);
 
                 if(!tempList.isEmpty())//如果暂存数据库不为空，就遍历清空Scene,device.....中与temp有关的数据
                 {
-                    for(Temp temp:tempList){
-                        String temp_id=String.valueOf(tempList.get(i).getId());
+                        //TODO 刚进入界面的那个pull服务器存的用户已连接电器数据，要加定时关闭
+                    for (int j = 0; j < tempList.size(); j++) {
+                        String temp_id=String.valueOf(tempList.get(j).getId());
                         LitePal.deleteAll(C_Time.class,"temp_id=?",temp_id);
                         LitePal.deleteAll(S_Device.class,"temp_id=?",temp_id);
-                        LitePal.deleteAll(Scene.class,"temp_id=?",temp_id);
+                        LitePal.deleteAll(Mission.class,"temp_id=?",temp_id);
                         LitePal.deleteAll(Condition.class,"temp_id=?",temp_id);
-                        i++;
+                        j++;
                     }
+                    tempList.clear();
                 }
-                //最后记得删除t所有temp
+                //最后记得删除t所有tempLitePal.deleteAll(Temp.class);
                 LitePal.deleteAll(Temp.class);
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                Date date=new Date(System.currentTimeMillis());
+                String time=simpleDateFormat.format(date);
                 Temp temp=new Temp();
+                temp.setTime(time);
+                temp.setIsClick("-1");
                 temp.save();
                    startActivity(intent3);
             }
         });
-        initRecyclerViewOnline();
-//        recyclerView();
-////        recyclerView2();
-//        recyclerView3();
+        scene.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), SceneActivity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+//        initRecyclerViewOnline();
+        recyclerView();
+//        recyclerView2();
+        recyclerView3();
+        initSceneRecyclerView();
     }
 
     private void recyclerView3() {
-        addmedel.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        recy_scene.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         List<AddModel> all = LitePal.findAll(AddModel.class);
         addModelAdapter2= new AddModelAdapter2(all);
-        addmedel.setAdapter(addModelAdapter2);
+        recy_scene.setAdapter(addModelAdapter2);
+        addModelAdapter2.set0nItemClickListener(new AddModelAdapter2.OnItemClickListener() {
+            @Override
+            public void OnItemClick(View view, int position) {
+                Intent intent=new Intent(getActivity(), SetAllShow.class);
+                startActivity(intent);
+            }
+        });
 
-//        addModelAdapter2.set0nItemClickListener((view, position) -> {
-////            currnentPlayPosition = position;
-//            AddMedalHelper addModel = addMedalHelpers.get(position);
-//
-//        });
     }
 
-
     //private void recyclerView2() {
-//    addmedel.setHasFixedSize(true);
-//    addmedel.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//    recy_scene.setHasFixedSize(true);
+//    recy_scene.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 //    ArrayList<AddMedalHelper> addMedalHelpers = new ArrayList<>();
 //    addMedalHelpers .add(new AddMedalHelper(R.drawable.leave_home, "离家模式"));
 //    addMedalHelpers .add(new AddMedalHelper(R.drawable.back_home, "回家模式"));
 //    addMedalHelpers .add(new AddMedalHelper(R.drawable.night, "夜间模式"));
 //    addMedalHelpers .add(new AddMedalHelper(R.drawable.more, "更多模式"));
 //    medalAdapter = new AddMedalAdapter(addMedalHelpers);
-//    addmedel.setAdapter(medalAdapter);
+//    recy_scene.setAdapter(medalAdapter);
 //    medalAdapter.setOnItemLongClickListener(new AddMedalAdapter.OnItemLongClickListener() {
 //        @Override
 //        public void onItemLongClick(View view, int position) {
@@ -200,6 +226,15 @@ public class SmartFragment extends Fragment{
         manageAdaptor.InputFlag(1);
         addsmart.setAdapter(manageAdaptor);
         manageAdaptor.notifyDataSetChanged();
+    }
+    private void initSceneRecyclerView(){
+        sceneList.clear();
+        sceneList=LitePal.findAll(Scene.class);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+        recy_scene.setLayoutManager(layoutManager);
+        SceneAdaptor sceneAdaptor=new SceneAdaptor(sceneList);
+        recy_scene.setAdapter(sceneAdaptor);
+        sceneAdaptor.notifyDataSetChanged();
     }
     private void initContent()
     {

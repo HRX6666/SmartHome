@@ -14,16 +14,16 @@
         <item>10</item>
     </string-array>
     <array name="shutter_list">
-        <item>1/8000</item>
-        <item>1/6000</item>
-        <item>1/4000</item>
-        <item>1/3000</item>
-        <item>1/2000</item>
-        <item>1/1500</item>
-        <item>1/1000</item>
-        <item>1/500</item>
-        <item>1/250</item>
-        <item>1/125</item>
+        <item></item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
     </array>
     <array name="indicator_colors">
         <item>@color/indicator_1</item>

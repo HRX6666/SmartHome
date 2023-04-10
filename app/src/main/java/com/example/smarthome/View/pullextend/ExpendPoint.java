@@ -21,7 +21,7 @@ public class ExpendPoint extends View {
 
     float percent;
     float maxRadius = 15;
-    float maxDist = 60;
+    float maxDist = 100;
     Paint mPaint;
 
     public ExpendPoint(Context context) {

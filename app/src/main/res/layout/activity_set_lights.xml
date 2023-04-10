@@ -7,25 +7,13 @@
     android:orientation="vertical"
     android:background="@color/seekbar">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/addhome_tb"
+        android:id="@+id/set_light_tb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/back"
+        app:logo="@drawable/back"
         app:title="灯光设置"
         app:titleTextColor="@color/lighthui">
     </androidx.appcompat.widget.Toolbar>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="灯泡选择"
-        android:textSize="15dp"
-        android:textColor="#004D7D"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/select_light"
-        android:layout_width="300dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"/>
     <com.example.smarthome.View.StepSeekBar
         android:id="@+id/brightness"
         app:markTextArray="@array/markArray"
@@ -63,7 +51,7 @@
             android:layout_marginBottom="0dp"
             android:layout_marginTop="0dp"/>
         <com.github.iielse.switchbutton.SwitchView
-            android:id="@+id/light_normal"
+            android:id="@+id/sw_normal"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:primaryColor="#FFE28C"
@@ -80,7 +68,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="-10dp"/>
         <com.github.iielse.switchbutton.SwitchView
-            android:id="@+id/light_sleep"
+            android:id="@+id/sw_breathe"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:primaryColor="#FFE28C"
@@ -97,7 +85,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="-15dp"/>
         <com.github.iielse.switchbutton.SwitchView
-            android:id="@+id/light_breathe"
+            android:id="@+id/v_switch_1"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:primaryColor="#FFE28C"
@@ -114,7 +102,7 @@
             android:layout_marginBottom="20dp"
             android:layout_marginTop="-15dp"/>
         <com.github.iielse.switchbutton.SwitchView
-            android:id="@+id/light_else"
+            android:id="@+id/sw_else"
             android:layout_width="40dp"
             android:layout_height="40dp"
             app:primaryColor="#FFE28C"

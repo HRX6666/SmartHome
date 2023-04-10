@@ -17,26 +17,22 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/c_drawing"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardBackgroundColor="@color/yellow4"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:background="@drawable/bg_card"
             app:cardCornerRadius="25dp"
             app:cardElevation="5dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp">
-
             <ImageView
                 android:id="@+id/device_image1"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_marginLeft="12dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="100dp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:background="@color/yellow3"
                 app:cardCornerRadius="25dp"
-                app:cardElevation="5dp" />
+                app:cardElevation="5dp"
+                android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>
         <!--        <TextView-->
         <!--            android:id="@+id/add_tv"-->
@@ -88,16 +84,18 @@
             android:id="@+id/device_approve"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="100dp"
+            android:backgroundTint="#94C6CD"
             android:text="同意" />
 
         <info.hoang8f.widget.FButton
             android:id="@+id/device_reject"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
-            android:layout_marginTop="100dp"
             android:layout_marginLeft="5dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="#97C9D0"
             android:text="拒绝"
             android:layout_toRightOf="@id/device_approve"/>
 

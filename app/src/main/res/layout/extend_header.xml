@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/pull_to_refresh_header_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,12 +12,50 @@
         android:layout_alignParentBottom="true" />
 
 
+    <ImageView
+        android:id="@+id/sun"
+        android:layout_width="90dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="370dp"
+        android:background="@drawable/half_sun"
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/moon"
+        android:layout_width="100dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="380dp"
+        android:layout_marginLeft="290dp"
+        android:background="@drawable/moon"
+        android:visibility="invisible"
+        />
+    <androidx.cardview.widget.CardView
+        android:id="@+id/ruwang"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:elevation="8dp"
+        android:backgroundTint="#D2EEFF"
+        android:layout_marginTop="410dp"
+        android:layout_marginLeft="250dp"
+        app:cardCornerRadius="1000dp"
+        app:cardElevation="5dp"
+        android:visibility="invisible">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="    连接\n    入网"
+            android:textSize="10dp"
+            android:layout_marginTop="6dp"
+            android:textColor="#00154F"/>
+    </androidx.cardview.widget.CardView>
+
+
     <com.example.smarthome.View.pullextend.ExpendPoint
         android:id="@+id/expend_point"
         android:layout_width="match_parent"
-        android:layout_height="14dp"
+        android:layout_height="120dp"
         android:layout_alignParentBottom="true"
-        android:padding="1dp" />
+        android:padding="1dp"
+        />
 
 
 </RelativeLayout>

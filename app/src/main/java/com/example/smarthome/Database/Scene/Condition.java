@@ -2,6 +2,7 @@ package com.example.smarthome.Database.Scene;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Condition extends LitePalSupport {
@@ -15,14 +16,29 @@ public class Condition extends LitePalSupport {
     private Temp temp;
     private String time;//用来判断是否是再次编辑，+ 也能通过时间找到条件，进而进行界面内容的初始化
 
+    /**
+     * @param flag 为了快速的查找一个condition对象里面存的条件的种类，放入的数据为第几个条件
+     *
+     */
+    private int judge;
 
     //由于这些设备的短地址和长地址重复，那么想要设置数据肯定要save，更新条件也要通过category和和一些其他的属性来判断，scene一定要有，指不定不同场景有这个设备，而这个设备的条件还都一样
-    private List<S_Device> S_deviceList;//每一个这里面存放着条件
-
+    private List<S_Device> S_deviceList=new ArrayList<>();//每一个这里面存放着条件
+    //1
     private String isClick;
-    private List<C_Time> c_timeList;
+    //2
+    private C_Time c_time;
+    //3
     private Scene c_scene;//XX场景执行就执行
+    //4
 
+    public int getJudge() {
+        return judge;
+    }
+
+    public void setJudge(int judge) {
+        this.judge = judge;
+    }
 
     public String getTime() {
         return time;
@@ -72,12 +88,12 @@ public class Condition extends LitePalSupport {
         this.isClick = isClick;
     }
 
-    public List<C_Time> getC_timeList() {
-        return c_timeList;
+    public C_Time getC_time() {
+        return c_time;
     }
 
-    public void setC_timeList(List<C_Time> c_timeList) {
-        this.c_timeList = c_timeList;
+    public void setC_time(C_Time c_time) {
+        this.c_time = c_time;
     }
 
     public Scene getC_scene() {

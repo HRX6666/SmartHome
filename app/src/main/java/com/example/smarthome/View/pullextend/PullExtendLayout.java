@@ -9,10 +9,17 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.webkit.WebView;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
@@ -21,6 +28,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager.widget.ViewPager;
+
+import com.example.smarthome.R;
 
 
 /**
@@ -113,6 +122,8 @@ public class PullExtendLayout extends LinearLayout implements IPullToExtend {
      * 平滑滚动的Runnable
      */
     private SmoothScrollRunnable mSmoothScrollRunnable;
+    private ExtendListHeader extendListHeader;
+
 
     private Rect mTempRect;
 
@@ -129,6 +140,8 @@ public class PullExtendLayout extends LinearLayout implements IPullToExtend {
     public PullExtendLayout(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         setOrientation(VERTICAL);
+
+
     }
 
     @Override
@@ -155,7 +168,7 @@ public class PullExtendLayout extends LinearLayout implements IPullToExtend {
         if (mRefreshableView == null) {
             throw new IllegalStateException("布局异常，一定要有内容布局");
         }
-        // mRefreshableView.setClickable(true);需要自己设置
+        mRefreshableView.setClickable(true);//需要自己设置
         init(getContext());
     }
 
@@ -291,6 +304,7 @@ public class PullExtendLayout extends LinearLayout implements IPullToExtend {
                     // 1、头部处理
                     // 1）刷新View已到达顶部，判断是否需要
                     if (isPullRefreshEnabled() && checkIsContentViewScrollToTop((int) event.getX(), (int) event.getY())) {
+//                     extendListHeader.tran();
                         Log.d(TAG, "当前处于下拉操作，且内容view已到达顶部，拦截，自己消耗处理，展开头部");
                         return true;
                     } else if (isPullLoadEnabled() && mFooterLayout.getState() == IExtendLayout.State.arrivedListHeight && checkIsContentViewScrollToBottom((int) event.getX(), (int) event.getY())) {

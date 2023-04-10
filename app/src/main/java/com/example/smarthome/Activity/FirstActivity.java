@@ -39,20 +39,8 @@ public class FirstActivity extends AppCompatActivity {
         topAnimation= AnimationUtils.loadAnimation(this,R.anim.top_animation);
         bottomAnimation= AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
         middleAnimation= AnimationUtils.loadAnimation(this,R.anim.middle_animation);
-        first=findViewById(R.id.first_lie);
-        second=findViewById(R.id.second_lie);
-        third=findViewById(R.id.third_lie);
-        fourth=findViewById(R.id.fourth_lie);
-        fifth=findViewById(R.id.fifth_lie);
-        sixth=findViewById(R.id.sixth_lie);
         app_name=findViewById(R.id.app_name);
         tagLine=findViewById(R.id.tagLine);
-        first.setAnimation(topAnimation);
-        second.setAnimation(topAnimation);
-        third.setAnimation(topAnimation);
-        fourth.setAnimation(topAnimation);
-        fifth.setAnimation(topAnimation);
-        sixth.setAnimation(topAnimation);
         app_name.setAnimation(middleAnimation);
         tagLine.setAnimation(bottomAnimation);
 
@@ -64,7 +52,7 @@ public class FirstActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        },5000);
+        },2000);
         Connector.getDatabase();
         Thread thread=new Thread(new MyRunnable());
         thread.start();
@@ -81,7 +69,13 @@ class MyRunnable implements Runnable{
             e.printStackTrace();
         }
         clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0003","0x02");
+        try {
+            Thread.sleep(30000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
+
 }
 
 

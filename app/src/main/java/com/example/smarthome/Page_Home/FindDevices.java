@@ -37,6 +37,7 @@ public class FindDevices extends AppCompatActivity {
     private List<Map<String,String>> deviceList=new ArrayList<Map<String,String>>();
     private  List<Device> devicelist=new ArrayList<>();
     private Switch aSwitch;
+
     private ClientMQTT clientMQTT;
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
@@ -53,6 +54,7 @@ public class FindDevices extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("app_data", MODE_PRIVATE);
         boolean switchStatus = sharedPreferences.getBoolean("switch_status", false);
         aSwitch.setChecked(switchStatus);
+        //TODO 这边的switch状态关闭APP后还是保存的，记得修改
         Device device=new Device();
         device.setToDefault("isUpdate");
         device.updateAll();
@@ -165,6 +167,7 @@ public class FindDevices extends AppCompatActivity {
 //            recyclerView.getAdapter().notifyDataSetChanged();
             // 使用postDelayed()方法在Handler对象中定时调用Runnable对象
             mHandler.postDelayed(mRunnable, 1000);
+            //FIXME 设备发现里面设备出现了但不点击同意或者拒绝，之后自动刷新，调用clear就又清楚了，设备又消失了，要在那个clear那加一个判断，为空就不删除，检测一下设备重复
         }
     };
 

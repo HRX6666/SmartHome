@@ -2,21 +2,29 @@ package com.example.smarthome.Database.Scene;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class S_Device extends LitePalSupport {
+
     private String category;//判断是条件电器还是执行电器,1为执行的，0为条件
     private int id;
    //只需要记录设备长地址短地址
     private String target_long_address;
     private String target_short_address;
+    private String device_type;
     //条件就一个，同一设备多条件就在condition中同一个设备放多个，只不过条件不同来表示
     private Condition condition;
+    private Mission mission;
     private Temp temp;
     private Scene scene;
 
+    private String name;//设备的名称
     private String tem_over;//温度高于
     private String tem_below;//温度低于
     private String isSmoke;//是否烟雾报警
 //执行电器该有的属性
+    private List<Integer> lightList=new ArrayList<>();
     private String open_light;
     private String close_light;
     private String light_model;//1:normal   2:sleep 3:breathe 4:自定义
@@ -30,6 +38,38 @@ public class S_Device extends LitePalSupport {
     private String curtain_deep;
     //发现设备的·那个switch退出应用后仍然保存状态
 
+
+    public List<Integer> getLightList() {
+        return lightList;
+    }
+
+    public void setLightList(List<Integer> lightList) {
+        this.lightList = lightList;
+    }
+
+    public String getDevice_type() {
+        return device_type;
+    }
+
+    public void setDevice_type(String device_type) {
+        this.device_type = device_type;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Mission getMission() {
+        return mission;
+    }
+
+    public void setMission(Mission mission) {
+        this.mission = mission;
+    }
 
     public String getTarget_short_address() {
         return target_short_address;

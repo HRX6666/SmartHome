@@ -1,4 +1,4 @@
-package com.example.smarthome.Page_Samrt;
+package com.example.smarthome.Scene.SmartDevice;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatSeekBar;
@@ -15,8 +15,6 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.example.smarthome.Adapter.CurtainListAdaptor;
-import com.example.smarthome.Database.Curtain;
-import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Condition;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Temp;
@@ -29,7 +27,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class Set_curtain extends AppCompatActivity {
     public static final String TIME="time";

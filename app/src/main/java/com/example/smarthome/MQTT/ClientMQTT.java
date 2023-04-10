@@ -42,6 +42,11 @@ public class ClientMQTT {
     private MqttConnectOptions options;
     private MqttConnectOptions options1;
     private String topic="light";
+    /**
+     * @description 用来判断是否是获取已经链接的设备还是发现设备
+     * 0 为发现设备 1 为更新设备
+     */
+    private int flag=0;
     private static final String userName = "ESP32-C3-username";
 //    private static final String password = "ESP32-C3-password";
     private static final String password = "sUFhMRm3FUx6RqhKWYnRQBGQF6y1YZYHLsrVtaoYKA2GrPu9";
@@ -71,6 +76,9 @@ public class ClientMQTT {
     public void setTopicName(String topicName) {
         this.topicName = topicName;
     }
+    public void setFlag(int flag){
+        this.flag=flag;
+    }
     public void Mqtt_innit() throws MqttException {
         client=new MqttClient(serverURI,device_id,memoryPersistence);
         options=new MqttConnectOptions();
@@ -94,7 +102,7 @@ public class ClientMQTT {
             public void messageArrived(String topic, MqttMessage message) throws Exception {
                 String jsonData=new String(message.getPayload());
                 ParseJson parseJson=new ParseJson();
-                parseJson.ParseJsonData(jsonData);
+                parseJson.ParseJsonData(jsonData,flag);
                 System.out.println("messageArrived----------");
             }
 
@@ -258,41 +266,6 @@ public void publishMessagePlusForActivity(String misc,String target_short_addres
         }
     }
     //这边的map改成List<Map<String,String>>，毕竟设备不只是一个
-//    public void publishMessagePlusWithMap( Map<String,String> map,String target_data){
-//        if (client == null || !client.isConnected()) {
-//
-//            return;
-//        }
-//        MqttMessage message = new MqttMessage();
-//        JsonString jsonString=new JsonString("2023-02-19T08:30:00Z",device_id,map.get("misc"),map.get("target_short_address"),map.get("device_type"),target_data,"0x02");
-//        message.setPayload(jsonString.toString().getBytes());
-//        try {
-//            client.publish("APPtoESP32",message);//上传信息
-//        } catch (MqttException e) {
-//
-//            e.printStackTrace();
-//        }
-//    }
-//    public void publishMessagePlusWithMap(List<Map<String,String>> deviceList){
-//
-//        Map<String,String> map=new HashMap<>();
-//        for (int i = 0; i <deviceList.size(); i++) {
-//            map=deviceList.get(i);
-//
-//            if (client == null || !client.isConnected()) {
-//
-//                return;
-//            }
-//            MqttMessage message = new MqttMessage();
-//            JsonString jsonString=new JsonString("2023-02-19T08:30:00Z","1.2.3",device_id,map.get("misc"),map.get("target_short_address"),map.get("target_command"),map.get("target_data"));
-//            message.setPayload(jsonString.toString().getBytes());
-//            try {
-//                client.publish("APPtoESP32",message);//上传信息
-//            } catch (MqttException e) {
-//
-//                e.printStackTrace();
-//            }
-//        }}
     public void publishMessagePlus(String misc,String target_short_address,String device_type,String valid_data,String valid_data_length)
     {
         LocalDateTime localDateTime = LocalDateTime.now();

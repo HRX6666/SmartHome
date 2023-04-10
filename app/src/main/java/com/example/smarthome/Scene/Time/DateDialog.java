@@ -1,4 +1,4 @@
-package com.example.smarthome.Scene;
+package com.example.smarthome.Scene.Time;
 
 
 import android.app.Dialog;
@@ -42,7 +42,7 @@ public class DateDialog extends Dialog {
     private int currentDay;
     private int currentHour;
     private int currentMinute;
-
+    private int flag;//1为时间段 2为普通时间点
     private int selectYear = 0;
     private int selectMonth = 0;
 
@@ -54,58 +54,87 @@ public class DateDialog extends Dialog {
         initData();
         initView(view);
     }
-
+    public DateDialog(@NonNull Context context,int flag) {
+        super(context, R.style.time_dialog);
+        this.flag=flag;
+        this.mContext = context;
+        View view = LayoutInflater.from(context).inflate(R.layout.datedialog, null);
+        setContentView(view);
+        initData();
+        initView(view);
+    }
     private void initData() {
-        initCurrentDate();
+//        if(flag==1){
+//            initCurrentDate();
 //        initYear();
 //        initMonth();
 //        initDay();
-        initHour();
-        initMinute();
+//            initHour();
+//            initMinute();
+//        }else if(flag==2){
+            initCurrentDate();
+//        initYear();
+//        initMonth();
+//        initDay();
+            initHour();
+            initMinute();
+
+
     }
 
     /**
      * 初始化系统当前时间
      */
     private void initCurrentDate() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+//        if(flag==1){
+//            Calendar calendar = Calendar.getInstance();
+//            calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+//            currentYear = calendar.get(Calendar.YEAR);
+//            currentMonth = calendar.get(Calendar.MONTH);
+//            currentDay = calendar.get(Calendar.DAY_OF_MONTH);
+//            currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+//            currentMinute = calendar.get(Calendar.MINUTE);
+//        }else if(flag==2){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
 //        currentYear = calendar.get(Calendar.YEAR);
 //        currentMonth = calendar.get(Calendar.MONTH);
 //        currentDay = calendar.get(Calendar.DAY_OF_MONTH);
-        currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        currentMinute = calendar.get(Calendar.MINUTE);
+            currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+            currentMinute = calendar.get(Calendar.MINUTE);
+
+
     }
 
-//    /**
-//     * 集合添加年
-//     */
-//    private void initYear() {
-//        for (int i = currentYear; i <= currentYear + 1; i++) {
-//            listYear.add(i + "年");
-//        }
-//    }
-//
-//    /**
-//     * 集合添加月
-//     */
-//    private void initMonth() {
-//        for (int i = 1; i <= 12; i++) {
-//            listMonth.add(String.format("%02d", i) + "月");
-//        }
-//    }
-//
-//    /**
-//     * 集合添加天数
-//     */
-//    private void initDay() {
-//
-//        //判断一个月有多少天
-//        int hasDay = getDay(currentYear, (currentMonth+1));
-//        for (int i = 1; i <= hasDay; i++) {
-//            listDay.add(String.format("%02d", i) + "日");
-//        }
-//    }
+    /**
+     * 集合添加年
+     */
+    private void initYear() {
+        for (int i = currentYear; i <= currentYear + 1; i++) {
+            listYear.add(i + "年");
+        }
+    }
+
+    /**
+     * 集合添加月
+     */
+    private void initMonth() {
+        for (int i = 1; i <= 12; i++) {
+            listMonth.add(String.format("%02d", i) + "月");
+        }
+    }
+
+    /**
+     * 集合添加天数
+     */
+    private void initDay() {
+
+        //判断一个月有多少天
+        int hasDay = getDay(currentYear, (currentMonth+1));
+        for (int i = 1; i <= hasDay; i++) {
+            listDay.add(String.format("%02d", i) + "日");
+        }
+    }
 
     /**
      * 集合添加小时
@@ -126,12 +155,15 @@ public class DateDialog extends Dialog {
     }
 
     public void initView(View view) {
+
         tv_dialog_cancel = view.findViewById(R.id.tv_dialog_cancel);
         tv_dialog_ok = view.findViewById(R.id.tv_dialog_ok);
-
+//        if(flag==1){
 //        wv_year = view.findViewById(R.id.wv_year);
 //        wv_month = view.findViewById(R.id.wv_month);
 //        wv_day = view.findViewById(R.id.wv_day);
+//        }
+
         wv_hour = view.findViewById(R.id.wv_hour);
         wv_minute = view.findViewById(R.id.wv_minute);
         //取消弹窗
@@ -147,9 +179,9 @@ public class DateDialog extends Dialog {
         window.setGravity(Gravity.CENTER); //居中
         DisplayMetrics displayMetrics = mContext.getResources().getDisplayMetrics();
         window.setLayout((int) (displayMetrics.widthPixels * 0.9), WindowManager.LayoutParams.WRAP_CONTENT);
-
-        //设置年数据
-////        wv_year.setWheelAdapter(new ArrayWheelAdapter(mContext)); // 文本数据源
+//if(flag==1){
+//    //设置年数据
+//       wv_year.setWheelAdapter(new ArrayWheelAdapter(mContext)); // 文本数据源
 //        wv_year.setSkin(WheelView.Skin.Holo); // common皮肤
 //        wv_year.setWheelData(listYear);
 //        wv_year.setSelection(0);
@@ -178,6 +210,8 @@ public class DateDialog extends Dialog {
 //        wv_day.setWheelData(listDay);
 //        wv_day.setSelection(currentDay - 1);
 //        wv_day.setVisibility(View.VISIBLE);
+//}
+
         //时
         wv_hour.setWheelAdapter(new ArrayWheelAdapter(mContext)); // 文本数据源
         wv_hour.setSkin(WheelView.Skin.Holo); // common皮肤
@@ -197,18 +231,18 @@ public class DateDialog extends Dialog {
     /**
      * 用户滑动时更新每个月的天数
      */
-//    private void updateDay() {
-//        //获取当前滑动的位置
-//        selectYear = Integer.parseInt(wv_year.getSelectionItem().toString().replace("年", ""));
-//        selectMonth = Integer.parseInt(wv_month.getSelectionItem().toString().replace("月", ""));
-//        //判断一个月有多少天
-//        int hasDay = getDay(selectYear, selectMonth);
-//        listDay.clear();
-//        for (int i = 1; i <= hasDay; i++) {
-//            listDay.add(String.format("%02d", i) + "日");
-//        }
-//        wv_day.setWheelData(listDay);
-//    }
+    private void updateDay() {
+        //获取当前滑动的位置
+        selectYear = Integer.parseInt(wv_year.getSelectionItem().toString().replace("年", ""));
+        selectMonth = Integer.parseInt(wv_month.getSelectionItem().toString().replace("月", ""));
+        //判断一个月有多少天
+        int hasDay = getDay(selectYear, selectMonth);
+        listDay.clear();
+        for (int i = 1; i <= hasDay; i++) {
+            listDay.add(String.format("%02d", i) + "日");
+        }
+        wv_day.setWheelData(listDay);
+    }
 
     /**
      * 根据是否闰年和月份判断本月的天数
@@ -217,37 +251,37 @@ public class DateDialog extends Dialog {
      * @param month
      * @return
      */
-//    private int getDay(int year, int month) {
-//        int day = 30;
-//        boolean flag = false;
-//
-//        switch (year % 4) {
-//            case 0:
-//                flag = true;
-//                break;
-//            default:
-//                flag = false;
-//                break;
-//        }
-//        switch (month) {
-//            case 1:
-//            case 3:
-//            case 5:
-//            case 7:
-//            case 8:
-//            case 10:
-//            case 12:
-//                day = 31;
-//                break;
-//            case 2:
-//                day = flag ? 29 : 28;
-//                break;
-//            default:
-//                day = 30;
-//                break;
-//        }
-//        return day;
-//    }
+    private int getDay(int year, int month) {
+        int day = 30;
+        boolean flag = false;
+
+        switch (year % 4) {
+            case 0:
+                flag = true;
+                break;
+            default:
+                flag = false;
+                break;
+        }
+        switch (month) {
+            case 1:
+            case 3:
+            case 5:
+            case 7:
+            case 8:
+            case 10:
+            case 12:
+                day = 31;
+                break;
+            case 2:
+                day = flag ? 29 : 28;
+                break;
+            default:
+                day = 30;
+                break;
+        }
+        return day;
+    }
 
     /**
      * 确定按钮监听
@@ -264,12 +298,18 @@ public class DateDialog extends Dialog {
      * @return
      */
     public String getDate(){
-//        String year = wv_year.getSelectionItem().toString().replace("年","");
-//        String month = wv_month.getSelectionItem().toString().replace("月","");
-//        String day = wv_day.getSelectionItem().toString().replace("日","");
+//        if(flag==1){
+//            String year = wv_year.getSelectionItem().toString().replace("年","");
+//            String month = wv_month.getSelectionItem().toString().replace("月","");
+//            String day = wv_day.getSelectionItem().toString().replace("日","");
+//            String hour = wv_hour.getSelectionItem().toString().replace("点","");
+//            String minute = wv_minute.getSelectionItem().toString().replace("分","");
+//            return year+"-"+month+"-"+day+" "+hour+":"+minute;
+//
+//        }
+
         String hour = wv_hour.getSelectionItem().toString().replace("点","");
         String minute = wv_minute.getSelectionItem().toString().replace("分","");
-//        return year+"-"+month+"-"+day+" "+hour+":"+minute;
         return hour+":"+minute;
     }
 

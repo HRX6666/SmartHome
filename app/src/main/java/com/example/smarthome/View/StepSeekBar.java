@@ -618,6 +618,7 @@ public class StepSeekBar extends View {
     }
 
 
+
     /**
      * 游标的监听事件
      */

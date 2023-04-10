@@ -11,14 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Database.AddModel;
-import com.example.smarthome.Scene.More;
+import com.example.smarthome.Database.Home;
+
 import com.example.smarthome.R;
+import com.example.smarthome.Scene.More;
 
 import java.util.List;
 
 public class AddModelAdapter2 extends RecyclerView.Adapter<AddModelAdapter2.ViewHolder> {
     private Context mContext; // 声明一个上下文对象
-    private List<AddModel> list; // 声明一个音频信息列表w
+    private List<AddModel> list; // 声明一个信息列表w
     OnItemClickListener onItemClickListener;//声明接口对象
 
 
@@ -76,7 +78,7 @@ public class AddModelAdapter2 extends RecyclerView.Adapter<AddModelAdapter2.View
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            m_model=(TextView) itemView.findViewById(R.id.medal_tv);
+            m_model=(TextView) itemView.findViewById(R.id.tv_display);
             view=itemView;
 
         }

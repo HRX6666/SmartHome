@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:navigationIcon="@drawable/back"
-        app:title="空调设置"
+        app:title="窗帘"
         app:titleTextColor="@color/lighthui">
     </androidx.appcompat.widget.Toolbar>
     <TextView
@@ -56,7 +56,7 @@
                 android:id="@+id/set_close"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="100dp"
+                android:layout_marginLeft="85dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/curtain_open" />
@@ -84,7 +84,7 @@
                 android:id="@+id/set_open"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_toRightOf="@id/view_set_open"
@@ -93,7 +93,7 @@
             <TextView
                 android:layout_width="60dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="60dp"
                 android:layout_toRightOf="@id/view_set_open"
                 android:text="全开"

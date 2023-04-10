@@ -41,16 +41,16 @@
             android:layout_marginLeft="10dp"/>
 
 
-            <com.example.smarthome.View.SeekPage.ViewDrag
-                android:id="@+id/add_view"
-                android:layout_width="300dp"
-                android:layout_height="430dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="20dp"
-                android:layout_gravity="center"
-                android:descendantFocusability="blocksDescendants"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/add_view"
+            android:layout_width="300dp"
+            android:layout_height="430dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="center"
+            android:descendantFocusability="blocksDescendants"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
 
 

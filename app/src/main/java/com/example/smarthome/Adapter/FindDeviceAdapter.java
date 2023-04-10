@@ -1,6 +1,7 @@
 package com.example.smarthome.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Database.Device;
@@ -18,6 +20,7 @@ import com.example.smarthome.Page_Samrt.AdjustTheLights;
 import com.example.smarthome.R;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
+import org.litepal.LitePal;
 
 import java.util.List;
 import java.util.Map;
@@ -76,8 +79,10 @@ public class FindDeviceAdapter extends RecyclerView.Adapter<FindDeviceAdapter.Vi
             case "01":holder.imageView.setImageResource(R.drawable.open_lights);category="电灯泡";break;
             case "02":holder.imageView.setImageResource(R.drawable.air_condition_smart);category="空调";break;
             case "03":holder.imageView.setImageResource(R.drawable.curtain_smart);category="窗帘";break;
-            case "04":holder.imageView.setImageResource(R.drawable.lock_smart);category="门锁";break;
-            case "05":holder.imageView.setImageResource(R.drawable.music);category="音响";break;
+            case "04":holder.imageView.setImageResource(R.drawable.sensor);category="温度传感器";break;
+            case "05":holder.imageView.setImageResource(R.drawable.music);category="独立温度传感器";break;
+            default:
+                holder.imageView.setImageResource(R.drawable.sensor);category="ERROR";break;
         }
 
         holder.showCategory.setText(category);

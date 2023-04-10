@@ -71,8 +71,8 @@ public class AddMedalAdapter extends RecyclerView.Adapter <AddMedalAdapter.AddMe
         TextView title;
         public AddMedalHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.medal_iv);
-            title = itemView.findViewById(R.id.medal_tv);
+            imageView = itemView.findViewById(R.id.iv_display);
+            title = itemView.findViewById(R.id.tv_display);
         }
 
     }

@@ -7,25 +7,28 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.smarthome.Page_Samrt.Condition1;
-import com.example.smarthome.Page_Samrt.Set_air;
-import com.example.smarthome.Page_Samrt.Set_curtain;
-import com.example.smarthome.Page_Samrt.Set_lights;
+import com.example.smarthome.Scene.SmartDevice.Set_air;
+import com.example.smarthome.Scene.SmartDevice.Set_curtain;
+import com.example.smarthome.Scene.SmartDevice.Set_lights;
 import com.example.smarthome.R;
 
+/**
+ * @description
+ * 场景创建时智能设备执行
+ */
 public class SmartActivity extends AppCompatActivity {
     TextView set_air,set_light,set_curtain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.smartactivity);
-        inite();
+        init();
         m_intent();
     }
 
 
 
-    private void inite() {
+    private void init() {
         set_air=findViewById(R.id.set_air);
         set_light=findViewById(R.id.set_lights);
         set_curtain=findViewById(R.id.set_curtain);
@@ -43,6 +46,7 @@ public class SmartActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent2=new Intent(SmartActivity.this, Set_lights.class);
+
                 startActivity(intent2);
             }
         });

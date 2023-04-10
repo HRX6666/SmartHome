@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.smarthome.R;
+import com.example.smarthome.Scene.SmartDevice.Set_air;
+import com.example.smarthome.Scene.SmartDevice.Set_curtain;
+import com.example.smarthome.Scene.SmartDevice.Set_lights;
 
 public class Condition1 extends AppCompatActivity {
     TextView set_air,set_light,set_curtain;
@@ -31,21 +34,21 @@ public class Condition1 extends AppCompatActivity {
         set_air.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1=new Intent(Condition1.this,Set_air.class);
+                Intent intent1=new Intent(Condition1.this, Set_air.class);
                 startActivity(intent1);
             }
         });
         set_light.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2=new Intent(Condition1.this,Set_lights.class);
+                Intent intent2=new Intent(Condition1.this, Set_lights.class);
                 startActivity(intent2);
             }
         });
         set_curtain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2=new Intent(Condition1.this,Set_curtain.class);
+                Intent intent2=new Intent(Condition1.this, Set_curtain.class);
                 startActivity(intent2);
             }
         });

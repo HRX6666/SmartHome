@@ -1,61 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
-
-    <Button
-        android:id="@+id/find_back"
-        android:layout_width="56dp"
-        android:layout_height="49dp"
-        android:background="@drawable/back"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
-    <TextView
-        android:id="@+id/FenGe"
+    <LinearLayout
+        android:id="@+id/room_manage"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:textColor="@color/black"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="49dp"
-        app:layout_constraintTop_toBottomOf="@+id/find_back"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="#EBF9FFE7">
 
-    <TextView
-        android:id="@+id/text1"
-        android:layout_width="261dp"
-        android:layout_height="64dp"
-        android:gravity="center_vertical"
-        android:text="是否开始新家居入网"
-        android:textSize="20dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FenGe" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/find_back"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:logo="@drawable/back"
+            app:title="入网管理"
+            app:titleTextColor="@color/lighthui"/>
+        <TextView
+            android:id="@+id/FenGe"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:textColor="@color/black"
+            tools:layout_editor_absoluteX="-16dp"
+            tools:layout_editor_absoluteY="49dp"
+            app:layout_constraintTop_toBottomOf="@+id/find_back"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp">
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="290dp"
+                android:layout_height="64dp"
+                android:gravity="center_vertical"
+                android:text="是否开始新家居入网"
+                android:textSize="20dp"
+                android:textColor="#393434"
+                />
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:checked="false"
+                android:layout_marginTop="10dp"
+                app:primaryColor="#9FDCB8"
+                android:layout_toRightOf="@id/text1"
+                />
 
-    <Switch
-        android:id="@+id/switch1"
-        android:layout_width="85dp"
-        android:layout_height="64dp"
-        android:checked="false"
-        app:layout_constraintLeft_toRightOf="@+id/text1"
-        app:layout_constraintTop_toBottomOf="@+id/FenGe" />
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="538dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recy_devices"
-            android:layout_width="377dp"
-            android:layout_height="538dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginBottom="4dp"
-             />
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeRefresh"
+            android:layout_width="match_parent"
+            android:layout_height="538dp">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recy_devices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </LinearLayout>
+</ScrollView>

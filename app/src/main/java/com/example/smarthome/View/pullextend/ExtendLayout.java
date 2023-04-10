@@ -106,10 +106,16 @@ public abstract class ExtendLayout extends FrameLayout implements IExtendLayout 
             case arrivedListHeight:
                 onArrivedListHeight();
                 break;
+            case NONE:
+                onVisibility();
 
             default:
                 break;
         }
+    }
+
+    public void onVisibility() {
+
     }
 
     /**
@@ -125,6 +131,8 @@ public abstract class ExtendLayout extends FrameLayout implements IExtendLayout 
     protected void onPullToRefresh() {
 
     }
+
+
 
     /**
      * 当状态设置为{@link State#beyondListHeight}时调用

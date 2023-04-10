@@ -23,6 +23,7 @@ public class SensorListAdaptor  extends RecyclerView.Adapter<SensorListAdaptor.V
     public SensorListAdaptor(List<Map<String,String>> mSensorList){
         this.mSensorList=mSensorList;
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView air_image;
         TextView air_name;

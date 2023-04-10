@@ -16,9 +16,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/appdrawable"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/appdrawable"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartHome"
         tools:targetApi="31">
@@ -55,21 +55,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Samrt.Set_air"
+            android:name=".Scene.SmartDevice.Set_air"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Samrt.Set_curtain"
+            android:name=".Scene.SmartDevice.Set_curtain"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Samrt.Set_lights"
+            android:name=".Scene.SmartDevice.Set_lights"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -83,7 +83,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Scene.TimeActivity"
+            android:name=".Scene.Time.TimeActivity"
+            android:launchMode="singleTask"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -91,7 +92,9 @@
         </activity>
         <activity
             android:name=".Scene.More"
-            android:exported="false">
+            android:exported="false"
+            android:launchMode="singleTask"
+            >
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -120,6 +123,55 @@
         </activity>
         <activity
             android:name=".Scene.SmartActivity"
+            android:launchMode="singleTask"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.Time.TimePeriodActivity"
+            android:launchMode="singleTask"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.SmartDevice.SmartDeviceList"
+            android:launchMode="singleTask"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.SmartDeviceActivity"
+            android:launchMode="singleTask"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.OnClickActivity"
+            android:launchMode="singleTask"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.SceneActivity"
+            android:launchMode="singleTask"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.Time.TimePointActivity"
+            android:launchMode="singleTask"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

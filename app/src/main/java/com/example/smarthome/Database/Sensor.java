@@ -7,12 +7,39 @@ public class Sensor extends LitePalSupport {
     private String target_short_address;
     private String controller_long_address;
     private String temp;//温度
-    private String wetness;//湿度
+    private String i_temp;
+    private String wetness;//空调湿度
+    private String i_wetness;//独立湿度
+    private String smoking;
     private String valid_data;
     private int flag;
     private int isUpdate;
     //独立温度传感器
     private String temp_independent;
+
+    public String getI_temp() {
+        return i_temp;
+    }
+
+    public void setI_temp(String i_temp) {
+        this.i_temp = i_temp;
+    }
+
+    public String getI_wetness() {
+        return i_wetness;
+    }
+
+    public void setI_wetness(String i_wetness) {
+        this.i_wetness = i_wetness;
+    }
+
+    public String getSmoking() {
+        return smoking;
+    }
+
+    public void setSmoking(String smoking) {
+        this.smoking = smoking;
+    }
 
     public String getWetness() {
         return wetness;

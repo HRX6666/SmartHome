@@ -71,7 +71,7 @@ public class ScanActivity extends AppCompatActivity {
             if (result.getText() != null) {
                 Log.d("ScanActivity", "Scan result: " + result.getText());
                 ParseJson parseJson=new ParseJson();
-                parseJson.ParseJsonData(result.getText());
+                parseJson.ParseJsonData(result.getText(),0);
                 // 处理扫描结果
                 //解析数据那边用try catch只要报错就显示数据接受异常
                 Toast.makeText(ScanActivity.this,result.getText(),Toast.LENGTH_SHORT).show();

@@ -2,13 +2,56 @@ package com.example.smarthome.Database.Scene;
 
 import org.litepal.crud.LitePalSupport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Mission extends LitePalSupport {
+    private Temp temp;
+    private String time;//设置的时间
+    private Scene scene;
+    /**
+     * @tip 跟condition里面的一样
+     */
+    private int judge;
+    private List<Scene> sceneList=new ArrayList<>();//执行的场景
+    //1
+    private List<String> messageList=new ArrayList<>();//系统通知
+    //2
+    private List<S_Device> s_deviceList=new ArrayList<>();//执行的设备
+    //3
 
-    private List<Scene> sceneList;//执行的场景
-    private List<String> messageList;//系统通知
-    private List<S_Device> s_deviceList;//执行的设备
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public void setScene(Scene scene) {
+        this.scene = scene;
+    }
+
+    public int getJudge() {
+        return judge;
+    }
+
+    public void setJudge(int judge) {
+        this.judge = judge;
+    }
+
+    public Temp getTemp() {
+        return temp;
+    }
+
+    public void setTemp(Temp temp) {
+        this.temp = temp;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 
     public List<Scene> getSceneList() {
         return sceneList;

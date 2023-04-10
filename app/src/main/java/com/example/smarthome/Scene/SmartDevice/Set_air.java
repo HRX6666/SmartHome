@@ -1,6 +1,7 @@
-package com.example.smarthome.Page_Samrt;
+package com.example.smarthome.Scene.SmartDevice;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,11 +11,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.smarthome.Adapter.AddModelAdapter2;
 import com.example.smarthome.Adapter.AirListAdaptor;
-import com.example.smarthome.Adapter.CurtainListAdaptor;
-import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.Database.Scene.Condition;
+import com.example.smarthome.Database.Scene.Mission;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Temp;
 import com.example.smarthome.R;
@@ -24,7 +23,6 @@ import com.google.android.material.button.MaterialButton;
 import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,7 +33,7 @@ public class Set_air extends AppCompatActivity {
     private AirListAdaptor airListAdaptor;
     private List<Map<String,String>> mAirList;
     private List<Integer> positionList;//储存选择的电器
-    private Condition condition;
+    private Mission mission;
     private MaterialButton create;
     private CustomizeGoodsAddView customizeGoodsAddView;
     private ImageView wind_min;
@@ -69,6 +67,9 @@ public class Set_air extends AppCompatActivity {
         recyclerView();
 
     }
+    //记录当前位置
+    private int currentPosition = 0;
+    //初始化点击事件
 
     private void recyclerView() {
         recyclerView=findViewById(R.id.select_air);
@@ -123,15 +124,15 @@ public class Set_air extends AppCompatActivity {
                 if(flag==0)   //flag为0就新建Condition
                 {
                     Temp temp=LitePal.findLast(Temp.class);
-                    condition=new Condition();
-                    condition.setTime(time);
-                    condition.setTemp(temp);
-                    condition.save();
+                    mission=new Mission();
+                    mission.setTime(time);
+                    mission.setTemp(temp);
+                    mission.save();
 
                 }else
                 {
-                    List<Condition> conditionList=LitePal.where("time = ?",Set_air.TIME).find(Condition.class);
-                    condition=conditionList.get(0);
+                    List<Mission> missionList=LitePal.where("time = ?",Set_air.TIME).find(Mission.class);
+                    mission=missionList.get(0);
                 }
                 if(positionList!=null){
                     if(mid==-1&&min==-1&&max==-1)
@@ -163,7 +164,7 @@ public class Set_air extends AppCompatActivity {
                                     if(flag==0)
                                     {
 
-                                        s_device.setCondition(condition);
+                                        s_device.setMission(mission);
                                         s_device.save();
                                     }
                                     else

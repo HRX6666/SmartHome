@@ -5,15 +5,15 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.smarthome.Database.Scene.Temp;
-import com.example.smarthome.Page_Samrt.Condition1;
 import com.example.smarthome.R;
+import com.example.smarthome.Scene.Time.TimeActivity;
 import com.example.smarthome.View.CustomizeGoodsAddView;
-import com.example.smarthome.View.FButton;
 
 import org.litepal.LitePal;
 
@@ -51,6 +51,7 @@ private void initLayout(){
                 Temp temp= LitePal.findLast(Temp.class);
                 temp.setIsClick("1");
                 temp.save();
+                Toast.makeText(ConditionActivity.this,"设置成功",Toast.LENGTH_SHORT).show();
 //conditionList整体用wrapcontent,确保随内容变化大小
                 return true;
             }
@@ -58,7 +59,7 @@ private void initLayout(){
     time.setOnTouchListener(new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
-            Intent intent=new Intent(ConditionActivity.this,TimeActivity.class);
+            Intent intent=new Intent(ConditionActivity.this, TimeActivity.class);
             //再设计一个暂存类Temp来储存设计好的条件和任务，如果场景保存了就存入Scene中，之后删除Temp中数据，如果没有，就删除Temp中数据
             startActivity(intent);
             return true;

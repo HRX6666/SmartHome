@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.smarthome.R;
-import com.example.smarthome.Scene.TimeActivity;
+import com.example.smarthome.Scene.Time.TimeActivity;
 
 public class Tesk extends AppCompatActivity {
     TextView temperature,time,humidity;

@@ -158,7 +158,7 @@ public class ArcSeekBar extends View {
         mIndicator.setBounds((int) cx - 30, (int) cy - 30, (int) cx + 30, (int) cy + 30);
         mIndicator.draw(canvas);
 
-        canvas.drawText(mValueArray[getIndex(sweepAngle)], getWidth() >> 1, getHeight() >> 1, mValuePaint);
+//        canvas.drawText(mValueArray[getIndex(sweepAngle)], getWidth() >> 1, getHeight() >> 1, mValuePaint);
         canvas.restore();
     }
 

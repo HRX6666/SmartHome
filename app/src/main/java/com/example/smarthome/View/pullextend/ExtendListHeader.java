@@ -1,15 +1,31 @@
 package com.example.smarthome.View.pullextend;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 
+import android.content.Intent;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Helper.UIHelper;
+import com.example.smarthome.Page_Home.FindDevices;
 import com.example.smarthome.R;
+import com.example.smarthome.animation.AddAnimationRotation;
+import com.example.smarthome.animation.RuwangAnimationAlpha;
+
+import org.litepal.tablemanager.Connector;
 
 
 /**
@@ -19,9 +35,12 @@ public class ExtendListHeader extends ExtendLayout {
 
 
     float containerHeight = UIHelper.dip2px(60);
-    float listHeight = UIHelper.dip2px(120);
+    float listHeight = UIHelper.dip2px(500);
     boolean arrivedListHeight = false;
     private RecyclerView mRecyclerView;
+    ImageView sun,moon;
+    CardView ruwang;
+    ObjectAnimator objectAnimator;
 
     /**
      * 原点
@@ -48,6 +67,10 @@ public class ExtendListHeader extends ExtendLayout {
      */
     public ExtendListHeader(Context context, AttributeSet attrs) {
         super(context, attrs);
+        View view = View.inflate(getContext(), R.layout.extend_header, this);
+        sun = view.findViewById(R.id.sun);
+        moon=view.findViewById(R.id.moon);
+        ruwang=view.findViewById(R.id.ruwang);
 
     }
 
@@ -93,10 +116,82 @@ public class ExtendListHeader extends ExtendLayout {
         mExpendPoint.setTranslationY(0);
         mRecyclerView.setTranslationY(0);
         arrivedListHeight = false;
-    }
 
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.4f, 1.0f, 0.50f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(4000);
+//        scaleAnimation.setRepeatCount(100);
+//        rongYi.startAnimation(scaleAnimation);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f, 1f);
+        alphaAnimation.setInterpolator(new AccelerateInterpolator());
+//        alphaAnimation.setFillAfter(fragment);
+        alphaAnimation.setDuration(4000);
+//        fragment.startAnimation(alphaAnimation);
+        TranslateAnimation translateAnimation=new TranslateAnimation(0f,0f,100f,-950f);
+        translateAnimation.setDuration(4000);
+//        translateAnimation.setRepeatCount(100);
+//        rongYi.startAnimation(translateAnimation);
+        AnimationSet animationSet = new AnimationSet(false);
+        animationSet.setFillAfter(true);
+        animationSet.addAnimation(alphaAnimation);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(translateAnimation);
+        sun.startAnimation(animationSet);
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ScaleAnimation scaleAnimation2 = new ScaleAnimation(0f, 1.0f, 0f, 1.0f,
+                        Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+                scaleAnimation2.setDuration(5000);
+
+//        scaleAnimation.setRepeatCount(100);
+//        rongYi.startAnimation(scaleAnimation);
+                AlphaAnimation alphaAnimation2 = new AlphaAnimation(0f, 1f);
+                alphaAnimation2.setInterpolator(new AccelerateInterpolator());
+//        alphaAnimation.setFillAfter(fragment);
+                alphaAnimation2.setDuration(5000);
+                AnimationSet animationSet2 = new AnimationSet(false);
+                animationSet2.setFillAfter(true);
+                animationSet2.addAnimation(alphaAnimation2);
+                animationSet2.addAnimation(scaleAnimation2);
+                moon.startAnimation(animationSet2);
+            }
+        },2000);
+        Connector.getDatabase();
+        moon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlphaAnimation alphaAnimation3 = new AlphaAnimation(0.1f, 1f);
+                alphaAnimation3.setInterpolator(new AccelerateInterpolator());
+//        alphaAnimation.setFillAfter(fragment);
+                alphaAnimation3.setDuration(1000);
+                ruwang.startAnimation(alphaAnimation3);
+                ruwang.setVisibility(CardView.VISIBLE);
+                objectAnimator=ObjectAnimator.ofFloat(ruwang,"alpha",1f,0.7f,1f);
+                objectAnimator.setDuration(9000);
+                objectAnimator.setInterpolator(new RuwangAnimationAlpha());
+                objectAnimator.setRepeatCount(Animation.REVERSE);
+
+                objectAnimator.start();
+            }
+        });
+        ruwang.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+    }
+    @Override
+    public void onVisibility(){
+        sun.setVisibility(INVISIBLE);
+        moon.setVisibility(INVISIBLE);
+        ruwang.setVisibility(INVISIBLE);
+    }
     @Override
     protected void onReleaseToRefresh() {
+
     }
 
     @Override
@@ -111,6 +206,7 @@ public class ExtendListHeader extends ExtendLayout {
 
     @Override
     protected void onRefreshing() {
+
     }
 
     @Override
@@ -137,6 +233,28 @@ public class ExtendListHeader extends ExtendLayout {
             mExpendPoint.setVisibility(INVISIBLE);
             mRecyclerView.setTranslationY(-(Math.abs(offset) - listHeight) / 2);
         }
+    }
+    public void tran(){
+        ScaleAnimation scaleAnimation = new ScaleAnimation(0.4f, 1.0f, 0.50f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        scaleAnimation.setDuration(3000);
+        scaleAnimation.setRepeatCount(100);
+//        rongYi.startAnimation(scaleAnimation);
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.1f, 1f);
+        alphaAnimation.setInterpolator(new AccelerateInterpolator());
+//        alphaAnimation.setFillAfter(fragment);
+        alphaAnimation.setDuration(3000);
+//        fragment.startAnimation(alphaAnimation);
+        TranslateAnimation translateAnimation=new TranslateAnimation(0f,0f,100f,-100f);
+        translateAnimation.setDuration(3000);
+        translateAnimation.setRepeatCount(100);
+//        rongYi.startAnimation(translateAnimation);
+        AnimationSet animationSet = new AnimationSet(false);
+        animationSet.setFillAfter(true);
+        animationSet.addAnimation(alphaAnimation);
+        animationSet.addAnimation(scaleAnimation);
+        animationSet.addAnimation(translateAnimation);
+        sun.startAnimation(animationSet);
     }
 
 
