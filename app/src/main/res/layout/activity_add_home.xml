@@ -10,150 +10,41 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/addhome_tb"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:logo="@drawable/back"
-        app:title="房间管理"
-        app:titleTextColor="@color/lighthui">
-    </androidx.appcompat.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/drawing_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="  客厅"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-
-    <TextView
-        android:id="@+id/bedroom_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="  卧室"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-
-
-    <TextView
-        android:id="@+id/masterroom_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="  主卧"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-
-    <TextView
-        android:id="@+id/kitchen_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text=" 厨房"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-    <TextView
-        android:id="@+id/mess_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text=" 餐厅"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-    <TextView
-        android:id="@+id/toilet_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text=" 卫生间"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-    <TextView
-        android:id="@+id/childroom_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text=" 儿童房"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-
-    <TextView
-        android:id="@+id/office_tv"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text=" 办公室"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/enroll_next"/>
-        <TextView
-            android:id="@+id/study_tv"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/addhome_tb"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text=" 书房"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/lighthui"
-            android:layout_marginTop="25dp"
-            android:drawableEnd="@drawable/enroll_next"/>
-        <TextView
-            android:id="@+id/gallery_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text=" 阳台"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/lighthui"
-            android:layout_marginTop="25dp"
-            android:drawableEnd="@drawable/enroll_next"/>
-        <TextView
-            android:id="@+id/studio_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text=" 工作室"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/lighthui"
-            android:layout_marginTop="25dp"
-            android:drawableEnd="@drawable/enroll_next"/>
-        <TextView
-            android:id="@+id/bathroom_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text=" 浴室"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/lighthui"
-            android:layout_marginTop="25dp"
-            android:drawableEnd="@drawable/enroll_next"/>
-        <TextView
-            android:id="@+id/backyard_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text=" 后院"
-            android:textSize="15dp"
-            android:fontFamily="sans-serif-black"
-            android:textColor="@color/lighthui"
-            android:layout_marginTop="25dp"
-            android:drawableEnd="@drawable/enroll_next"/>
+            android:layout_height="wrap_content"
+            app:logo="@drawable/back"
+            app:title="添加房间"
+            app:titleTextColor="@color/lighthui">
+        </androidx.appcompat.widget.Toolbar>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/home_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:padding="12dp"
+            android:singleLine="true"
+            android:layout_marginTop="30dp"
+            android:hint="请设置您的房间名称"
+            android:background="@drawable/bg_edit_text"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/create_home"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="确定"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:padding="12dp"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="#3897f0"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:cornerRadius="4dp"/>
+
+
+    </LinearLayout>
 </ScrollView>

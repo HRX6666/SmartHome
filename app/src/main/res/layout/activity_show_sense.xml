@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F5FEF9"
+    android:orientation="vertical">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tb_showsense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:logo="@drawable/back"
+        app:title="数字显示"
+        app:titleTextColor="@color/lighthui"/>
+
+    <com.example.smarthome.View.SelfTextView
+        android:id="@+id/tv1"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="135dp"
+        android:foregroundGravity="center_vertical"
+        app:titlesText="0.01"
+        app:titlesTextColor="#045224"
+        app:titlesTextSize="35sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°C"
+        android:layout_toRightOf="@id/tv1"
+        android:textSize="30sp"
+        android:layout_marginTop="195dp"
+        android:layout_marginLeft="10dp"
+        android:textColor="#045224"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:textSize="20sp"
+            android:text="刷   新"
+            android:backgroundTint="#A2D1FE"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="125dp"
+            android:textColor="#013931"/>
+    </RelativeLayout>

@@ -8,13 +8,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.example.smarthome.Adapter.AirListAdaptor;
 import com.example.smarthome.Adapter.CurtainListAdaptor;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Condition;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Temp;
@@ -30,7 +33,7 @@ import java.util.Map;
 
 public class Set_curtain extends AppCompatActivity {
     public static final String TIME="time";
-    private List<Map<String,String>> curtainList;
+    private List<Device> curtainList;
         private ImageView set_close;
         private ImageView set_open;
         private AppCompatSeekBar set_deep;
@@ -47,7 +50,7 @@ public class Set_curtain extends AppCompatActivity {
         private int count=-1;
         private int flag=-1;//判断是否是创建新的条件
         private String timeIn;
-
+    private int currentPosition = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,27 +71,47 @@ public class Set_curtain extends AppCompatActivity {
             flag=1;
         recyclerView=findViewById(R.id.select_condition);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        curtainListAdaptor=new CurtainListAdaptor(curtainList);
-        curtainListAdaptor.setOnItemClickListener(new CurtainListAdaptor.OnItemClickListener() {
+        curtainListAdaptor=new CurtainListAdaptor(this,R.layout.scene_curtainlist,curtainList);
+        recyclerView.setAdapter(curtainListAdaptor);
+        curtainListAdaptor.notifyDataSetChanged();
+        curtainListAdaptor.setOnItemClickListner(new CurtainListAdaptor.OnItemClickListner() {
             @Override
-            public void onItemClick(View view, int position) {
-//                String target_long_address=curtainList.get(position).get("target_long_address");
-                for(int i=0;i<positionList.size();i++){
-                    if(positionList.get(i)==position){
-                        count=i;
-                        positionList.remove(i);
-                    }
-
-                }
-                if(count==-1)
-                {
+            public void onItemClickListner(View v, int position) {
+                currentPosition = position;
+                if(positionList.isEmpty())
                     positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
+                else {
+                    for (int i = 0; i < positionList.size(); i++) {
+                        if (positionList.get(i) == position) {
+                            positionList.remove(i);
+                            count=i;
+                        }
+                    }
+                    if(count==-1)
+                    {
+                        positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
+
+                    }
+                }
+                curtainListAdaptor.notifyDataSetChanged();
+
+            }
+        });
+        curtainListAdaptor.setCallBack(new CurtainListAdaptor.CallBack() {
+            @Override
+            public <T> void convert(CurtainListAdaptor.ViewHolder holder, T bean, int position) {
+                ConstraintLayout constraintLayout = (ConstraintLayout) holder.getView(R.id.constraintLayout);
+                if(positionList.isEmpty())
+                    constraintLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                for (int i = 0; i < positionList.size(); i++) {
+                    if (positionList.get(i) == position) {
+                        constraintLayout.setBackgroundResource(R.drawable.blackbackground);
+                    }
+                    else
+                        constraintLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 }
             }
         });
-        recyclerView.setAdapter(curtainListAdaptor);
-        curtainListAdaptor.notifyDataSetChanged();
-
         init();
     }
     private void init(){
@@ -119,7 +142,7 @@ public class Set_curtain extends AppCompatActivity {
                             Temp temp = LitePal.findLast(Temp.class);
                             for (int i = 0; i < positionList.size(); i++) {
                                 int n = positionList.get(i);
-                                String target_long_address = curtainList.get(n).get("target_long_address");
+                                String target_long_address = curtainList.get(n).getTarget_long_address();
                                 S_Device s_device = new S_Device();
                                 if (open != -1)
                                     s_device.setCurtain_open("1");

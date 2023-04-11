@@ -28,6 +28,7 @@ import com.example.smarthome.View.StepSeekBar;
 import com.example.smarthome.View.SwapTb.SortViewPagerAdapter;
 import com.example.smarthome.View.SwapTb.SpringView;
 import com.example.smarthome.View.SwapTb.ViewPagerIndicator;
+import com.github.iielse.switchbutton.SwitchView;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 
@@ -55,7 +56,7 @@ public class AdjustTheLights extends AppCompatActivity {
     private List<Fragment> mList;
     private List<String> mDatas;
     private int itemCount = 4;
-
+    SwitchView light_breathe;
     SpringView springView;
 
 
@@ -81,7 +82,30 @@ public class AdjustTheLights extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_adjust_the_lights);
         viewPager = (ViewPager) findViewById(R.id.vp);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        view1 = inflater.inflate(R.layout.vp1, null);
+        light_breathe=view1.findViewById(R.id.v_switch_1);
         indicator = (ViewPagerIndicator) findViewById(R.id.indicator);
+        light_breathe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(view1.getContext(),"点击",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdjustTheLights.this,"点击",Toast.LENGTH_SHORT).show();
+            }
+        });
+        light_breathe.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
+            @Override
+            public void toggleToOn(SwitchView view) {
+                Toast.makeText(view1.getContext(),"点击",Toast.LENGTH_SHORT).show();
+                Toast.makeText(AdjustTheLights.this,"点击",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void toggleToOff(SwitchView view) {
+
+            }
+        });
         mList = new ArrayList<Fragment>();
         for (int i = 0; i < itemCount; i++) {
             Fragment fragment = new MeFragment();

@@ -8,13 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class AddMedalAdapter extends RecyclerView.Adapter <AddMedalAdapter.AddMedalHolder> {
@@ -23,7 +21,7 @@ public class AddMedalAdapter extends RecyclerView.Adapter <AddMedalAdapter.AddMe
     private OnItemClickListener onItemClickListener;
     private OnItemLongClickListener onItemLongClickListener;
 
-    public AddMedalAdapter(FragmentActivity activity, List<AddModel> addMedalHelpers) {
+    public AddMedalAdapter(List<AddModel> addMedalHelpers) {
         this.addMedalHelpers = addMedalHelpers;
     }
 
@@ -71,8 +69,8 @@ public class AddMedalAdapter extends RecyclerView.Adapter <AddMedalAdapter.AddMe
         TextView title;
         public AddMedalHolder(@NonNull View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.iv_display);
-            title = itemView.findViewById(R.id.tv_display);
+            imageView = itemView.findViewById(R.id.medal_iv);
+            title = itemView.findViewById(R.id.medal_tv);
         }
 
     }
@@ -85,7 +83,7 @@ public class AddMedalAdapter extends RecyclerView.Adapter <AddMedalAdapter.AddMe
     public  interface OnItemLongClickListener{
         void onItemLongClick(View view,int position);
     }
-    public interface OnItemClickListener{
+    public interface  OnItemClickListener{
         void OnItemClickListener(View view,int position);
     }
     @Override

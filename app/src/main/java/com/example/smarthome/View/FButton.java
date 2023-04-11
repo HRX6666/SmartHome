@@ -17,6 +17,11 @@ import android.view.View;
 import android.widget.Button;
 
 import info.hoang8f.fbutton.R;
+
+/**
+ * Created by hoang8f on 5/5/14.
+ */
+
 public class FButton extends androidx.appcompat.widget.AppCompatButton implements View.OnTouchListener {
 
     //Custom values
@@ -187,6 +192,7 @@ public class FButton extends androidx.appcompat.widget.AppCompatButton implement
             this.setBackgroundDrawable(background);
         }
     }
+
     private LayerDrawable createDrawable(int radius, int topColor, int bottomColor) {
 
         float[] outerRadius = new float[]{radius, radius, radius, radius, radius, radius, radius, radius};

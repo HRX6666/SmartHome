@@ -36,26 +36,26 @@ public class ManageDevices extends AppCompatActivity {
         setContentView(R.layout.managedevices);
         update_device=findViewById(R.id.update_device);
         initContent();
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_manage);
-        LinearLayoutManager linearLayout = new LinearLayoutManager(ManageDevices.this);
-        recyclerView.setLayoutManager(linearLayout);
-        ManageAdaptor manageAdaptor = new ManageAdaptor(deviceList);
-        recyclerView.setAdapter(manageAdaptor);
-        manageAdaptor.notifyDataSetChanged();
-        update_device.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clientMQTT=new ClientMQTT("light");
-                try {
-                    clientMQTT.Mqtt_innit();
-                } catch (MqttException e) {
-                    e.printStackTrace();
-                }
-                clientMQTT.startReconnect(ManageDevices.this);
-                clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0003","0x02");
-                manageAdaptor.notifyDataSetChanged();
-            }
-        });
+//        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recy_manage);
+//        LinearLayoutManager linearLayout = new LinearLayoutManager(ManageDevices.this);
+//        recyclerView.setLayoutManager(linearLayout);
+//        ManageAdaptor manageAdaptor = new ManageAdaptor(deviceList);
+//        recyclerView.setAdapter(manageAdaptor);
+//        manageAdaptor.notifyDataSetChanged();
+//        update_device.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                clientMQTT=new ClientMQTT("light");
+//                try {
+//                    clientMQTT.Mqtt_innit();
+//                } catch (MqttException e) {
+//                    e.printStackTrace();
+//                }
+//                clientMQTT.startReconnect(ManageDevices.this);
+//                clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0003","0x02");
+//                manageAdaptor.notifyDataSetChanged();
+//            }
+//        });
     }
 
     private void initContent()

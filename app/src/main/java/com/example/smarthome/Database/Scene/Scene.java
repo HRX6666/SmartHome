@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Scene extends LitePalSupport {
+    public static final String TIME="time";
     //基本属性
     private List<Condition> conditionList=new ArrayList<>();//条件
     private List<Mission> missionList=new ArrayList<>();//任务

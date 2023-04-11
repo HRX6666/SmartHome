@@ -1,6 +1,7 @@
 package com.example.smarthome.Scene;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -15,6 +16,8 @@ import android.widget.Toast;
 
 import com.example.smarthome.Activity.BottomSmartHome;
 import com.example.smarthome.Activity.FirstActivity;
+import com.example.smarthome.Adapter.ConAndMissAdaptor;
+import com.example.smarthome.Adapter.SceneAdaptor;
 import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.Database.Scene.C_Time;
 import com.example.smarthome.Database.Scene.Condition;
@@ -43,11 +46,16 @@ public class More extends AppCompatActivity {
     Button create;
     EditText model_name;
     String name_ml;
+    private String  id;
     private List<C_Time> c_timeList=new ArrayList<>();
     private  List<Scene> sceneList=new ArrayList<>();
     private List<Map<String,String>> conditionList=new ArrayList<>();
     private List<Map<String,String>> missionList=new ArrayList<>();
-
+    private List<Condition> mConditionList=new ArrayList<>();
+    private List<Mission> mMissionList=new ArrayList<>();
+//TODO 完成条件和任务的recyclerView的初始化
+    //TODO 还有smartFragment的device显示
+    //TODO 时间发送指令那个，只能发送一个捏
     private JSONObject registerInfo;//注册返回信息
     private RecyclerView recy_condition,recy_mission;
     private ClientMQTT clientMQTT;
@@ -62,14 +70,6 @@ public class More extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_more);
         //
-//        Intent intent=getIntent();
-//        String  id=intent.getStringExtra("id");
-//        List<Scene> sceneList=LitePal.where("id = ?",id).find(Scene.class);
-        if(sceneList.isEmpty())
-            time=null;
-        else
-            time=sceneList.get(0).getTime();
-        //TODO 这个界面记得RecyclerView，要检测传进来的时间是否为空，为空就查询场景，初始化recyclerView,记得通过Adaptor的inputTime传入时间
         clientMQTT=new ClientMQTT("light");
         try {
             clientMQTT.Mqtt_innit();
@@ -86,7 +86,22 @@ public class More extends AppCompatActivity {
         3.编写适配器，暂时只显示名称图标和开关
         4.还有电器的自定义命名
          */
+        Intent intent=getIntent();
+        id=intent.getStringExtra("id");
+        List<Scene> sceneList=new ArrayList<>();
+        if(id!=null)
+            sceneList=LitePal.where("id = ?",id).find(Scene.class);
+        if(sceneList.isEmpty())
+            time=null;
+        else{
+            time=sceneList.get(0).getTime();
+            model_name.setText(sceneList.get(0).getName());//TODO 看看显示没有
+        }
+        //TODO 这个界面记得RecyclerView，要检测传进来的时间是否为空，为空就查询场景，初始化recyclerView,记得通过Adaptor的inputTime传入时间
 
+        //TODO 看看能不能显示出来
+        initRecyclerViewCon();
+        initRecyclerViewMiss();
 
 
     }
@@ -242,11 +257,6 @@ public class More extends AppCompatActivity {
 
 
                                 }
-//                                innerValidData="00"+"040"+brightness;
-//                                innerData=getInnerDataForCommand(target_short_address,s_device.getDevice_type(),innerValidData);
-//                                validData=getValidData("05",name,innerData);
-//                                validDataLength=getValidDataLength(validData);
-//                                clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength);
                             }
                             //FIXME  这玩意不知道有用没
                             if(s_device.getLight_model()!=null)
@@ -269,22 +279,6 @@ public class More extends AppCompatActivity {
 
                         }
 
-//                        S_Device s_device=scene.getMissionList().get(0).getS_deviceList().get(0);
-//                        String data1="0x03"+name_ml.length()+name+"0D"+"70E46125004B1200"+00+hexTime;
-//                        String target_short_address=s_device.getTarget_short_address();
-//                        String brightness="0"+s_device.getBrightness();
-//                        String lightModel=s_device.getLight_model();
-//                        String mode=null;
-//                        if(lightModel.equals("1"))
-//                            mode="05";
-//                        else if(lightModel.equals("3"))
-//                            mode="06";
-//                        String innerData=target_short_address+"01"+"02"+"00"+mode;
-//                        String data2="0x03"+name_ml.length()+name+Integer.toHexString(innerData.length())+innerData;
-//                    clientMQTT.publishMessagePlus(null,"0x0000","0xFE",data2,"0x"+data2.length()+"");
-//                        innerData=target_short_address+"01"+"03"+"0104"+"0"+s_device.getBrightness();
-//                        data2="0x03"+name_ml.length()+name+Integer.toHexString(innerData.length())+innerData;
-//                    clientMQTT.publishMessagePlus(null,"0x0000","0xFE",data2,"0x"+data2.length()+"");
                     }
 
                     //TODO S_Device里面的判断是执行还是条件的还没赋值
@@ -433,6 +427,10 @@ public class More extends AppCompatActivity {
         scene.setIsClick(isClick);
         scene.setS_deviceList(s_deviceList);
         scene.setCTimeList(c_timeList);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date date=new Date(System.currentTimeMillis());
+        String time1=simpleDateFormat.format(date);
+        scene.setTime(time1);
         scene.save();
     }
     class MyRunnable implements Runnable{
@@ -454,5 +452,28 @@ public class More extends AppCompatActivity {
         }
 
         //FIXME 没有加定时关闭链接，不关闭会导致之后的设备直接入网
+    }
+    private void initRecyclerViewCon(){
+        if(time!=null){
+            mConditionList.clear();
+            mConditionList=LitePal.where("scene_id = ?",id).find(Condition.class);
+            LinearLayoutManager layoutManager=new LinearLayoutManager(More.this);
+            recy_condition.setLayoutManager(layoutManager);
+            ConAndMissAdaptor conAndMissAdaptor=new ConAndMissAdaptor(mConditionList);
+            recy_condition.setAdapter(conAndMissAdaptor);
+            conAndMissAdaptor.notifyDataSetChanged();
+        }
+
+    }
+    private void initRecyclerViewMiss(){
+        if(time!=null){
+            mMissionList.clear();
+            mMissionList=LitePal.where("scene_id = ?",id).find(Mission.class);
+            LinearLayoutManager layoutManager=new LinearLayoutManager(More.this);
+            recy_mission.setLayoutManager(layoutManager);
+            ConAndMissAdaptor conAndMissAdaptor=new ConAndMissAdaptor(mMissionList,1);
+            recy_mission.setAdapter(conAndMissAdaptor);
+            conAndMissAdaptor.notifyDataSetChanged();
+        }
     }
 }

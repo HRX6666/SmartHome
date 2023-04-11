@@ -45,8 +45,8 @@ public class HomeActivity extends AppCompatActivity {
 //                        Map<String,String> map=new HashMap<>();
 //                        map.put("title",home.getTitle());
 //                        homeList.add(map);
-                        AddHomeHelper addHomeHelper=new AddHomeHelper(1,home.getTitle());
-                        addHomeHelperArrayList.add(addHomeHelper);
+//                        AddHomeHelper addHomeHelper=new AddHomeHelper(1,home.getTitle());
+//                        addHomeHelperArrayList.add(addHomeHelper);
                     }
 
 

@@ -17,6 +17,7 @@ import java.util.TimerTask;
 /**
  * JobScheduler拉活进程会在手机通知栏有显示
  */
+//TODO 手机通知
 public class MyJobService extends JobService {
 
     private static final String TAG = "MyJobService";

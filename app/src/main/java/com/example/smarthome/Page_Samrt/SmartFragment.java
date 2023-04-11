@@ -41,13 +41,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SmartFragment extends Fragment{
+public class SmartFragment extends Fragment {
     private List<Map<String,String>> deviceList=new ArrayList<>();
     private List<Device> devicelist=new ArrayList<>();
+    private List<Device> onlineDeviceList=new ArrayList<>();
+    private List<Device> outlineDeviceList=new ArrayList<>();
     private List<Scene> sceneList=new ArrayList<>();
     private ImageView scene;
+
     String name_m;
-    RecyclerView addsmart,recy_scene;
+    private RecyclerView recy_scene,online_device;
     AddSmartAdapter rvadapter;
     AddModelAdapter2 addModelAdapter2;
     private int i=0;
@@ -61,9 +64,10 @@ public class SmartFragment extends Fragment{
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        addsmart=getActivity().findViewById(R.id.add_smart);
-        recy_scene=getActivity().findViewById(R.id.recy_scene);
-        scene=getActivity().findViewById(R.id.scene);
+//        recy_scene=getActivity().findViewById(R.id.recy_scene);
+        scene=getActivity().findViewById(R.id.add_sense_iv);
+        online_device=getActivity().findViewById(R.id.add_smart);
+//        outline_device=getActivity().findViewById(R.id.outline_device);
         super.onActivityCreated(savedInstanceState);
         add=getActivity().findViewById(R.id.add_home);
         add.setOnClickListener(new View.OnClickListener() {
@@ -105,25 +109,26 @@ public class SmartFragment extends Fragment{
                 getActivity().startActivity(intent);
             }
         });
-//        initRecyclerViewOnline();
+
         recyclerView();
-//        recyclerView2();
+        initRecyclerViewOnline();
+//        initRecyclerViewOutline();
         recyclerView3();
-        initSceneRecyclerView();
+//        initSceneRecyclerView();
     }
 
     private void recyclerView3() {
-        recy_scene.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        List<AddModel> all = LitePal.findAll(AddModel.class);
-        addModelAdapter2= new AddModelAdapter2(all);
-        recy_scene.setAdapter(addModelAdapter2);
-        addModelAdapter2.set0nItemClickListener(new AddModelAdapter2.OnItemClickListener() {
-            @Override
-            public void OnItemClick(View view, int position) {
-                Intent intent=new Intent(getActivity(), SetAllShow.class);
-                startActivity(intent);
-            }
-        });
+//        recy_scene.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+//        List<AddModel> all = LitePal.findAll(AddModel.class);
+//        addModelAdapter2= new AddModelAdapter2(all);
+//        recy_scene.setAdapter(addModelAdapter2);
+//        addModelAdapter2.set0nItemClickListener(new AddModelAdapter2.OnItemClickListener() {
+//            @Override
+//            public void OnItemClick(View view, int position) {
+//                Intent intent=new Intent(getActivity(), SetAllShow.class);
+//                startActivity(intent);
+//            }
+//        });
 
     }
 
@@ -177,65 +182,37 @@ public class SmartFragment extends Fragment{
 //
 //}
     private void recyclerView() {
-        addsmart.setHasFixedSize(true);
-        addsmart.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        //ManageDEVICES.CLASS
-
-        ArrayList<AddSmartHelper> addSmartHelpers = new ArrayList<>();
-        addSmartHelpers.add(new AddSmartHelper(R.drawable.lights_smart, "灯光"));
-        addSmartHelpers.add(new AddSmartHelper(R.drawable.air_condition_smart, "空调"));
-        addSmartHelpers.add(new AddSmartHelper(R.drawable.curtain_smart, "窗帘"));
-        addSmartHelpers.add(new AddSmartHelper(R.drawable.little_mentor, "门锁"));
-        addSmartHelpers.add(new AddSmartHelper(R.drawable.music_smart,"音响"));
-        rvadapter = new AddSmartAdapter(addSmartHelpers);
-        addsmart.setAdapter(rvadapter);
-        rvadapter.setOnItemClickListener(new AddSmartAdapter.OnItemClickListener() {
-            @Override
-            public void OnItemClickListener(View view, int position) {
-                switch (position) {
-                    case 0:
-                        Intent intent1 = new Intent(getActivity(), AdjustTheLights.class);
-                        startActivity(intent1);
-                        break;
-                    case 1:
-                        Intent intent2 = new Intent(getActivity(), AdjustTheAirCondition.class);
-                        startActivity(intent2);
-                        break;
-                    case 2:
-                        Intent intent3 = new Intent(getActivity(), AdustTheCurtain.class);
-                        startActivity(intent3);
-                        break;
-                    case 3:
-                        Intent intent4 = new Intent(getActivity(), Monitoring.class);
-                        startActivity(intent4);
-                        break;
-                    case 4:
-                        Intent intent5 = new Intent(getActivity(), AdjustTheMusic.class);
-                        startActivity(intent5);///Fest文件添加
-                        break;
-                }
-            }
-        });
 
     }
     private void initRecyclerViewOnline(){
-        initContent();
-        LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity());
-        addsmart.setLayoutManager(linearLayout);
-        ManageAdaptor manageAdaptor = new ManageAdaptor(deviceList);
+        onlineDeviceList=LitePal.where("flag= ? and isUpdate = ?","1","1").find(Device.class);
+        LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+        online_device.setLayoutManager(linearLayout);
+        ManageAdaptor manageAdaptor = new ManageAdaptor(onlineDeviceList);
         manageAdaptor.InputFlag(1);
-        addsmart.setAdapter(manageAdaptor);
+        online_device.setAdapter(manageAdaptor);
         manageAdaptor.notifyDataSetChanged();
     }
-    private void initSceneRecyclerView(){
-        sceneList.clear();
-        sceneList=LitePal.findAll(Scene.class);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
-        recy_scene.setLayoutManager(layoutManager);
-        SceneAdaptor sceneAdaptor=new SceneAdaptor(sceneList);
-        recy_scene.setAdapter(sceneAdaptor);
-        sceneAdaptor.notifyDataSetChanged();
-    }
+
+//    private void initRecyclerViewOutline(){
+//        outlineDeviceList=LitePal.where("flag= ? and isUpdate = ?","1","0").find(Device.class);
+//        LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
+//        outline_device.setLayoutManager(linearLayout);
+//        ManageAdaptor manageAdaptor = new ManageAdaptor(outlineDeviceList);
+//        manageAdaptor.InputFlag(1);
+//        outline_device.setAdapter(manageAdaptor);
+//        manageAdaptor.notifyDataSetChanged();
+//    }
+    //TODO Scene的recyclerView
+//    private void initSceneRecyclerView(){
+//        sceneList.clear();
+//        sceneList=LitePal.findAll(Scene.class);
+//        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
+//        recy_scene.setLayoutManager(layoutManager);
+//        SceneAdaptor sceneAdaptor=new SceneAdaptor(sceneList);
+//        recy_scene.setAdapter(sceneAdaptor);
+//        sceneAdaptor.notifyDataSetChanged();
+//    }
     private void initContent()
     {
         deviceList.clear();
@@ -265,4 +242,8 @@ public class SmartFragment extends Fragment{
 
         }
     }
+
+
     }
+
+

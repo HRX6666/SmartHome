@@ -109,7 +109,7 @@ public class Set_lights extends AppCompatActivity {
         lightList=LitePal.where("device_type = ? and flag = ?","01","1").find(Device.class);
         //有任务的不能显示，再Parse那里的短地址
         lightListAdaptor = new LightListAdaptor(this,R.layout.scenelightlist,lightList);
-        
+
 //        lightListAdaptor.setOnItemClickListener(new LightListAdaptor.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(View view, int position) {
@@ -144,8 +144,14 @@ public class Set_lights extends AppCompatActivity {
                     for (int i = 0; i < positionList.size(); i++) {
                         if (positionList.get(i) == position) {
                             positionList.remove(i);
+                            count=i;
                         }
                     }
+                    if(count==-1)
+                        {
+                            positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
+
+                        }
                 }
                 lightListAdaptor.notifyDataSetChanged();
 

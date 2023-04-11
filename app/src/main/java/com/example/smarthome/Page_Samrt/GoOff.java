@@ -32,70 +32,70 @@ public class GoOff extends AppCompatActivity {
                 finish();
             }
         });
-        initcurtain();
-        initlights();
-        initmentor();
+//        initcurtain();
+//        initlights();
+//        initmentor();
 
     }
-    private void initcurtain() {
-        ArrayAdapter adapter_curtain=ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_curtain_model, android.R.layout.simple_spinner_item);
-        Spinner sp_dropdown=findViewById(R.id.go_off_curtain);
-        adapter_curtain.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_dropdown.setPrompt("请选择模式");
-        sp_dropdown.setAdapter( adapter_curtain);
-        sp_dropdown.setSelection(0);
-        sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position1, long id) {
-//                models.setCurtain_model(position1);//直接updateAll？
+//    private void initcurtain() {
+//        ArrayAdapter adapter_curtain=ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_curtain_model, android.R.layout.simple_spinner_item);
+//        Spinner sp_dropdown=findViewById(R.id.go_off_curtain);
+//         adapter_curtain.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        sp_dropdown.setPrompt("请选择模式");
+//        sp_dropdown.setAdapter( adapter_curtain);
+//        sp_dropdown.setSelection(0);
+//        sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position1, long id) {
+////                models.setCurtain_model(position1);//直接updateAll？
 //                models.save();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-    private void initlights() {
-        ArrayAdapter adapter_lights=ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_lights_model, android.R.layout.simple_spinner_item);
-        Spinner sp_dropdown=findViewById(R.id.go_off_lights);
-        adapter_lights.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_dropdown.setPrompt("请选择模式");
-        sp_dropdown.setAdapter(adapter_lights);
-        sp_dropdown.setSelection(0);
-        sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position2, long id) {
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
+//    private void initlights() {
+//        ArrayAdapter adapter_lights=ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_lights_model, android.R.layout.simple_spinner_item);
+//        Spinner sp_dropdown=findViewById(R.id.go_off_lights);
+//        adapter_lights.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        sp_dropdown.setPrompt("请选择模式");
+//        sp_dropdown.setAdapter(adapter_lights);
+//        sp_dropdown.setSelection(0);
+//        sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position2, long id) {
 //                models.setLight_model(position2);
-
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-    private void initmentor() {
-        ArrayAdapter adapter_mentor=ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_mentor, android.R.layout.simple_spinner_item);
-        Spinner sp_dropdown=findViewById(R.id.go_off_mentor);
-        adapter_mentor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp_dropdown.setPrompt("请选择模式");
-        sp_dropdown.setAdapter(adapter_mentor);
-        sp_dropdown.setSelection(0);
-        sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
-                models.setLight_model(position3);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
+//
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
+//    private void initmentor() {
+//        ArrayAdapter adapter_mentor=ArrayAdapter.createFromResource(getApplicationContext(),R.array.choose_mentor, android.R.layout.simple_spinner_item);
+//        Spinner sp_dropdown=findViewById(R.id.go_off_mentor);
+//        adapter_mentor.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        sp_dropdown.setPrompt("请选择模式");
+//        sp_dropdown.setAdapter(adapter_mentor);
+//        sp_dropdown.setSelection(0);
+//        sp_dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position3, long id) {
+//                models.setLight_model(position3);
+//
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+//    }
 }

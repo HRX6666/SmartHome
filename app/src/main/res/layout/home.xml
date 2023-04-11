@@ -1,115 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/home_bg"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="10dp"
-    android:paddingTop="10dp">
-    <androidx.appcompat.widget.Toolbar
+    android:background="@drawable/home">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:titleTextColor="@color/white"
-        app:title="@string/title_notifications"
-        android:layout_gravity="end"
-        android:layout_margin="15dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="175dp"
-        android:text="xxxx的家"
-        android:textSize="35dp"
-        android:textColor="#fff"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-black"
-        android:letterSpacing="0.03"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="10dp"/>
-    <TextView
-        android:id="@+id/home_set_voice"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="  语音设置"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/set_voice"/>
+        android:layout_height="match_parent"
+        android:background="#44FFFFFF"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/bg_home"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
 
-    <TextView
-        android:id="@+id/home_scene"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="  智能场景"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/new_scene"/>
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                app:titleTextColor="@color/white"
+                app:title="@string/title_notifications"
+                android:layout_gravity="end"
+                android:layout_marginTop="5dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="175dp"
+                android:text="xxxx的家"
+                android:textSize="35dp"
+                android:textColor="#fff"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.03"
+                android:layout_marginTop="90dp"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/home_set_voice"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  语音设置"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="10dp"
+            android:drawableEnd="@drawable/set_voice"/>
 
-    <TextView
-        android:id="@+id/home_wife"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="  网络连接"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/wifi"/>
-    <TextView
-        android:id="@+id/home_wangguan"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="  中枢与网关"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/wangguan"/>
-    <TextView
-        android:id="@+id/home_test"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text=" 发现设备"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/smart_add"/>
-    <TextView
-        android:id="@+id/home_set"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="  设置"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/home_set"/>
-    <TextView
-        android:id="@+id/enroll"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:text="  注册/登录"
-        android:textSize="15dp"
-        android:fontFamily="sans-serif-black"
-        android:textColor="@color/lighthui"
-        android:layout_marginTop="25dp"
-        android:drawableEnd="@drawable/regin"/>
+        <TextView
+            android:id="@+id/home_scene"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  智能场景"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="25dp"
+            android:drawableEnd="@drawable/new_scene"/>
 
+        <TextView
+            android:id="@+id/home_wife"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  网络连接"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="25dp"
+            android:drawableEnd="@drawable/wifi"/>
+        <TextView
+            android:id="@+id/home_wangguan"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  中枢与网关"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="25dp"
+            android:drawableEnd="@drawable/wangguan"/>
+        <TextView
+            android:id="@+id/home_test"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  入网管理"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="25dp"
+            android:drawableEnd="@drawable/wangguan"/>
+        <TextView
+            android:id="@+id/home_set"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  设置"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="25dp"
+            android:drawableEnd="@drawable/home_set"/>
+        <TextView
+            android:id="@+id/enroll"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="  注册/登录"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-black"
+            android:textColor="@color/lighthui"
+            android:layout_marginTop="25dp"
+            android:drawableEnd="@drawable/regin"/>
 
-
-
-
-
-
-
-
-
-
-
-
-
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>

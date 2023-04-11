@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page_Samrt.AdjustTheLights"
+    android:orientation="vertical"
+    android:background="#44FFFFFF">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Page_Samrt.AdjustTheLights"
+        android:orientation="vertical"
+        android:background="#44FFFFFF">
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:layout_marginTop="210dp">
+            <Spinner
+                android:id="@+id/lights_choose_home"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:spinnerMode="dropdown"
+                android:layout_marginTop="20dp"/>
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text="亮度"
+            android:layout_marginTop="15dp"
+            android:textStyle="bold"
+            android:fontFamily="sans-serif-black" />
+
+        <com.example.smarthome.View.StepSeekBar
+            android:id="@+id/brightness"
+            app:markTextArray="@array/markArray"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            app:textSize="15sp"
+            app:spaceBetween="10dp"
+            app:cursorBackground="@drawable/adjust_lights"
+            android:layout_marginTop="10dp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/cv_model"
+                android:layout_width="135dp"
+                android:layout_height="230dp"
+                android:background="@drawable/bg_card"
+                android:layout_marginLeft="29dp"
+                android:layout_marginTop="37dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="#0EFFF1DC"
+                    android:text="模式选择"
+                    android:textColor="#004E8D"
+                    android:textSize="17dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="呼吸灯"
+                    android:textColor="#030303"
+                    android:layout_marginLeft="13dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="-15dp"/>
+                <com.github.iielse.switchbutton.SwitchView
+                    android:id="@+id/v_switch_1"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    app:primaryColor="#FFE28C"
+                    app:isOpened="false"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="-45dp"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="135dp"
+                android:layout_height="110dp"
+                android:layout_marginLeft="45dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_toRightOf="@+id/cv_model"
+                android:background="@drawable/bg_card"
+                app:cardCornerRadius="24dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/turn_the_lights_off" />
+
+                <TextView
+                    android:id="@+id/turn_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="25dp"
+                    android:text="  开    关"
+                    android:textColor="#001274"
+                    android:textSize="18dp" />
+
+                <com.github.iielse.switchbutton.SwitchView
+                    android:id="@+id/primary_button"
+                    android:layout_width="30dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="90dp"
+                    android:layout_marginTop="-30dp"
+                    app:isOpened="false"
+                    app:primaryColor="#FFD968" />
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>

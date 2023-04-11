@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Scene.More"
+    android:background="#FFFFFF"
+    android:orientation="vertical">
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/add_sense_dra"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"/>
+    <EditText
+        android:id="@+id/sense_name_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:padding="12dp"
+        android:singleLine="true"
+        android:layout_marginTop="30dp"
+        android:hint="请添加您的传感器"
+        android:background="@drawable/bg_edit_text"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_sense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确定"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:padding="12dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#3897f0"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        app:cornerRadius="4dp"/>
+
+
+
+
+
+
+</LinearLayout>

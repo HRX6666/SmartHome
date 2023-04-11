@@ -1,5 +1,6 @@
 package com.example.smarthome.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,16 +12,20 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smarthome.Database.Scene.Scene;
+import com.example.smarthome.Database.Sensor;
 import com.example.smarthome.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class SensorListAdaptor  extends RecyclerView.Adapter<SensorListAdaptor.ViewHolder>{
     private SensorListAdaptor.OnItemClickListener mItemClickListener;
-    private List<Map<String,String>> mSensorList;
+    private List<Sensor> mSensorList;
 
-    public SensorListAdaptor(List<Map<String,String>> mSensorList){
+    public SensorListAdaptor(List<Sensor> mSensorList){
         this.mSensorList=mSensorList;
     }
 
@@ -60,7 +65,39 @@ public class SensorListAdaptor  extends RecyclerView.Adapter<SensorListAdaptor.V
         holder.sensorView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"进入sensor界面",Toast.LENGTH_SHORT ).show();
+                SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+                Date date=new Date(System.currentTimeMillis());
+                Sensor sensor=new Sensor();
+                String time1=simpleDateFormat.format(date);
+                sensor.setTime(time1);
+                sensor.update(mSensorList.get(holder.getAdapterPosition()).getId());
+                String device_type=mSensorList.get(holder.getAdapterPosition()).getDevice_type();
+              switch (device_type){
+                  case ("04"):
+                      Intent intent=new Intent();
+                      intent.putExtra(Scene.TIME,time1);
+                      holder.sensorView.getContext().startActivity(intent);
+                      break;
+                  case ("05"):
+
+//                      Intent intent1=new Intent();
+//                      intent1.putExtra(Scene.TIME,time1);
+//                      holder.sensorView.getContext().startActivity(intent1);
+                      break;
+                  case ("06"):
+
+//                      Intent intent2=new Intent();
+//                      intent2.putExtra(Scene.TIME,time1);
+//                      holder.sensorView.getContext().startActivity(intent2);
+                      break;
+//                  case ("07"):
+//
+//                      break;
+//
+//                  case ("08"):
+//
+//                      break;
+              }
             }
         });
     }

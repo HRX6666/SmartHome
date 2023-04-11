@@ -6,12 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.smarthome.Adapter.AirListAdaptor;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Condition;
 import com.example.smarthome.Database.Scene.Mission;
 import com.example.smarthome.Database.Scene.S_Device;
@@ -31,7 +33,7 @@ public class Set_air extends AppCompatActivity {
     public static final String TIME="time";
     RecyclerView recyclerView;
     private AirListAdaptor airListAdaptor;
-    private List<Map<String,String>> mAirList;
+    private List<Device> mAirList;
     private List<Integer> positionList;//储存选择的电器
     private Mission mission;
     private MaterialButton create;
@@ -74,26 +76,64 @@ public class Set_air extends AppCompatActivity {
     private void recyclerView() {
         recyclerView=findViewById(R.id.select_air);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        airListAdaptor=new AirListAdaptor(mAirList);
-        airListAdaptor.setOnItemClickListener(new AirListAdaptor.OnItemClickListener() {
+        airListAdaptor=new AirListAdaptor(this,R.layout.scene_airlist,mAirList);
+//        airListAdaptor.setOnItemClickListener(new AirListAdaptor.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(View view, int position) {
+//                for(int i=0;i<positionList.size();i++){
+//                    if(positionList.get(i)==position){
+//                        count=i;
+//                        positionList.remove(i);
+//                    }
+//                }
+//                if(count==-1)
+//                {
+//                    positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
+//
+//                }
+//
+//
+//            }
+//        });
+        recyclerView.setAdapter(airListAdaptor);
+        airListAdaptor.setOnItemClickListner(new AirListAdaptor.OnItemClickListner() {
             @Override
-            public void onItemClick(View view, int position) {
-                for(int i=0;i<positionList.size();i++){
-                    if(positionList.get(i)==position){
-                        count=i;
-                        positionList.remove(i);
+            public void onItemClickListner(View v, int position) {
+                currentPosition = position;
+                if(positionList.isEmpty())
+                    positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
+                else {
+                    for (int i = 0; i < positionList.size(); i++) {
+                        if (positionList.get(i) == position) {
+                            positionList.remove(i);
+                            count=i;
+                        }
+                    }
+                    if(count==-1)
+                    {
+                        positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
+
                     }
                 }
-                if(count==-1)
-                {
-                    positionList.add(position);//选择多项设备通过字符串储存选择的位置，那要是选择两遍呢?遍历，有就删除，没有就添加
-
-                }
-
+                airListAdaptor.notifyDataSetChanged();
 
             }
         });
-        recyclerView.setAdapter(airListAdaptor);
+        airListAdaptor.setCallBack(new AirListAdaptor.CallBack() {
+            @Override
+            public <T> void convert(AirListAdaptor.ViewHolder holder, T bean, int position) {
+                ConstraintLayout constraintLayout = (ConstraintLayout) holder.getView(R.id.constraintLayout);
+                if(positionList.isEmpty())
+                    constraintLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                for (int i = 0; i < positionList.size(); i++) {
+                    if (positionList.get(i) == position) {
+                        constraintLayout.setBackgroundResource(R.drawable.blackbackground);
+                    }
+                    else
+                        constraintLayout.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                }
+            }
+        });
         airListAdaptor.notifyDataSetChanged();
     }
 
@@ -147,7 +187,7 @@ public class Set_air extends AppCompatActivity {
                                 Temp temp= LitePal.findLast(Temp.class);
                                 for (int i = 0; i < positionList.size(); i++) {
                                     int n=positionList.get(i);
-                                    String target_long_address=mAirList.get(n).get("target_long_address");
+                                    String target_long_address=mAirList.get(n).getTarget_long_address();
                                     S_Device s_device=new S_Device();
                                     if(warm!=-1)
                                         s_device.setAir_model("1");

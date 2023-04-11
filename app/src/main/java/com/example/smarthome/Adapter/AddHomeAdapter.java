@@ -15,6 +15,7 @@ import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.Database.Home;
 import com.example.smarthome.Helper.ExtendHeatHelper;
 import com.example.smarthome.Page_Huiju.AddHome;
+
 import com.example.smarthome.R;
 
 import java.util.ArrayList;
@@ -78,7 +79,7 @@ public class AddHomeAdapter extends  RecyclerView.Adapter<com.example.smarthome.
             public ViewHolder(@NonNull View itemView) {
 
                 super(itemView);
-                r_model=(TextView) itemView.findViewById(R.id.room_name);
+                r_model=(TextView) itemView.findViewById(R.id.tv_name);
                 view=itemView;
 
             }

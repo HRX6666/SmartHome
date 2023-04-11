@@ -19,4 +19,5 @@
         android:background="#ADC8CFCE"
         app:menu="@menu/bottom_nav_menu"
         android:id="@+id/smart_home"/>
+
 </RelativeLayout>

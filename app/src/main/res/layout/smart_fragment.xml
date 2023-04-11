@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,32 +11,29 @@
         android:background="#44FFFFFF"
         android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
 
-        <ImageView
-            android:id="@+id/scene"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_centerVertical="true"
-            android:src="@drawable/menu1" />
+            <ImageView
+                android:id="@+id/add_sense_iv"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/menu1" />
 
-        <ImageView
-            android:id="@+id/add_home"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:padding="5dp"
-            android:src="@drawable/smart_add" />
+            <ImageView
+                android:id="@+id/add_home"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:padding="5dp"
+                android:src="@drawable/smart_add" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,21 +48,30 @@
                 <TextView
                     android:id="@+id/smart"
                     android:layout_width="58dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="40dp"
                     android:layout_centerHorizontal="true"
                     android:text="@string/title_dashboard"
                     android:textSize="24sp" />
             </RelativeLayout>
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recy_scene"
+                android:id="@+id/add_medal"
                 android:layout_width="317dp"
-                android:layout_height="120dp"
+                android:layout_height="105dp"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center">
+
+            </androidx.recyclerview.widget.RecyclerView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/add_sence"
+                android:layout_width="317dp"
+                android:layout_height="105dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center">
 
             </androidx.recyclerview.widget.RecyclerView>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="180dp"
                 android:layout_margin="20dp"
@@ -91,7 +97,7 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="20dp"
                         android:fontFamily="@font/alfa_slab_one"
-                        android:text=" 在\n 线\n 设\n 备"
+                        android:text=" 设\n\n\n 备"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
 
@@ -101,95 +107,20 @@
                     android:id="@+id/add_smart"
                     android:layout_width="match_parent"
                     android:layout_height="160dp"
-                    android:layout_toRightOf="@+id/title1"
-                    android:layout_marginTop="10dp"
-                    android:descendantFocusability="blocksDescendants"
-                    android:orientation="vertical" />
-
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_margin="20dp"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/bg_card"
-                app:cardCornerRadius="25dp"
-                app:cardElevation="5dp">
-
-                <LinearLayout
-                    android:id="@+id/title2"
-                    android:layout_width="100dp"
-                    android:layout_height="165dp"
                     android:layout_marginStart="10dp"
+                    android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="10dp"
                     android:layout_marginBottom="10dp"
-                    android:background="@drawable/bg_smart2"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginLeft="30dp"
-                        android:text=" 离\n 线\n 设\n 备"
-                        android:fontFamily="@font/alfa_slab_one"
-                        android:textColor="@color/black"
-                        android:textSize="18dp" />
-
-                </LinearLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/add_smart_leave"
-                    android:layout_width="match_parent"
-                    android:layout_height="160dp"
-                    android:layout_marginTop="10dp"
                     android:layout_toRightOf="@+id/title1"
                     android:descendantFocusability="blocksDescendants"
                     android:orientation="vertical" />
 
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:fontFamily="sans-serif-black"-->
-<!--                        android:text="更多玩法"-->
-<!--                        android:textAllCaps="true"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textSize="20sp" />-->
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:text="..." />
-
-                </RelativeLayout>
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
+            </RelativeLayout>
 
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
 
 </LinearLayout>
-</ScrollView>

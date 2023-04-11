@@ -15,15 +15,15 @@
         app:titleTextColor="@color/lighthui">
     </androidx.appcompat.widget.Toolbar>
 
- <TextView
-     android:layout_width="match_parent"
-     android:layout_height="50dp"
-     android:text="房间快捷指令设置"
-     android:textSize="15dp"
-     android:fontFamily="sans-serif-black"
-     android:textColor="@color/lighthui"
-     android:layout_marginTop="25dp"
-     android:drawableEnd="@drawable/enroll_next"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="房间快捷指令设置"
+        android:textSize="15dp"
+        android:fontFamily="sans-serif-black"
+        android:textColor="@color/lighthui"
+        android:layout_marginTop="25dp"
+        android:drawableEnd="@drawable/enroll_next"/>
 
     <TextView
         android:layout_width="match_parent"

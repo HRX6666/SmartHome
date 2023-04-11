@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Database.Home;
 import com.example.smarthome.Page_Huiju.AddHome;
-
 import com.example.smarthome.R;
 
 import java.util.ArrayList;
@@ -22,8 +20,8 @@ import java.util.List;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private Context mContext; // 声明一个上下文对象
     private List<Home> mList = new ArrayList<>();
-    AddModelAdapter2.OnItemClickListener onItemClickListener;//声明接口对象
-    public void set0nItemClickListener(AddModelAdapter2.OnItemClickListener onItemClickListener){
+    AddSenseAdapter.OnItemClickListener onItemClickListener;//声明接口对象
+    public void set0nItemClickListener(AddSenseAdapter.OnItemClickListener onItemClickListener){
         this.onItemClickListener=onItemClickListener;//传递接口
     }
     public interface OnItemClickListener{
@@ -75,7 +73,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         public ViewHolder(final View itemView) {
             super(itemView);
 //            mImageView = (ImageView) itemView.findViewById(R.id.imageView);
-            r_name=(TextView) itemView.findViewById(R.id.room_name);
+            r_name=(TextView) itemView.findViewById(R.id.tv_name);
             view=itemView;
 
 

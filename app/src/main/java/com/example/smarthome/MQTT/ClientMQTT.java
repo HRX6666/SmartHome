@@ -50,8 +50,8 @@ public class ClientMQTT {
     private static final String userName = "ESP32-C3-username";
 //    private static final String password = "ESP32-C3-password";
     private static final String password = "sUFhMRm3FUx6RqhKWYnRQBGQF6y1YZYHLsrVtaoYKA2GrPu9";
-//    public  static final String serverURI="tcp://broker.emqx.io:1883";
-  public  static final String serverURI="tcp://home.towo.eu.org";
+    public  static final String serverURI="tcp://broker.emqx.io:1883";
+//  public  static final String serverURI="tcp://home.towo.eu.org";
 
     private String device_id=MqttClient.generateClientId();
 

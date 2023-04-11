@@ -32,6 +32,7 @@ public class ParseJson {
 
     }
     public void ParseJsonData(String jsonData,int flag) {
+
         JSONObject jsonObject = JSONObject.parseObject(jsonData);
         String device_type_ = jsonObject.getString("device_type");
         flag=0;
@@ -296,7 +297,7 @@ public class ParseJson {
                 }
 
             }
-//FIXME flag没用啊，你测试测试
+
         }
 
 

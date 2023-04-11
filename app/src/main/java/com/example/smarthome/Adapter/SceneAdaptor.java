@@ -18,8 +18,8 @@ import com.example.smarthome.Scene.More;
 import java.util.ArrayList;
 import java.util.List;
 
-//TODO getItemCount()中的List.size()记得看看都改完了没，还有public void onClick(View v)这玩意看看里面的内容都改了没
-//TODO adaptor的监听事件不仅要在Adaptor中设置，还要再Activity中添加adaptor.setOnClickListener()
+
+
 public class SceneAdaptor extends RecyclerView.Adapter<SceneAdaptor.ViewHolder> {
     private SceneAdaptor.OnItemClickListener mItemClickListener;
     private List<Scene> sceneList=new ArrayList<>();
@@ -61,7 +61,6 @@ public class SceneAdaptor extends RecyclerView.Adapter<SceneAdaptor.ViewHolder> 
                 Intent intent=new Intent(parent.getContext(), More.class);
                 intent.putExtra("id",String.valueOf(sceneList.get(holder.getAdapterPosition()).getId()));
                 parent.getContext().startActivity(intent);
-
             }
         });
         return holder;
@@ -69,8 +68,8 @@ public class SceneAdaptor extends RecyclerView.Adapter<SceneAdaptor.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull SceneAdaptor.ViewHolder holder, int position) {
+        //TODO 要判断是sceneList否为空还是?
     holder.sceneName.setText(sceneList.get(position).getName());
-
     }
 
     @Override

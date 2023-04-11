@@ -72,7 +72,7 @@ private int curtain_extent;//窗帘程度
    //通过Temp?
 //设备是一个场景中只能用一次，还是说多个条件可以用同一个设备，或者任务里面还可以重用设备
     private int flag;//是否同意允许该家器接入
-    private int isUpdate;//判断app开启电器入网是否收到了这条电器信息
+    private int isUpdate;//判断app开启电器入网是否收到了这条电器信息,在线标志
     private String light_id;
     private int light_brightness;//亮度
     private int light_temp;//色温

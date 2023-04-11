@@ -3,6 +3,7 @@ package com.example.smarthome.Database;
 import org.litepal.crud.LitePalSupport;
 
 public class Sensor extends LitePalSupport {
+    private int id;
     private String device_type;
     private String target_short_address;
     private String controller_long_address;
@@ -12,10 +13,27 @@ public class Sensor extends LitePalSupport {
     private String i_wetness;//独立湿度
     private String smoking;
     private String valid_data;
+    private String time;//点击传感器的时间，通过intent传过去，再通过litepal寻找到sensor
     private int flag;
     private int isUpdate;
     //独立温度传感器
     private String temp_independent;
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getI_temp() {
         return i_temp;

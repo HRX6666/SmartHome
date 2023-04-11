@@ -22,37 +22,22 @@ import java.util.List;
 import java.util.Map;
 
 public class LightListAdaptor extends RecyclerView.Adapter<LightListAdaptor.ViewHolder>{
-    //    private static LightListAdaptor.OnItemClickListener mItemClickListener;
-    private List<Device> mLightList=new ArrayList<>();
 
+    private List<Device> mLightList=new ArrayList<>();
     private int layoutId;
-    private List<? extends Object> data;
     public Context context;
     private OnItemClickListner onItemClickListner;//单击事件
     private OnItemLongClickListner onItemLongClickListner;//长按单击事件
     private boolean clickFlag = true;//单击事件和长单击事件的屏蔽标识
 
-    //回调
-//    private ItemSelectedCallBack mCallBack;
 
-//    @Override
-//    protected void convert(ViewHolder helper, AmountInfo item) {
-//
-//        if (mCallBack != null) {
-//            mCallBack.convert(helper, helper.getLayoutPosition());
-//        }
-//
-//    }
-//    public void setItemSelectedCallBack(ItemSelectedCallBack CallBack) {
-//        this.mCallBack = CallBack;
-//    }
 
     public interface ItemSelectedCallBack {
         void convert(ViewHolder holder, int position);
     }
 
-    public LightListAdaptor(List<Device> mlightList){
-        this.mLightList=mlightList;
+    public LightListAdaptor(List<Device> mLightList){
+        this.mLightList=mLightList;
     }
     public LightListAdaptor(Context context, int layoutId,List<Device> mLightList) {
         this.layoutId = layoutId;
@@ -112,17 +97,6 @@ public class LightListAdaptor extends RecyclerView.Adapter<LightListAdaptor.View
                 return false;
             }
         });
-        //如果用户编辑之前已经选择的条件或任务，就要让之前选择的电器变为选中状态
-//        holder.lightView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-////                holder.constraintLayout.setBackgroundResource(R.drawable.blackbackground);
-////                if(holder.constraintLayout.getBackground().equals(ContextCompat.getDrawable(holder.constraintLayout.getContext(), R.drawable.blackbackground))) {
-////                    holder.constraintLayout.setBackgroundColor(0xFFFFFFFF);
-////                }
-//            }
-//        });
-
         return holder;
     }
 

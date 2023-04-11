@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:logo="@drawable/back"
-        app:title="选择任务"
+        app:title="选择条件"
         app:titleTextColor="@color/lighthui">
     </androidx.appcompat.widget.Toolbar>
 

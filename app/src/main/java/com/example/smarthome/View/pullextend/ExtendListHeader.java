@@ -5,6 +5,7 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,18 +15,36 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smarthome.Activity.SetAllShow;
+import com.example.smarthome.Adapter.AddModelAdapter2;
+import com.example.smarthome.Adapter.ExtendHeadAdapter;
+import com.example.smarthome.Adapter.base.CommonAdapter;
+//import com.example.smarthome.Database.AddDevice;
+import com.example.smarthome.Database.AddDevice;
+import com.example.smarthome.Database.AddModel;
+//import com.example.smarthome.Database.AddSense;
 import com.example.smarthome.Helper.UIHelper;
 import com.example.smarthome.Page_Home.FindDevices;
+import com.example.smarthome.Page_Huiju.HuijuFrament;
+//import com.example.smarthome.Page_Samrt.Add_Sense;
 import com.example.smarthome.R;
 import com.example.smarthome.animation.AddAnimationRotation;
 import com.example.smarthome.animation.RuwangAnimationAlpha;
+import com.hb.dialog.myDialog.MyAlertInputDialog;
 
+import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -38,9 +57,12 @@ public class ExtendListHeader extends ExtendLayout {
     float listHeight = UIHelper.dip2px(500);
     boolean arrivedListHeight = false;
     private RecyclerView mRecyclerView;
+    String device_nl;
     ImageView sun,moon;
+    ExtendHeadAdapter extendHeadAdapter;
     CardView ruwang;
     ObjectAnimator objectAnimator;
+    List<String> mDatas = new ArrayList<>();
 
     /**
      * 原点
@@ -72,6 +94,7 @@ public class ExtendListHeader extends ExtendLayout {
         moon=view.findViewById(R.id.moon);
         ruwang=view.findViewById(R.id.ruwang);
 
+
     }
 
     @Override
@@ -84,7 +107,7 @@ public class ExtendListHeader extends ExtendLayout {
 
     @Override
     protected void bindView(View container) {
-        mRecyclerView = findViewById(R.id.list);
+       mRecyclerView = findViewById(R.id.device_list);
         mExpendPoint = findViewById(R.id.expend_point);
     }
 
@@ -116,7 +139,6 @@ public class ExtendListHeader extends ExtendLayout {
         mExpendPoint.setTranslationY(0);
         mRecyclerView.setTranslationY(0);
         arrivedListHeight = false;
-
         ScaleAnimation scaleAnimation = new ScaleAnimation(0.4f, 1.0f, 0.50f, 1.0f,
                 Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
         scaleAnimation.setDuration(4000);
@@ -136,8 +158,7 @@ public class ExtendListHeader extends ExtendLayout {
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(scaleAnimation);
         animationSet.addAnimation(translateAnimation);
-        sun.startAnimation(animationSet);
-
+         sun.startAnimation(animationSet);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -178,11 +199,71 @@ public class ExtendListHeader extends ExtendLayout {
         });
         ruwang.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View v) {//点击入网以后连接网络判断是否可以执行下面的步骤？以下是弹出提示框是否进行设备接入................
+                final MyAlertInputDialog myAlertInputDialog1=new MyAlertInputDialog(getContext()).builder().
+                        setTitle("发现设备是否接入").setPositiveButton("同意",new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                final MyAlertInputDialog myAlertInputDialog = new MyAlertInputDialog(getContext()).builder()
+                                        .setTitle("请输入设备名称")
+                                        .setEditText("").setCancelable(true);
+                                myAlertInputDialog.setPositiveButton("确认", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        device_nl= myAlertInputDialog.getResult();
+                                        if(TextUtils.isEmpty(device_nl)){
+                                            Toast.makeText(getContext(),"请输入传感器名称",Toast.LENGTH_SHORT).show();
+                                            return;
+                                        }
+//                                        AddDevice addDevice=new AddDevice();
+//                                        addDevice.setDevice(device_nl);
+//                                        addDevice.save();
+//                                        addDevice.update(2);
+//                                        adddevice();
+                                        myAlertInputDialog.dismiss();
+
+                                    }
+                                }).setNegativeButton("取消", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+
+                                    }
+                                });
+                                myAlertInputDialog.show();
+                            }
+
+
+                }).setNegativeButton("拒绝",new View.OnClickListener(){
+
+                            @Override
+                            public void onClick(View v) {
+                                Toast.makeText(getContext(),"好吧",Toast.LENGTH_SHORT).show();
+
+                            }
+                        });
+                myAlertInputDialog1.show();
+
+                ruwang.setVisibility(VISIBLE);
+
+
+
+
+//
+
             }
         });
 
+
     }
+
+    private void adddevice() {
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        List<AddDevice> all = LitePal.findAll(AddDevice.class);
+        extendHeadAdapter= new ExtendHeadAdapter(all);
+        mRecyclerView.setAdapter(extendHeadAdapter);
+
+    }
+
     @Override
     public void onVisibility(){
         sun.setVisibility(INVISIBLE);
@@ -254,8 +335,11 @@ public class ExtendListHeader extends ExtendLayout {
         animationSet.addAnimation(alphaAnimation);
         animationSet.addAnimation(scaleAnimation);
         animationSet.addAnimation(translateAnimation);
-        sun.startAnimation(animationSet);
+         sun.startAnimation(animationSet);
     }
+
+
+
 
 
 }

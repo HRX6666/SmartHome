@@ -54,7 +54,6 @@ public class FindDevices extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("app_data", MODE_PRIVATE);
         boolean switchStatus = sharedPreferences.getBoolean("switch_status", false);
         aSwitch.setChecked(switchStatus);
-        //TODO 这边的switch状态关闭APP后还是保存的，记得修改
         Device device=new Device();
         device.setToDefault("isUpdate");
         device.updateAll();

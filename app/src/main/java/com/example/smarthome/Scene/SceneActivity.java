@@ -6,8 +6,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.smarthome.Adapter.SceneAdaptor;
 import com.example.smarthome.Database.Scene.Scene;
 import com.example.smarthome.R;
 
@@ -26,19 +28,16 @@ public class SceneActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sceneactivity);
         scene_back=findViewById(R.id.scene_back);
-
+        recyclerView=findViewById(R.id.recy_scene);
         initListener();
         initRecyclerView();
+        initSceneRecyclerView();
     }
 
     private void initRecyclerView() {
         initContent();
     }
     private void initContent(){
-        sceneList.clear();
-        sceneList= LitePal.findAll(Scene.class);
-
-
     }
     private void initListener(){
         scene_back.setNavigationOnClickListener(new View.OnClickListener() {
@@ -47,6 +46,14 @@ public class SceneActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+    }
+    private void initSceneRecyclerView(){
+        sceneList.clear();
+        sceneList=LitePal.findAll(Scene.class);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(SceneActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+        SceneAdaptor sceneAdaptor=new SceneAdaptor(sceneList);
+        recyclerView.setAdapter(sceneAdaptor);
+        sceneAdaptor.notifyDataSetChanged();
     }
 }

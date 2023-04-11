@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.smarthome.R;
-import com.example.smarthome.Scene.Time.TimeActivity;
 
 public class Tesk extends AppCompatActivity {
     TextView temperature,time,humidity;
@@ -23,7 +22,7 @@ public class Tesk extends AppCompatActivity {
     private void inint() {
         temperature=findViewById(R.id.set_terperature);
         time=findViewById(R.id.set_time);
-        humidity=findViewById(R.id.set_humidity);//湿度
+        humidity=findViewById(R.id.set_humidity);
     }
     private void touch() {
         temperature.setOnClickListener(new View.OnClickListener() {
@@ -31,13 +30,6 @@ public class Tesk extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent1=new Intent(Tesk.this,Temperature.class);
                 startActivity(intent1);
-            }
-        });
-        time.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent2=new Intent(Tesk.this, TimeActivity.class);
-                startActivity(intent2);
             }
         });
         humidity.setOnClickListener(new View.OnClickListener() {

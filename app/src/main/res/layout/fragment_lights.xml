@@ -74,40 +74,7 @@
                     android:text="模式选择"
                     android:textColor="#004E8D"
                     android:textSize="17dp" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="普通"
-                    android:textColor="#030303"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginBottom="0dp"
-                    android:layout_marginTop="0dp"/>
-                <com.github.iielse.switchbutton.SwitchView
-                    android:id="@+id/sw_normal"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:primaryColor="#FFE28C"
-                    app:isOpened="false"
-                    android:layout_marginLeft="75dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="-30dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="晚睡"
-                    android:textColor="#030303"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="-10dp"/>
-                <com.github.iielse.switchbutton.SwitchView
-                    android:id="@+id/sw_breathe"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:primaryColor="#FFE28C"
-                    app:isOpened="false"
-                    android:layout_marginLeft="75dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="-46dp"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,7 +84,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="-15dp"/>
                 <com.github.iielse.switchbutton.SwitchView
-                    android:id="@+id/v_switch_1"
+                    android:id="@+id/light_breathe"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     app:primaryColor="#FFE28C"
@@ -125,23 +92,6 @@
                     android:layout_marginLeft="75dp"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="-45dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="自定义"
-                    android:textColor="#030303"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="-15dp"/>
-                <com.github.iielse.switchbutton.SwitchView
-                    android:id="@+id/sw_else"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    app:primaryColor="#FFE28C"
-                    app:isOpened="false"
-                    android:layout_marginLeft="75dp"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="-37dp"/>
 
             </LinearLayout>
 

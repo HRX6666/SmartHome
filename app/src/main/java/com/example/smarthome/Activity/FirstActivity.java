@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 //import org.litepal.LitePal;
 //import org.litepal.tablemanager.Connector;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.Page_Samrt.AdjustTheLights;
 import com.example.smarthome.R;
@@ -63,6 +64,9 @@ class MyRunnable implements Runnable{
 
     @Override
     public void run() {
+        Device device=new Device();
+        device.setToDefault("isUpdate");
+        device.updateAll();
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {

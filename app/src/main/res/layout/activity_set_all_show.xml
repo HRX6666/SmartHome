@@ -4,7 +4,114 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.SetAllShow">
+    tools:context=".Activity.SetAllShow"
+    android:orientation="vertical"
+    android:background="#F4F8EA">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:text="空调"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="#EDF2DE"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:id="@+id/tv_tem"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:text="温度"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/tv_shidu"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/tv_tem"
+            android:text="湿度"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/tv_model"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/tv_shidu"
+            android:text="模式"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/tv_wind"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/tv_model"
+            android:text="风速"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:text="灯光"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="#EDF2DE"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:id="@+id/tv_light"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:text="亮度"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/tv_model_light"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:layout_toRightOf="@id/tv_light"
+            android:text="模式"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+
+    </RelativeLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:text="窗帘"
+        android:textSize="20dp"
+        android:textStyle="bold"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:background="#EDF2DE"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:id="@+id/tv_cur"
+            android:layout_width="40dp"
+            android:layout_height="30dp"
+            android:text="模式"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="30dp"/>
+
+
+    </RelativeLayout>
 
 
 

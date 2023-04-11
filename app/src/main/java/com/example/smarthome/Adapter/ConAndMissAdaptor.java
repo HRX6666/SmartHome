@@ -49,7 +49,7 @@ public class ConAndMissAdaptor  extends RecyclerView.Adapter<ConAndMissAdaptor.V
      * 0为条件
      * 1为任务
      */
-    private int flag;
+    private int flag=0;
     public void setFlag(int flag){
         this.flag=flag;
     }
@@ -153,7 +153,7 @@ public class ConAndMissAdaptor  extends RecyclerView.Adapter<ConAndMissAdaptor.V
 
 
                     }
-                    //TODO 别忘了C++学生管理系统
+
 
                 }
 
