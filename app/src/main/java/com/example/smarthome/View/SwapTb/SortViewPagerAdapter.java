@@ -3,6 +3,7 @@ package com.example.smarthome.View.SwapTb;
 import java.util.List;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,6 +32,7 @@ public class SortViewPagerAdapter extends PagerAdapter {
         ((ViewPager) container).removeView(mLists.get(position));
     }
 
+    @NonNull
     @Override
     public Object instantiateItem(View container, int position) {
         ((ViewPager) container).addView(mLists.get(position));

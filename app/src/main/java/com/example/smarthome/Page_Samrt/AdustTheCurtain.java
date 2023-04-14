@@ -4,11 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -16,6 +18,7 @@ import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Room;
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
+import com.example.smarthome.View.ArcSeekBar;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.litepal.LitePal;
@@ -35,6 +38,7 @@ public class AdustTheCurtain extends AppCompatActivity {
     private CardView bt_closeCurtain;
     private int home_choose;
     private String s_home_choose;
+    private  ArcSeekBar deep;
     //下拉框进入默认是全屋，进入界面时应该根服务器同步数据，设置当前设备状态是怎么样的，那个seekbar也一样，要根据实际情况来变
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +46,8 @@ public class AdustTheCurtain extends AppCompatActivity {
         setContentView(R.layout.activity_adust_the_curtain);
         curtain_tb = findViewById(R.id.curtain_tb);
         bt_openAll = findViewById(R.id.open_all);
-//        bt_openMid = findViewById(R.id.open_mid);
-//        spinner_choose_home = findViewById(R.id.curtain_choose_home);//这个因为要重新设计，毕竟房间可以自由添加，不能固定在spinner那几个
+        deep=findViewById(R.id.deep);
+
         bt_closeCurtain = findViewById(R.id.close_curtain);
 //        initDropdown1();
         clientMQTT = new ClientMQTT("light");
@@ -53,61 +57,43 @@ public class AdustTheCurtain extends AppCompatActivity {
             e.printStackTrace();
         }
         clientMQTT.startReconnect(AdustTheCurtain.this);
-//        List<Device> devicelist= LitePal.where("flag = ? and source_command = ?","1","0x03").find(Device.class);
-//        List<Map<String,String>> deviceList=new ArrayList<>();
-//        Map<String,String> map=new HashMap<>();
-//        for(Device device:devicelist){
-//            Room room=device.getRoom();
-//            int a=room.getCategory();
-//            String home="0x0"+a;
-//            if(home.equals(s_home_choose)){
-//        //  map.put("")
-//
-//            deviceList.add(map);
-//            }
-//
-//
-//        }
+        Intent intent=getIntent();
+        String target_long_address=intent.getStringExtra(Device.TARGET_LONG_ADDRESS);
+        Device device=LitePal.where("target_long_address = ?",target_long_address).findFirst(Device.class);
+        String target_short_address=device.getTarget_short_address();
+        String device_type=device.getDevice_type();
+
+        deep.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                String extent=String.valueOf(progress);
+                if(extent.length()==1){
+                    extent="0"+extent;
+                }
+                clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x"+extent,"0x01");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         bt_openAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                for(Device device:devicelist){
-////                    Room room=device.getRoom();
-////                    int a=room.getCategory();
-////                    String home="0x0"+a;
-////                    if(home.equals(s_home_choose)){
-////                        map.put("misc","0x00");
-////                        map.put("target_short_address",device.getSource_short_address());
-////                        map.put("target_command",device.getSource_command());
-//////                        clientMQTT.publishMessagePlusWithMap(map,"0x01");
-////
-////                    }
-//
-//                }
-                //clientMQTT.publishMessagePlusWithMap(deviceList);
-//                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x03", "0x0101");
+                clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x80","0x01");
             }
         });
 
         bt_closeCurtain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                for(Device device:devicelist){
-////                    Room room=device.getRoom();
-////                    int a=room.getCategory();
-////                    String home="0x0"+a;
-////                    if(home.equals(s_home_choose)){
-////                        map.put("misc","0x00");
-////                        map.put("target_short_address",device.getSource_short_address());
-////                        map.put("target_command",device.getSource_command());
-//////                        clientMQTT.publishMessagePlusWithMap(map,"0x00");
-//
-////                    }
-////
-////
-//                }
-//                clientMQTT.publishMessagePlus("2023-02-19T08:30:00Z","1.2.3",null,"0x4AA5","0x03", "0x0100");
-
+                clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x00","0x01");
             }
         });
     }

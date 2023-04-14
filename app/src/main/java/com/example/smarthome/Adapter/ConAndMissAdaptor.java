@@ -61,6 +61,7 @@ public class ConAndMissAdaptor  extends RecyclerView.Adapter<ConAndMissAdaptor.V
     }
     public ConAndMissAdaptor(List<Mission> missionList,int flag){
         this.missionList=missionList;
+        int a=0;
     }
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         ImageView imageView;
@@ -89,7 +90,7 @@ public class ConAndMissAdaptor  extends RecyclerView.Adapter<ConAndMissAdaptor.V
      *
      * @param parent
      * @param viewType
-     * @return 
+     * @return
      * 
      *
      */

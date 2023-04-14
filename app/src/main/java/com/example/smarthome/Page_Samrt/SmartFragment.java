@@ -31,6 +31,7 @@ import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 import com.example.smarthome.Scene.More;
 import com.example.smarthome.Scene.SceneActivity;
+import com.example.smarthome.Scene.SmartSensor;
 
 import org.litepal.LitePal;
 
@@ -47,7 +48,7 @@ public class SmartFragment extends Fragment {
     private List<Device> onlineDeviceList=new ArrayList<>();
     private List<Device> outlineDeviceList=new ArrayList<>();
     private List<Scene> sceneList=new ArrayList<>();
-    private ImageView scene;
+    private ImageView sensor;
 
     String name_m;
     private RecyclerView recy_scene,online_device;
@@ -65,7 +66,7 @@ public class SmartFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
 //        recy_scene=getActivity().findViewById(R.id.recy_scene);
-        scene=getActivity().findViewById(R.id.add_sense_iv);
+        sensor=getActivity().findViewById(R.id.add_sense_iv);
         online_device=getActivity().findViewById(R.id.add_smart);
 //        outline_device=getActivity().findViewById(R.id.outline_device);
         super.onActivityCreated(savedInstanceState);
@@ -76,7 +77,6 @@ public class SmartFragment extends Fragment {
                 Intent intent3 = new Intent(getActivity(), More.class);
                 List<Temp> tempList=new ArrayList<>();
                 tempList=LitePal.findAll(Temp.class);
-
                 if(!tempList.isEmpty())//如果暂存数据库不为空，就遍历清空Scene,device.....中与temp有关的数据
                 {
                         //TODO 刚进入界面的那个pull服务器存的用户已连接电器数据，要加定时关闭
@@ -102,10 +102,10 @@ public class SmartFragment extends Fragment {
                    startActivity(intent3);
             }
         });
-        scene.setOnClickListener(new View.OnClickListener() {
+        sensor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getActivity(), SceneActivity.class);
+                Intent intent=new Intent(getActivity(), SmartSensor.class);
                 getActivity().startActivity(intent);
             }
         });
@@ -185,13 +185,14 @@ public class SmartFragment extends Fragment {
 
     }
     private void initRecyclerViewOnline(){
-        onlineDeviceList=LitePal.where("flag= ? and isUpdate = ?","1","1").find(Device.class);
+        onlineDeviceList=LitePal.findAll(Device.class);
         LinearLayoutManager linearLayout = new LinearLayoutManager(getActivity(),LinearLayoutManager.HORIZONTAL,false);
         online_device.setLayoutManager(linearLayout);
         ManageAdaptor manageAdaptor = new ManageAdaptor(onlineDeviceList);
         manageAdaptor.InputFlag(1);
         online_device.setAdapter(manageAdaptor);
         manageAdaptor.notifyDataSetChanged();
+
     }
 
 //    private void initRecyclerViewOutline(){
@@ -216,6 +217,7 @@ public class SmartFragment extends Fragment {
     private void initContent()
     {
         deviceList.clear();
+        //TODO network到底是干嘛的emm
         devicelist= LitePal.order("device_type desc").where("flag= ? and network_flag = ?","1","1").find(Device.class);
         for(Device devices:devicelist) {
             int count=0;

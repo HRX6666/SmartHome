@@ -92,6 +92,7 @@ public class FindDeviceAdapter extends RecyclerView.Adapter<FindDeviceAdapter.Vi
             public void onClick(View view) {
                 Device device=new Device();
                 device.setFlag(1);
+                device.setNetwork_flag("1");
                 device.updateAll("target_long_address = ?",source_long_address);
                 //向中控发送APP同意入网信息
                 String source_short_address_1=mDeviceList.get(holder.getAdapterPosition()).get("target_short_address");

@@ -129,8 +129,6 @@ public class FindDevices extends AppCompatActivity {
                 if(isChecked){
                     //之后在数据库加一个是否是点击入网后能够获得的电器isupdate,解析那里的litepal要记得让isupdate为1，这里switch变成false后再全弄为0
 //                    clientMQTT.Subscribe();//没有显示不要担心，做一个下拉刷新就好了
-
-
                     clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0002","0x02");
                     deviceList.clear();
                     initContent();

@@ -15,6 +15,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatSeekBar;
 
 import com.example.smarthome.R;
 
@@ -22,7 +24,7 @@ import com.example.smarthome.R;
  * Author:created  By Walt-zhong at 2021/4/28 12:06
  * e-Mail:2511255880@qq.com
  */
-public class ArcSeekBar extends View {
+public class ArcSeekBar extends AppCompatSeekBar {
     private static final String TAG = "ArcSeekBar";
     private Drawable mIndicator;
     private Drawable mResetIcon;
@@ -55,7 +57,10 @@ public class ArcSeekBar extends View {
     private int mPadding = 30;
     private float mRadius = 500;
     private float rad = 80;
-
+    @Override
+    public void setOnSeekBarChangeListener(OnSeekBarChangeListener listener){
+        super.setOnSeekBarChangeListener(listener);
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public ArcSeekBar(Context context) {

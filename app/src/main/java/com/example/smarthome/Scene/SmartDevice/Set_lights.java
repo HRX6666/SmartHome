@@ -78,6 +78,8 @@ public class Set_lights extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_lights_scene);
+        Intent intent=getIntent();
+        timeIn=intent.getStringExtra(Set_lights.TIME);
         brightness = findViewById(R.id.brightness);
         set_light_1=findViewById(R.id.set_light_1);
         set_light_2=findViewById(R.id.set_light_2);
@@ -94,19 +96,26 @@ public class Set_lights extends AppCompatActivity {
         recyclerView();
         //判断是否为再次编辑
  
-        Intent intent=getIntent();
-        timeIn=intent.getStringExtra(Set_lights.TIME);
+
         if(timeIn==null)
             flag=0;//新的
         else
             flag=1;
+        if(timeIn!=null){
+            mission=LitePal.where("time = ?",timeIn).findFirst(Mission.class,true);
+            for(int i=0;i<mission.getS_deviceList().size();i++){
+                String target_long_address=mission.getS_deviceList().get(i).getTarget_long_address();
+                Device device=LitePal.where("target_long_address = ?",target_long_address).findFirst(Device.class);
+                lightList.add(device);
+            }
+        }else
+            lightList=LitePal.where("device_type = ? and flag = ? and use = ?","01","1","0").find(Device.class);
     }
 
 
     private void recyclerView() {
         recyclerView = findViewById(R.id.select_light);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        lightList=LitePal.where("device_type = ? and flag = ?","01","1").find(Device.class);
         //有任务的不能显示，再Parse那里的短地址
         lightListAdaptor = new LightListAdaptor(this,R.layout.scenelightlist,lightList);
 
@@ -177,7 +186,7 @@ public class Set_lights extends AppCompatActivity {
         });
         lightListAdaptor.notifyDataSetChanged();
     }
-
+//TODO SensorActivity 添加房屋
     private void clickListenerInit()    {
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -191,13 +200,14 @@ public class Set_lights extends AppCompatActivity {
                     mission = new Mission();
                     mission.setTime(time);
                     mission.setTemp(temp);
+
                     mission.save();
                 } else {
                     List<Mission> missionList = LitePal.where("time = ?", timeIn).find(Mission.class);
                     //TODO 这个time是哪个time?
                     mission = missionList.get(0);
                 }
-                if(positionList==null)
+                if(positionList.size()==0)
                     Toast.makeText(Set_lights.this,"请添加电器！",Toast.LENGTH_SHORT).show();
             else
                     if (!positionList.isEmpty()) {
@@ -231,6 +241,9 @@ public class Set_lights extends AppCompatActivity {
                             }else
                                 s_device.setBrightness(bright);
                             if (flag == 0) {
+                                Device device=new Device();
+                                device.setUse(1);
+                                device.updateAll("target_long_address = ?",target_long_address);
                                 s_device.setMission(mission);
                                 s_device.save();
                             } else

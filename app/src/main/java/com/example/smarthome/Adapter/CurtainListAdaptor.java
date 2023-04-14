@@ -24,12 +24,7 @@ public class CurtainListAdaptor extends RecyclerView.Adapter<CurtainListAdaptor.
     private int layoutId;
     public Context context;
     private boolean clickFlag = true;//单击事件和长单击事件的屏蔽标识
-    private List<Map<String,String>> mCurtainList;
     private List<Device> curtainList=new ArrayList<>();
-
-    public CurtainListAdaptor(List<Map<String,String>> mCurtainList){
-        this.mCurtainList=mCurtainList;
-    }
     public interface ItemSelectedCallBack {
         void convert(CurtainListAdaptor.ViewHolder holder, int position);
     }
@@ -94,7 +89,7 @@ public class CurtainListAdaptor extends RecyclerView.Adapter<CurtainListAdaptor.
 
     @Override
     public void onBindViewHolder(@NonNull CurtainListAdaptor.ViewHolder holder, int position) {
-        holder.curtain_image.setImageResource(R.drawable.curtain_open);
+        holder.curtain_image.setImageResource(R.drawable.curtain_open_selected);
         holder.curtain_name.setText(curtainList.get(position).getTarget_long_address());
         if (mCallBack != null)
             mCallBack.convert(holder, curtainList.get(position), position);
@@ -102,10 +97,7 @@ public class CurtainListAdaptor extends RecyclerView.Adapter<CurtainListAdaptor.
 
     @Override
     public int getItemCount() {
-        if(mCurtainList==null)
-            return 0;
-        else
-            return mCurtainList.size();
+            return curtainList.size();
     }
     // 定义 Item 点击事件的监听器接口
     public interface OnItemClickListener {

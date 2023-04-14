@@ -35,7 +35,7 @@ public class TimePeriodActivity extends AppCompatActivity {
     private Toolbar add_time_toolbar;
     private Condition condition;
     private List<Condition> conditionList;
-    private C_Time c_time;
+    private C_Time c_time=new C_Time();
     private String date1;
     private String date2;
     private String setTime;
@@ -87,6 +87,7 @@ public class TimePeriodActivity extends AppCompatActivity {
                         dateDialog.dismiss();
                         time_save.setClickable(true);
                         Toast.makeText(TimePeriodActivity.this,date1,Toast.LENGTH_SHORT).show();
+                        time_start.setText(date1);
                     }
                 });
             }
@@ -105,6 +106,7 @@ public class TimePeriodActivity extends AppCompatActivity {
                         dateDialog.dismiss();
                         time_save.setClickable(true);
                         Toast.makeText(TimePeriodActivity.this,date2,Toast.LENGTH_SHORT).show();
+                        time_end.setText(date2);
                     }
                 });
             }

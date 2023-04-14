@@ -19,6 +19,7 @@ import com.example.smarthome.Adapter.AirListAdaptor;
 import com.example.smarthome.Adapter.CurtainListAdaptor;
 import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Condition;
+import com.example.smarthome.Database.Scene.Mission;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Temp;
 import com.example.smarthome.R;
@@ -27,13 +28,14 @@ import com.google.android.material.button.MaterialButton;
 import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 public class Set_curtain extends AppCompatActivity {
     public static final String TIME="time";
-    private List<Device> curtainList;
+    private List<Device> curtainList=new ArrayList<>();
         private ImageView set_close;
         private ImageView set_open;
         private AppCompatSeekBar set_deep;
@@ -42,8 +44,8 @@ public class Set_curtain extends AppCompatActivity {
         private RecyclerView recyclerView;
         private CurtainListAdaptor curtainListAdaptor;
         private ConstraintLayout constraintLayout;
-        private Condition condition;
-        private List<Integer> positionList;
+        private Mission mission;
+        private List<Integer> positionList=new ArrayList<>();
         private int open=-1;
         private int close=-1;
         private static int deep=-1;
@@ -56,21 +58,29 @@ public class Set_curtain extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_curtain);
-
+        //判断是否为再次编辑
+        Intent intent=getIntent();
+        timeIn=intent.getStringExtra(Set_curtain.TIME);
         set_close=findViewById(R.id.set_close);
         set_open=findViewById(R.id.set_open);
         set_deep=findViewById(R.id.set_deep);
         scene_curtain=findViewById(R.id.scene_curtain);
         create_home=findViewById(R.id.create_home);
-        //判断是否为再次编辑
-        Intent intent=getIntent();
-        timeIn=intent.getStringExtra(Set_curtain.TIME);
         if(timeIn==null)
             flag=0;//新的
         else
             flag=1;
+        if(timeIn!=null){
+            mission=LitePal.where("time = ?",timeIn).findFirst(Mission.class,true);
+            for(int i=0;i<mission.getS_deviceList().size();i++){
+                String target_long_address=mission.getS_deviceList().get(i).getTarget_long_address();
+                Device device=LitePal.where("target_long_address = ?",target_long_address).findFirst(Device.class);
+                curtainList.add(device);
+            }
+        }else
+            curtainList=LitePal.where("device_type = ? and flag = ? and use = ?","03","1","0").find(Device.class);
         recyclerView=findViewById(R.id.select_condition);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         curtainListAdaptor=new CurtainListAdaptor(this,R.layout.scene_curtainlist,curtainList);
         recyclerView.setAdapter(curtainListAdaptor);
         curtainListAdaptor.notifyDataSetChanged();
@@ -125,15 +135,15 @@ public class Set_curtain extends AppCompatActivity {
                 if(flag==0)   //flag为0就新建Condition
                 {
                     Temp temp=LitePal.findLast(Temp.class);
-                    condition=new Condition();
-                    condition.setTime(time);
-                    condition.setTemp(temp);
-                    condition.save();
+                    mission=new Mission();
+                    mission.setTime(time);
+                    mission.setTemp(temp);
+                    temp.getMissionList().add(mission);
 
                 }else
                 {
-                    List<Condition> conditionList=LitePal.where("time = ?",Set_curtain.TIME).find(Condition.class);
-                    condition=conditionList.get(0);
+                    List<Mission> missionList=LitePal.where("time = ?",Set_air.TIME).find(Mission.class,true);
+                    mission=missionList.get(0);
                 }
                 //如果open,deep,close不等于-1就保存
                 if(positionList!=null) {
@@ -152,15 +162,21 @@ public class Set_curtain extends AppCompatActivity {
                                     s_device.setCurtain_deep("" + deep);
                                 s_device.setTarget_long_address(target_long_address);
                                 s_device.setCategory("1");
-                                //                            s_device.setTemp(temp);应该让condition跟temp关联，要不然要temp干嘛
-                                //Condition是进入条件的时候创建的，
-                                //如果退出创建场景时|Condition没有删除，由于Condition是跟Temp绑定的，就通过刚进入场景时的删除操作删除数据库中残留的Condition
-                                //我该怎么知到这次进来是再次编辑条件还是创建新的条件
+                                mission.setJudge(5);
                                 if (flag == 0) {
-                                    s_device.setCondition(condition);
+                                    s_device.setMission(mission);
+                                    mission.getS_deviceList().add(s_device);
+                                    mission.setTemp(temp);
+                                    mission.save();
+                                    Device device=new Device();
+                                    device.setUse(1);
+                                    device.updateAll("target_long_address = ?",target_long_address);
                                     s_device.save();
-                                } else
+                                } else{
                                     s_device.updateAll("target_long_address = ?", target_long_address);
+
+                                    mission.updateAll("time = ?",timeIn);
+                                }
                                 finish();
                             }
                         } else

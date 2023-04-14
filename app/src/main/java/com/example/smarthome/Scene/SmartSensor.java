@@ -16,6 +16,8 @@ import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,13 +44,17 @@ public class SmartSensor extends AppCompatActivity {
 
     }
     private void initRecyclerView()
-    {
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager linearLayout = new LinearLayoutManager(SmartSensor.this);
-        recyclerView.setLayoutManager(linearLayout);
-        SensorListAdaptor sensorListAdaptor = new SensorListAdaptor(sensorList);
-        recyclerView.setAdapter(sensorListAdaptor);
-        sensorListAdaptor.notifyDataSetChanged();
+    {      //TODO
+        //FIXME 从服务器更新那个地方的储存数据好像没有分Sensor emm
+        sensorList= LitePal.findAll(Sensor.class);
+        if(sensorList.size()!=0){
+            RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+            LinearLayoutManager linearLayout = new LinearLayoutManager(SmartSensor.this);
+            recyclerView.setLayoutManager(linearLayout);
+            SensorListAdaptor sensorListAdaptor = new SensorListAdaptor(sensorList);
+            recyclerView.setAdapter(sensorListAdaptor);
+            sensorListAdaptor.notifyDataSetChanged();
+        }
 
     }
     private void  initContent()

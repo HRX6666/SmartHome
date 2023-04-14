@@ -58,22 +58,7 @@ public class HomeFragment extends Fragment {
             public void onClick(View v) {
 //                Intent intent1=new Intent(getActivity(), HomeScene.class);
 
-                Intent intent1=new Intent(getActivity(), AddOrEditScene.class);
-//                Intent intent1=new Intent(getActivity(),SetVoice.class);
-                List<Temp> tempList=LitePal.findAll(Temp.class);
-
-                if(!tempList.isEmpty())//如果暂存数据库不为空，就遍历清空Scene,device.....中与temp有关的数据
-                {
-                    for(Temp temp:tempList){
-                        String temp_id=String.valueOf(tempList.get(i).getId());
-                        LitePal.deleteAll(C_Time.class,"temp_id=?",temp_id);
-                        LitePal.deleteAll(S_Device.class,"temp_id=?",temp_id);
-                        LitePal.deleteAll(Scene.class,"temp_id=?",temp_id);
-                        i++;
-                    }
-                }
-                //最后记得删除t所有temp
-                LitePal.deleteAll(Temp.class);
+                Intent intent1=new Intent(getActivity(), WangGuan.class);
                 startActivity(intent1);
             }
         });

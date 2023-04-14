@@ -19,9 +19,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.example.smarthome.Adapter.ManageAdaptor;
+import com.example.smarthome.Database.Device;
+import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
 import com.example.smarthome.View.CustomizeGoodsAddView;
 import com.example.smarthome.View.air_utils.AirBoardView;
+
+import org.eclipse.paho.client.mqttv3.MqttException;
+import org.litepal.LitePal;
 
 public class AdjustTheAirCondition extends AppCompatActivity {
             Toolbar air_tb;
@@ -32,13 +38,16 @@ public class AdjustTheAirCondition extends AppCompatActivity {
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     EditText mAppWidgetPrefix;
     private LinearInterpolator mPanLin=new LinearInterpolator();
-    ImageView ib_wind_min,ib_wind_mid,ib_wind_max;
+    ImageView ib_wind_min,ib_wind_mid,ib_wind_max,ib_worm,ib_cold,ib_wind;
+    private String target_short_address;
+    private String device_type;
     private AirBoardView airview;
 //            private CustomizeGoodsAddView customizeGoodsAddView;
 //            private static int temperature;
             private int maxNum=30;
             private int minNum=16;
-
+            private String temperature;
+    private ClientMQTT clientMQTT;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +56,22 @@ public class AdjustTheAirCondition extends AppCompatActivity {
         ib_wind_min=findViewById(R.id.ib_wind_min);
         ib_wind_mid=findViewById(R.id.ib_wind_mid);
         ib_wind_max=findViewById(R.id.ib_wind_max);
+        ib_worm=findViewById(R.id.ib_worm);
+        ib_cold=findViewById(R.id.ib_cold);
+        ib_wind=findViewById(R.id.ib_wind);
+        clientMQTT=new ClientMQTT("light");
+        try {
+            clientMQTT.Mqtt_innit();
+        } catch (
+                MqttException e) {
+            e.printStackTrace();
+        }
+        clientMQTT.startReconnect(AdjustTheAirCondition.this);
         Intent intent = getIntent();
-        Bundle extras = intent.getExtras();
+        String target_long_address=intent.getStringExtra(ManageAdaptor.TARGET_LONG_ADDRESS);
+        Device device= LitePal.where("target_long_address = ?",target_long_address).findFirst(Device.class);
+         target_short_address=device.getTarget_short_address();
+         device_type=device.getDevice_type();
         air_tb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,10 +80,16 @@ public class AdjustTheAirCondition extends AppCompatActivity {
 //        inithome();
         rote();
         airview = (AirBoardView) findViewById(R.id.airView);
+
         airview.setOnAirClickListener(new AirBoardView.OnAirClickListener() {
             @Override
             public void onAirClick(String temp) {
-//                Toast.makeText( AdjustTheAirCondition.this, temp, Toast.LENGTH_SHORT).show();
+                if(temp.length()==3)
+                    temperature=temp.substring(0,2);
+                else if(temp.length()==2)
+                    temperature=temp.substring(0,1);
+            String hexTemp=Integer.toHexString(Integer.valueOf(temperature));
+            clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x08"+hexTemp,"0x02");
             }
         });
 //        initwindspeed();
@@ -68,11 +97,27 @@ public class AdjustTheAirCondition extends AppCompatActivity {
     }
 
         private void rote() {
-
+            ib_worm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x02","0x01");
+                }
+            });
+            ib_cold.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x03","0x01");
+                }
+            });
+            ib_wind.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x05","0x01");
+                }
+            });
             ib_wind_min.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
                     animation_min=ObjectAnimator.ofFloat(ib_wind_min,"rotation",0f,360.0f);
                     animation_min.setInterpolator(new LinearInterpolator());//匀速
                     animation_min.setRepeatCount(-1);//无线循环
@@ -87,9 +132,8 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                     if(start_min==true){
                         animation_min.pause();
                     }
-
                     animation_min.start();
-
+                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x0701","0x02");
                 }
             });
             ib_wind_mid.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +154,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                         animation_mid.pause();
                     }
                     animation_mid.start();
-
+                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x0702","0x02");
                 }
             });
             ib_wind_max.setOnClickListener(new View.OnClickListener() {
@@ -131,7 +175,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                         animation_max.pause();
                     }
                     animation_max.start();
-
+                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x0703","0x02");
                 }
             });
 

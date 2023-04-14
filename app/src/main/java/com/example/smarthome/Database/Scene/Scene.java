@@ -9,22 +9,30 @@ import java.util.List;
 
 public class Scene extends LitePalSupport {
     public static final String TIME="time";
+    public static final String ID="id";
     //基本属性
     private List<Condition> conditionList=new ArrayList<>();//条件
     private List<Mission> missionList=new ArrayList<>();//任务
     private Temp temp;
     private int id;
     //加time和device的LIST
-
+    private int isOpen;
     private String name;//场景名称
     private String time;
     private String isClick;
     private String schedule;//每天每周
 
-
-
     private List<C_Time> CTimeList=new ArrayList<>();//多个时间点
     private List<S_Device> s_deviceList=new ArrayList<>();//智能设备什么开灯时啊，什么检测到烟雾，逻辑交给服务器，咱们只需要做好保存条件和发送信息即可
+
+
+    public int getIsOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(int isOpen) {
+        this.isOpen = isOpen;
+    }
 
     public List<Mission> getMissionList() {
         return missionList;

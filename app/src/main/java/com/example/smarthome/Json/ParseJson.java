@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import org.litepal.LitePal;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,9 +53,9 @@ public class ParseJson {
                     device.setTarget_long_address(target_long_address);
                     device.setTarget_short_address(target_short_address);
                     device.setController_long_address(controller_long_address);
+                    device.setUse(0);
                     device.setData(jsonData);
                     device.setIsUpdate(1);
-//                device.setMisc(jsonObject.getString("o"));
                     device.setFlag(0);
                     if (LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
                         device.save();
@@ -81,42 +82,157 @@ public class ParseJson {
                 String network_flag = valid_data.substring(4, 6);
                 String target_long_address = valid_data.substring(6, 22);
                 String target_short_address = valid_data.substring(22, 26);
-                List<Device> deviceList = LitePal.where("target_long_address = ?", target_long_address).find(Device.class);
-                Device device = new Device();
-                if (deviceList.isEmpty()) {
-                    device.setDevice_type(device_type);
-                    device.setNetwork_flag(network_flag);
-                    device.setTarget_long_address(target_long_address);
-                    device.setTarget_short_address(target_short_address);
-                    device.setController_long_address(controller_long_address);
-                    device.setData(jsonData);
-                    device.setIsUpdate(1);
-//                device.setMisc(jsonObject.getString("o"));
-                    device.setFlag(1);
-                    if (LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
-                        device.save();
-                    }else
-                        device.updateAll("target_long_address = ?", target_long_address);
+                //4-7
+                int a=Integer.valueOf(device_type);
+                if(a>=4){
+                    if(device_type.equals("04")){
+                        String temp1=valid_data.substring(2,4);
+                        String temp2=valid_data.substring(4,6);
+                        String wetness=valid_data.substring(6,8);
+                        int temp_1=Integer.valueOf(temp1,16);
+                        int temp_2=Integer.valueOf(temp2,16);
+                        int wetness_i=Integer.valueOf(wetness,16);
+                        List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"04").find(Sensor.class);
+                        Sensor sensor=new Sensor();
+                            sensor.setDevice_type("04");
+                            sensor.setTarget_short_address(target_short_address);
+                            sensor.setController_long_address(controller_long_address);
+                            sensor.setTemp_air(String.valueOf(temp_1+0.1*temp_2));
+                            sensor.setWetness(String.valueOf(wetness_i));
+                            sensor.setValid_data(valid_data);
+                            sensor.setIsUpdate(1);
+                            if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
+                                sensor.setFlag(1);
+                                sensor.save();
+                            }else
+                                sensor.updateAll("target_short_address = ?", target_short_address);
 
-                } else {
-                    device.setDevice_type(device_type);
-                    device.setNetwork_flag(network_flag);
-                    device.setTarget_long_address(target_long_address);
-                    device.setTarget_short_address(target_short_address);
-                    device.setController_long_address(controller_long_address);
-                    device.setData(jsonData);
-                    device.setIsUpdate(1);
-                    device.setFlag(1);
-                    if (!LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
-                        device.updateAll("target_long_address = ?", target_long_address);
+                    }else if(device_type.equals("05")){
+                        String temp1=valid_data.substring(2,4);
+                        String temp2=valid_data.substring(4,6);
+                        int temp_1=Integer.valueOf(temp1,16);
+                        int temp_2=Integer.valueOf(temp2,16);
+                        List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"05").find(Sensor.class);
+                        Sensor sensor=new Sensor();
+                            sensor.setDevice_type("05");
+                            sensor.setTarget_short_address(target_short_address);
+                            sensor.setController_long_address(controller_long_address);
+                            sensor.setTemp_air(String.valueOf(temp_1+0.1*temp_2));
+                            sensor.setValid_data(valid_data);
+                            sensor.setIsUpdate(1);
+                            if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
+                                sensor.setFlag(1);
+                                sensor.save();
+                            }else
+                                sensor.updateAll("target_short_address = ?", target_short_address);
+
+                    }else if(device_type.equals("06")){
+                        String wetness=valid_data.substring(2,4);
+                        int wetness_i=Integer.valueOf(wetness,16);
+                        List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"06").find(Sensor.class);
+                        Sensor sensor=new Sensor();
+
+                            sensor.setDevice_type("06");
+                            sensor.setTarget_short_address(target_short_address);
+                            sensor.setController_long_address(controller_long_address);
+                            sensor.setWetness(String.valueOf(wetness_i));
+                            sensor.setValid_data(valid_data);
+                            sensor.setIsUpdate(1);
+                            if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
+                                sensor.setFlag(1);
+                                sensor.save();
+                            }else
+                                sensor.updateAll("target_short_address = ?", target_short_address);
+
+                    }else if(device_type.equals("07")){
+                        String smoking=valid_data.substring(0,2);
+                        int smoking_i=Integer.valueOf(smoking,16);
+                        List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"07").find(Sensor.class);
+                        Sensor sensor=new Sensor();
+
+                            sensor.setDevice_type("07");
+                            sensor.setTarget_short_address(target_short_address);
+                            sensor.setController_long_address(controller_long_address);
+                            sensor.setSmoking(String.valueOf(smoking_i));
+                            sensor.setValid_data(valid_data);
+                            sensor.setIsUpdate(1);
+                            if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
+                                sensor.setFlag(1);
+                                sensor.save();
+                            }else
+                                sensor.updateAll("target_short_address = ?", target_short_address);
+
+                    }
+//                    if (sensorList.isEmpty()) {
+//                        sensor.setDevice_type(device_type);
+//                        sensor.setValid_data(valid_data);
+//                        sensor.setData(jsonData);
+//                        sensor.setTarget_short_address(target_short_address);
+//                        sensor.setController_long_address(controller_long_address);
+//                        sensor.setIsUpdate(1);
+//                        sensor.setFlag(1);
+//                        if (LitePal.where("target_short_address = ?",target_short_address).find(Sensor.class).isEmpty()) {
+//                            sensor.save();
+//                        }else
+//                            sensor.updateAll("target_short_address = ?", target_short_address);
+//
+//                    } else {
+//                        sensor.setDevice_type(device_type);
+//                        sensor.setTarget_short_address(target_short_address);
+//                        sensor.setData(jsonData);
+//                        sensor.setValid_data(valid_data);
+//                        sensor.setController_long_address(controller_long_address);
+//                        sensor.setIsUpdate(1);
+//                        sensor.setFlag(1);
+//                        sensor.setToDefault("");
+//                        if (!LitePal.where("target_short_address = ?",target_short_address).find(Sensor.class).isEmpty()) {
+//                            sensor.updateAll("target_short_address = ?", target_short_address);
+/////////////////////厂地址一样把信息更新一遍
+//                        }
+//                    }
+                }else {
+                    List<Device> deviceList = LitePal.where("target_long_address = ?", target_long_address).find(Device.class);
+                    Device device = new Device();
+                    if (deviceList.isEmpty()) {
+                        device.setDevice_type(device_type);
+                        device.setNetwork_flag(network_flag);
+                        device.setTarget_long_address(target_long_address);
+                        device.setTarget_short_address(target_short_address);
+                        device.setController_long_address(controller_long_address);
+                        device.setData(jsonData);
+                        device.setUse(0);
+                        device.setIsUpdate(1);
+//                device.setMisc(jsonObject.getString("o"));
+                        device.setFlag(1);
+                        if (LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
+                            device.save();
+                        }else
+                            device.updateAll("target_long_address = ?", target_long_address);
+
+                    } else {
+                        device.setDevice_type(device_type);
+                        device.setNetwork_flag(network_flag);
+                        device.setTarget_long_address(target_long_address);
+                        device.setTarget_short_address(target_short_address);
+                        device.setController_long_address(controller_long_address);
+                        device.setData(jsonData);
+                        device.setIsUpdate(1);
+                        device.setFlag(1);
+                        device.setToDefault("");
+                        if (!LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
+                            device.updateAll("target_long_address = ?", target_long_address);
 ///////////////////厂地址一样把信息更新一遍
+                        }
                     }
                 }
+
             }
+
             else if (device_type_.equals("0x02")) {
                 String controller_long_address = jsonObject.getString("controller_long_address");
                 String valid_data = jsonObject.getString("valid_data");
                 String target_short_address = jsonObject.getString("target_short_address");
+                String target_long_address=jsonObject.getString("target_long_address");
                 String temp_int = valid_data.substring(2, 4);
                 String temp_decimal = valid_data.substring(5, 6);
                 String wetness = valid_data.substring(6, 8);
@@ -130,31 +246,34 @@ public class ParseJson {
                 device.setController_long_address(controller_long_address);
                 device.setWetness(wetness);
                 device.setData(jsonData);
+
                 device.setIsUpdate(1);
-                if (LitePal.where("target_short_address = ?", target_short_address).find(Device.class).isEmpty()) {
+                if (LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
+                    device.setUse(0);
                     device.setFlag(0);
                     device.save();
                 }else
-                    device.updateAll("target_short_address = ?", target_short_address);
+                    device.updateAll("target_long_address = ?", target_long_address);
             } else if (device_type_.equals("0x01")) {
                 String controller_long_address = jsonObject.getString("controller_long_address");
                 String valid_data = jsonObject.getString("valid_data");
                 String target_short_address = jsonObject.getString("target_short_address");
+                String target_long_address=jsonObject.getString("target_long_address");
                 List<Device> deviceList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"01").find(Device.class);
-                Device device = new Device();
-                if (deviceList.isEmpty()) {
+                    Device device = new Device();
                     device.setValid_data(valid_data);
                     device.setDevice_type("01");
                     device.setTarget_short_address(target_short_address);
                     device.setController_long_address(controller_long_address);
                     device.setData(jsonData);
                     device.setIsUpdate(1);
-                    if (LitePal.where("target_short_address = ?", target_short_address).find(Device.class).isEmpty()) {
+                    if (LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
                         device.setFlag(0);
+                        device.setUse(0);
                         device.save();
                     }else
-                        device.updateAll("target_short_address = ?", target_short_address);
-                }
+                        device.updateAll("target_long_address = ?", target_long_address);
+
 
             }
             else if(device_type_.equals("0x03")){
@@ -169,7 +288,7 @@ public class ParseJson {
 //                Sensor sensor=new Sensor();
 //                if (sensorList.isEmpty()) {
 //                    String temp_s = temp_int + "." + temp_decimal;
-//                    sensor.setTemp(temp_s);
+//                    sensor.setTemp_air(temp_s);
 //                    sensor.setTarget_short_address(target_short_address);
 //                    sensor.setController_long_address(controller_long_address);
 //                    sensor.setWetness(wetness);
@@ -186,21 +305,22 @@ public class ParseJson {
                 String controller_long_address = jsonObject.getString("controller_long_address");
                 String deep = jsonObject.getString("valid_data");
                 String target_short_address = jsonObject.getString("target_short_address");
+                String target_long_address=jsonObject.getString("target_long_address");
                 List<Device> deviceList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"03").find(Device.class);
                 Device device = new Device();
-                if (deviceList.isEmpty()) {
                     device.setCurtain_extent(Integer.valueOf(deep));
                     device.setDevice_type("03");
                     device.setTarget_short_address(target_short_address);
                     device.setController_long_address(controller_long_address);
                     device.setData(jsonData);
                     device.setIsUpdate(1);
-                    if (LitePal.where("target_short_address = ?", target_short_address).find(Device.class).isEmpty()) {
+                    if (LitePal.where("target_long_address = ?", target_long_address).find(Device.class).isEmpty()) {
                         device.setFlag(0);
+                        device.setUse(0);
                         device.save();
                     }else
-                        device.updateAll("target_short_address = ?", target_short_address);
-                }
+                        device.updateAll("target_long_address = ?", target_long_address);
+
             }else if(device_type_.equals("0x04")){
                 String controller_long_address = jsonObject.getString("controller_long_address");
                 String valid_data = jsonObject.getString("valid_data");
@@ -213,20 +333,19 @@ public class ParseJson {
                 int wetness_i=Integer.valueOf(wetness,16);
                 List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"04").find(Sensor.class);
                 Sensor sensor=new Sensor();
-                if (sensorList.isEmpty()) {
                     sensor.setDevice_type("04");
                     sensor.setTarget_short_address(target_short_address);
                     sensor.setController_long_address(controller_long_address);
-                    sensor.setTemp(String.valueOf(temp_1+0.1*temp_2));
+                    sensor.setTemp_air(String.valueOf(temp_1+0.1*temp_2));
                     sensor.setWetness(String.valueOf(wetness_i));
                     sensor.setValid_data(valid_data);
                     sensor.setIsUpdate(1);
                     if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
                         sensor.setFlag(0);
+
                         sensor.save();
                     }else
                         sensor.updateAll("target_short_address = ?", target_short_address);
-                }
 
             }else if(device_type_.equals("0x05")){
                 String controller_long_address = jsonObject.getString("controller_long_address");
@@ -238,11 +357,11 @@ public class ParseJson {
                 int temp_2=Integer.valueOf(temp2,16);
                 List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"05").find(Sensor.class);
                 Sensor sensor=new Sensor();
-                if (sensorList.isEmpty()) {
+
                     sensor.setDevice_type("05");
                     sensor.setTarget_short_address(target_short_address);
                     sensor.setController_long_address(controller_long_address);
-                    sensor.setTemp(String.valueOf(temp_1+0.1*temp_2));
+                    sensor.setTemp_air(String.valueOf(temp_1+0.1*temp_2));
                     sensor.setValid_data(valid_data);
                     sensor.setIsUpdate(1);
                     if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
@@ -250,7 +369,7 @@ public class ParseJson {
                         sensor.save();
                     }else
                         sensor.updateAll("target_short_address = ?", target_short_address);
-                }
+
 
             }else if(device_type_.equals("0x06")){
                 String controller_long_address = jsonObject.getString("controller_long_address");
@@ -260,11 +379,11 @@ public class ParseJson {
                 int wetness_i=Integer.valueOf(wetness,16);
                 List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"06").find(Sensor.class);
                 Sensor sensor=new Sensor();
-                if (sensorList.isEmpty()) {
+
                     sensor.setDevice_type("06");
                     sensor.setTarget_short_address(target_short_address);
                     sensor.setController_long_address(controller_long_address);
-                    sensor.setI_wetness(String.valueOf(wetness_i));
+                    sensor.setWetness(String.valueOf(wetness_i));
                     sensor.setValid_data(valid_data);
                     sensor.setIsUpdate(1);
                     if (LitePal.where("target_short_address = ?", target_short_address).find(Sensor.class).isEmpty()) {
@@ -272,7 +391,7 @@ public class ParseJson {
                         sensor.save();
                     }else
                         sensor.updateAll("target_short_address = ?", target_short_address);
-                }
+
 
             }else if(device_type_.equals("0x07")){
                 String controller_long_address = jsonObject.getString("controller_long_address");
@@ -282,7 +401,6 @@ public class ParseJson {
                 int smoking_i=Integer.valueOf(smoking,16);
                 List<Sensor> sensorList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"07").find(Sensor.class);
                 Sensor sensor=new Sensor();
-                if (sensorList.isEmpty()) {
                     sensor.setDevice_type("07");
                     sensor.setTarget_short_address(target_short_address);
                     sensor.setController_long_address(controller_long_address);
@@ -294,13 +412,51 @@ public class ParseJson {
                         sensor.save();
                     }else
                         sensor.updateAll("target_short_address = ?", target_short_address);
-                }
 
+
+            }else if(device_type_.equals("0x08")){
+                String controller_long_address = jsonObject.getString("controller_long_address");
+                String deep = jsonObject.getString("valid_data");
+                String target_short_address = jsonObject.getString("target_short_address");
+                List<Device> deviceList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"08").find(Device.class);
+                Device device = new Device();
+
+                    device.setDevice_type("08");
+                    device.setTarget_short_address(target_short_address);
+                    device.setController_long_address(controller_long_address);
+                    device.setData(jsonData);
+                    device.setIsUpdate(1);
+                    if (LitePal.where("target_short_address = ?", target_short_address).find(Device.class).isEmpty()) {
+                        device.setFlag(0);
+                        device.setUse(0);
+                        device.save();
+                    }else
+                        device.updateAll("target_short_address = ?", target_short_address);
+
+                //TODO 门锁
+            }else if(device_type_.equals("0x09")){
+                String controller_long_address = jsonObject.getString("controller_long_address");
+                String deep = jsonObject.getString("valid_data");
+                String target_short_address = jsonObject.getString("target_short_address");
+                List<Device> deviceList = LitePal.where("target_short_address = ? and device_type = ?", target_short_address,"09").find(Device.class);
+                Device device = new Device();
+
+                    device.setDevice_type("09");
+
+                    device.setTarget_short_address(target_short_address);
+                    device.setController_long_address(controller_long_address);
+                    device.setData(jsonData);
+                    device.setIsUpdate(1);
+                    if (LitePal.where("target_short_address = ?", target_short_address).find(Device.class).isEmpty()) {
+                        device.setFlag(0);
+                        device.setUse(0);
+                        device.save();
+                    }else
+                        device.updateAll("target_short_address = ?", target_short_address);
+
+                //TODO 门锁
             }
-
         }
-
-
     }
     public void parseJsonAndUpdateDatabase(String jsonData){
 
@@ -310,7 +466,6 @@ public class ParseJson {
         int size=jsonArray.size();
 
         for (int i = 0; i < size; i++) {
-
             JSONObject jsonObject1=jsonArray.getJSONObject(i);
             List<Device> devices=LitePal.where("source_long_address = ?",jsonObject1.getString("source_long_address")).find(Device.class);
             Device device=new Device();
@@ -319,6 +474,7 @@ public class ParseJson {
                 device.setIsUpdate(1);
                 device.setMisc(jsonObject1.getString("misc"));
                 device.setFlag(0);
+                device.setUse(0);
                 device.save();
             }else{
                 device.setIsUpdate(1);//关闭开放入网获得直接返回，还要加一个系统返回键的监听，要记得update为0防止下次没这个反而显示
@@ -342,6 +498,7 @@ public class ParseJson {
             map.put("source_data",jsonObject1.getString("source_data"));
             map.put("misc",jsonObject1.getString("misc"));
             Device device=new Device();
+            device.setUse(0);
             device.setMisc(jsonObject1.getString("misc"));
             device.setFlag(0);
             boolean a=device.isSaved();

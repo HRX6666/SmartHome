@@ -148,7 +148,7 @@
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="14dp"/>
                 <ImageView
-                    android:id="@+id/ib_wrom"
+                    android:id="@+id/ib_worm"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:background="@drawable/air_condition_wrom"
@@ -159,7 +159,7 @@
                     android:layout_width="30dp"
                     android:layout_height="50dp"
                     android:text="制\n热"
-                    android:layout_toRightOf="@+id/ib_wrom"
+                    android:layout_toRightOf="@+id/ib_worm"
                     android:layout_marginTop="50dp"
                     android:textSize="17dp"
                     android:textColor="#292929" />

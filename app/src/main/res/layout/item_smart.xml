@@ -43,7 +43,11 @@
             android:text="场景"
             android:textColor="@android:color/black"
             android:textSize="16sp" />
-
+        <Switch
+            android:id="@+id/open_scene"
+            android:layout_marginLeft="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 

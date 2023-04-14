@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class TimePointActivity extends AppCompatActivity {
     private MaterialButton add_repeat;
     private MaterialButton time_save;
     private Toolbar add_time_toolbar;
+    private TextView time_start;
     private Condition condition;
     private C_Time c_time;
     private List<Condition> conditionList;
@@ -41,14 +43,16 @@ public class TimePointActivity extends AppCompatActivity {
         add_time=findViewById(R.id.add_time);
         add_repeat=findViewById(R.id.add_repeat);
         time_save=findViewById(R.id.time_save);
+        time_start=findViewById(R.id.time_start);
         add_time_toolbar=findViewById(R.id.add_time_toolbar);
         Intent intent=getIntent();
         setTime=intent.getStringExtra(TimeActivity.TIME);//condition的时间
         if(setTime!=null)
         {
             flag=1;
-            conditionList= LitePal.where("time = ?",setTime).find(Condition.class);
+            conditionList= LitePal.where("time = ?",setTime).find(Condition.class,true);
             condition=conditionList.get(0);
+            c_time=condition.getC_time();
         }else if(setTime==null)
             flag=0;
         time_save.setClickable(false);
@@ -65,6 +69,7 @@ public class TimePointActivity extends AppCompatActivity {
                         dateDialog.dismiss();
                         time_save.setClickable(true);
                         Toast.makeText(TimePointActivity.this,date,Toast.LENGTH_SHORT).show();
+                        time_start.setText(date);
                     }
                 });
             }
@@ -85,13 +90,10 @@ public class TimePointActivity extends AppCompatActivity {
                 c_time=new C_Time();
                 c_time.setTime(date);
                 c_time.setTemp(temp);
+
                 List<C_Time> c_timeList=new ArrayList<>();
                 c_timeList.add(c_time);
-                Temp temp1=new Temp();
-                temp1.setC_timeList(c_timeList);
-                temp1.updateAll();
                 temp.getC_timeList().add(c_time);
-                c_time.save();
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
                 Date date=new Date(System.currentTimeMillis());
                 String time=simpleDateFormat.format(date);
@@ -101,14 +103,22 @@ public class TimePointActivity extends AppCompatActivity {
                 if(flag==0){
                     condition=new Condition();
                     condition.setC_time(c_time);
+                    c_time.setCondition(condition);
                     condition.setTemp(temp);
                     condition.setTime(time);
-                    condition.save();
+                    condition.setJudge(3);
                     temp.getConditionList().add(condition);
-                    temp.save();
+                    temp.updateAll();
+                    c_time.save();
+                    condition.save();
                 }
                 else{
                     condition.setTime(time);
+                    condition.setC_time(c_time);
+                    condition.setTemp(temp);
+                    condition.setJudge(3);
+                    temp.updateAll();
+                    c_time.updateAll("condition_id + ?",condition.getId()+"");
                     condition.updateAll("time = ?",setTime);
                 }
 

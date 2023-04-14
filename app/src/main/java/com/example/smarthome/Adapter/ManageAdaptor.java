@@ -47,6 +47,7 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
     public static final String DEVICE_TYPE = "device_type";
     public static final String WETNESS = "wetness";
     public static final String AIR_TEMP = "air_temp";
+    int a=0;
     public ManageAdaptor(List<Device>  deviceList){
         mDeviceList=deviceList;
     }
@@ -73,7 +74,6 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
     public ManageAdaptor.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.add_smart,parent,false);
         //可以在不同的recyclerView初始化那边通过这里设计的一个函数传入一个参数flag，帮助这里分在线和离线分别显示
-
         final ManageAdaptor.ViewHolder holder=new ManageAdaptor.ViewHolder(view);
 
         clientMQTT=new ClientMQTT("light");
@@ -129,6 +129,7 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
                 String device_type=mDeviceList.get(position).getDevice_type();
                 switch (device_type) {
                     case "01":
+                        //TODO 其实只传入一个长地址，通过长地址寻找电器即可
                         Intent intent=new Intent(parent.getContext(), AdjustTheLights.class);
                         intent.putExtra(ManageAdaptor.CONTROLLER_LONG_ADDRESS,controller_long_address);
                         intent.putExtra(ManageAdaptor.TARGET_LONG_ADDRESS,target_long_address);
@@ -138,7 +139,7 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
                         parent.getContext().startActivity(intent);
                         break;
                     case "02":
-                        Intent intent1=new Intent(parent.getContext(), AdustTheCurtain.class);
+                        Intent intent1=new Intent(parent.getContext(), AdjustTheAirCondition.class);
                         String wetness=mDeviceList.get(position).getWetness();
                         String air_temp=mDeviceList.get(position).getAir_temp();
                         intent1.putExtra(ManageAdaptor.AIR_TEMP,air_temp);
@@ -151,7 +152,7 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
                         parent.getContext().startActivity(intent1);
                         break;
                     case "03":
-                        Intent intent2=new Intent(parent.getContext(), AdjustTheAirCondition.class);
+                        Intent intent2=new Intent(parent.getContext(), AdustTheCurtain.class);
                         intent2.putExtra(ManageAdaptor.CONTROLLER_LONG_ADDRESS,controller_long_address);
                         intent2.putExtra(ManageAdaptor.TARGET_LONG_ADDRESS,target_long_address);
                         intent2.putExtra(ManageAdaptor.TARGET_SHORT_ADDRESS,target_short_address);
@@ -160,13 +161,13 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
                         parent.getContext().startActivity(intent2);
                         break;
                     case "04":
-                        Intent intent3=new Intent(parent.getContext(), AdustTheCurtain.class);
-                        intent3.putExtra(ManageAdaptor.CONTROLLER_LONG_ADDRESS,controller_long_address);
-                        intent3.putExtra(ManageAdaptor.TARGET_LONG_ADDRESS,target_long_address);
-                        intent3.putExtra(ManageAdaptor.TARGET_SHORT_ADDRESS,target_short_address);
-                        intent3.putExtra(ManageAdaptor.NETWORK_FLAG,network_flag);
-                        intent3.putExtra(ManageAdaptor.DEVICE_TYPE,device_type);
-                        parent.getContext().startActivity(intent3);
+//                        Intent intent3=new Intent(parent.getContext(), AdustTheCurtain.class);
+//                        intent3.putExtra(ManageAdaptor.CONTROLLER_LONG_ADDRESS,controller_long_address);
+//                        intent3.putExtra(ManageAdaptor.TARGET_LONG_ADDRESS,target_long_address);
+//                        intent3.putExtra(ManageAdaptor.TARGET_SHORT_ADDRESS,target_short_address);
+//                        intent3.putExtra(ManageAdaptor.NETWORK_FLAG,network_flag);
+//                        intent3.putExtra(ManageAdaptor.DEVICE_TYPE,device_type);
+//                        parent.getContext().startActivity(intent3);
                         break;
                     case "05":
                         Intent intent4=new Intent(parent.getContext(), AdjustTheMusic.class);
@@ -188,6 +189,7 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ManageAdaptor.ViewHolder holder, int position) {
+
         //直接
         String category=mDeviceList.get(holder.getAdapterPosition()).getDevice_type();//在解析完中控传过来的数据，数据早已存入数据库了，现在的工作只是Update就可以，保存是否组网，没组网就显示这个设备，传入的list、应该在外面先判断一下再传入未租网的list，
         String source_long_address=mDeviceList.get(holder.getAdapterPosition()).getTarget_long_address();
@@ -217,7 +219,9 @@ public class ManageAdaptor extends RecyclerView.Adapter<ManageAdaptor.ViewHolder
                 break;
         }
         }
-        holder.showCategory.setText(source_long_address);
+        String name=mDeviceList.get(position).getName();
+        if(name==null)
+            holder.showCategory.setText(source_long_address);
     }
 
     @Override

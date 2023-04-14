@@ -17,6 +17,7 @@ import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
@@ -31,15 +32,19 @@ import com.example.smarthome.Adapter.base.CommonAdapter;
 import com.example.smarthome.Database.AddDevice;
 import com.example.smarthome.Database.AddModel;
 //import com.example.smarthome.Database.AddSense;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.Helper.UIHelper;
+import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.Page_Home.FindDevices;
 import com.example.smarthome.Page_Huiju.HuijuFrament;
 //import com.example.smarthome.Page_Samrt.Add_Sense;
 import com.example.smarthome.R;
 import com.example.smarthome.animation.AddAnimationRotation;
 import com.example.smarthome.animation.RuwangAnimationAlpha;
+import com.google.android.material.snackbar.Snackbar;
 import com.hb.dialog.myDialog.MyAlertInputDialog;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.litepal.LitePal;
 import org.litepal.tablemanager.Connector;
 
@@ -57,13 +62,16 @@ public class ExtendListHeader extends ExtendLayout {
     float listHeight = UIHelper.dip2px(500);
     boolean arrivedListHeight = false;
     private RecyclerView mRecyclerView;
+    RelativeLayout relativeLayout;
     String device_nl;
     ImageView sun,moon;
     ExtendHeadAdapter extendHeadAdapter;
     CardView ruwang;
+    private ClientMQTT clientMQTT;
     ObjectAnimator objectAnimator;
     List<String> mDatas = new ArrayList<>();
-
+    List<Integer> idList=new ArrayList<>();
+    List<Device> deviceList=new ArrayList<>();
     /**
      * 原点
      */
@@ -93,8 +101,6 @@ public class ExtendListHeader extends ExtendLayout {
         sun = view.findViewById(R.id.sun);
         moon=view.findViewById(R.id.moon);
         ruwang=view.findViewById(R.id.ruwang);
-
-
     }
 
     @Override
@@ -180,6 +186,15 @@ public class ExtendListHeader extends ExtendLayout {
             }
         },2000);
         Connector.getDatabase();
+        adddevice();
+        relativeLayout=findViewById(R.id.pull_to_refresh_header_content);
+        clientMQTT=new ClientMQTT("light");
+        try {
+            clientMQTT.Mqtt_innit();
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        clientMQTT.startReconnect(getContext());
         moon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -193,63 +208,71 @@ public class ExtendListHeader extends ExtendLayout {
                 objectAnimator.setDuration(9000);
                 objectAnimator.setInterpolator(new RuwangAnimationAlpha());
                 objectAnimator.setRepeatCount(Animation.REVERSE);
-
                 objectAnimator.start();
             }
         });
         ruwang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//点击入网以后连接网络判断是否可以执行下面的步骤？以下是弹出提示框是否进行设备接入................
-                final MyAlertInputDialog myAlertInputDialog1=new MyAlertInputDialog(getContext()).builder().
-                        setTitle("发现设备是否接入").setPositiveButton("同意",new View.OnClickListener(){
-                            @Override
-                            public void onClick(View v) {
-                                final MyAlertInputDialog myAlertInputDialog = new MyAlertInputDialog(getContext()).builder()
-                                        .setTitle("请输入设备名称")
-                                        .setEditText("").setCancelable(true);
-                                myAlertInputDialog.setPositiveButton("确认", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        device_nl= myAlertInputDialog.getResult();
-                                        if(TextUtils.isEmpty(device_nl)){
-                                            Toast.makeText(getContext(),"请输入传感器名称",Toast.LENGTH_SHORT).show();
-                                            return;
+                if (deviceList.size() > 0) {
+                    final MyAlertInputDialog myAlertInputDialog1=new MyAlertInputDialog(getContext()).builder().
+                            setTitle("发现设备是否接入").setPositiveButton("同意",new View.OnClickListener(){
+                                @Override
+                                public void onClick(View v) {
+                                    final MyAlertInputDialog myAlertInputDialog = new MyAlertInputDialog(getContext()).builder()
+                                            .setTitle("请输入设备名称")
+                                            .setEditText("").setCancelable(true);
+                                    String source_long_address=deviceList.get(0).getTarget_long_address();
+                                    Device device=new Device();
+                                    device.setFlag(1);
+                                    device.updateAll("target_long_address = ?",source_long_address);
+                                    //向中控发送APP同意入网信息
+                                    String source_short_address_1=deviceList.get(0).getTarget_short_address();
+                                    String source_short_address="0x"+source_short_address_1;
+                                    myAlertInputDialog.setPositiveButton("确认", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            clientMQTT.publishMessagePlus(null,source_short_address,"0xFF", "0x0001","0x02");
+                                            device_nl= myAlertInputDialog.getResult();
+                                            if(TextUtils.isEmpty(device_nl)){
+                                                Toast.makeText(getContext(),"请输入传感器名称",Toast.LENGTH_SHORT).show();
+                                                return;
+                                            }else
+                                            {
+                                                device.setName(device_nl);
+                                                device.updateAll("target_long_address = ?",source_long_address);
+                                            }
+                                            myAlertInputDialog.dismiss();
+
                                         }
-//                                        AddDevice addDevice=new AddDevice();
-//                                        addDevice.setDevice(device_nl);
-//                                        addDevice.save();
-//                                        addDevice.update(2);
-//                                        adddevice();
-                                        myAlertInputDialog.dismiss();
+                                    }).setNegativeButton("取消", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            clientMQTT.publishMessagePlus(null,"0x0000","0xFF", "0x0000","0x02");
+                                            extendHeadAdapter.notifyDataSetChanged();
+                                        }
+                                    });
+                                    myAlertInputDialog.show();
+                                }
+                            }).setNegativeButton("拒绝",new View.OnClickListener(){
 
-                                    }
-                                }).setNegativeButton("取消", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(getContext(),"好吧",Toast.LENGTH_SHORT).show();
 
-                                    }
-                                });
-                                myAlertInputDialog.show();
-                            }
-
-
-                }).setNegativeButton("拒绝",new View.OnClickListener(){
-
-                            @Override
-                            public void onClick(View v) {
-                                Toast.makeText(getContext(),"好吧",Toast.LENGTH_SHORT).show();
-
-                            }
-                        });
-                myAlertInputDialog1.show();
-
-                ruwang.setVisibility(VISIBLE);
+                                }
+                            });
+                    myAlertInputDialog1.show();
+                    idList.remove(0);
+                    deviceList.remove(0);
+                    adddevice();
+                    ruwang.setVisibility(VISIBLE);
 
 
 
-
-//
-
+                }
+                else
+                    Snackbar.make(relativeLayout,"未发现可入网设备",Snackbar.LENGTH_SHORT).show();
             }
         });
 
@@ -258,10 +281,28 @@ public class ExtendListHeader extends ExtendLayout {
 
     private void adddevice() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        List<AddDevice> all = LitePal.findAll(AddDevice.class);
-        extendHeadAdapter= new ExtendHeadAdapter(all);
+        deviceList=LitePal
+                .order("id desc")
+                .where("flag = ? and isUpdate = ?","1","1")
+                .find(Device.class);
+        idList=new ArrayList<>();
+        idList.clear();
+        if(deviceList.size()>=1)
+            for (int i = 0; i < deviceList.size(); i++) {
+                idList.add(deviceList.get(i).getId());
+            }
+        extendHeadAdapter= new ExtendHeadAdapter(deviceList);
+        extendHeadAdapter.setDeviceId(idList);
         mRecyclerView.setAdapter(extendHeadAdapter);
+        if (deviceList.size()==0){
+            ruwang.setClickable(false);
+        }
+        else
+        {
+            ruwang.setClickable(true);
+        }
 
+//TODO 这里是设备显示的Adaptor
     }
 
     @Override

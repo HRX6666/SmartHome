@@ -1,30 +1,25 @@
-package com.example.smarthome.Page_Samrt;
+package com.example.smarthome.Scene;
+
+import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.os.Bundle;
-import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toolbar;
-
 import com.example.smarthome.Adapter.SensorListAdaptor;
 import com.example.smarthome.Database.Sensor;
+import com.example.smarthome.Page_Samrt.ShowSense;
 import com.example.smarthome.R;
-import com.example.smarthome.View.SelfTextView;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShowSense extends AppCompatActivity {
-private List<Sensor> sensorList=new ArrayList<>();
-RecyclerView recyclerView;
+public class SensorActivity extends AppCompatActivity {
+    private List<Sensor> sensorList=new ArrayList<>();
+    RecyclerView recyclerView;
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.smart_sensors);
@@ -35,12 +30,11 @@ RecyclerView recyclerView;
         sensorList= LitePal.findAll(Sensor.class);
         if(!sensorList.isEmpty())
         {
-            LinearLayoutManager layoutManager=new LinearLayoutManager(ShowSense.this);
+            LinearLayoutManager layoutManager=new LinearLayoutManager(SensorActivity.this);
             recyclerView.setLayoutManager(layoutManager);
             SensorListAdaptor sensorListAdaptor=new SensorListAdaptor(sensorList);
             recyclerView.setAdapter(sensorListAdaptor);
             sensorListAdaptor.notifyDataSetChanged();
         }
     }
-
 }

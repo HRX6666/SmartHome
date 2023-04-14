@@ -6,7 +6,6 @@ import android.os.Vibrator;
 
 //自定义长按震动效果
 public class VibratorUtils {
-
     /**
      * final Activity activity  ：调用该方法的Activity实例
      * long milliseconds ：震动的时长，单位是毫秒

@@ -1,35 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="160dp"
-    android:layout_height="200dp"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/constraintLayout"
     app:cardCornerRadius="2dp"
     app:cardElevation="8dp"
     android:layout_margin="10dp"
     android:descendantFocusability="blocksDescendants">
-    <LinearLayout
-
+    <TextView
+        app:layout_constraintTop_toTopOf="@+id/layout1"
         android:layout_width="match_parent"
+        android:background="@color/black"
+        android:layout_height="5dp"/>
+<LinearLayout
+    android:id="@+id/layout1"
+    android:layout_width="match_parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_height="60dp"
+    >
+    <TextView
+        android:id="@+id/sensor_name"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_margin="5sp"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:text="空调传感器"
+        android:gravity="center"
+        android:textSize="23sp"
+        android:textStyle="bold"
+   />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@+id/layout1"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        >
+        <TextView
+            android:id="@+id/sensor_display1"
+            android:layout_gravity="center_vertical"
+            android:text="温度："
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:textSize="23sp"
+            android:textStyle="bold"
+        />
 
-        <ImageView
-            android:id="@+id/sensor_image"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/smart" />
+
+        <com.example.smarthome.View.SelfTextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            app:titlesText="0.01 ."
+            app:titlesTextColor="#045224"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            app:titlesTextSize="35sp"
+            />
 
         <TextView
-            android:id="@+id/sensor_name"
+            android:id="@+id/symbol1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-black"
-            android:text="M"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
+            android:text="°C"
+            android:layout_toRightOf="@id/tv1"
+            android:textSize="30sp"
+            android:textStyle="bold"
+
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:id="@+id/sensor_display2"
+            android:layout_gravity="center_vertical"
+            android:text="湿度："
+            android:layout_width="70dp"
+            android:layout_height="80dp"
+            android:gravity="center"
+            android:textSize="23sp"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            />
+        <com.example.smarthome.View.SelfTextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            app:titlesText="0.01."
+            app:titlesTextColor="#045224"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_vertical"
+            app:titlesTextSize="35sp"
+            />
+
+        <TextView
+            android:id="@+id/symbol2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="°C"
+            android:layout_toRightOf="@id/tv1"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

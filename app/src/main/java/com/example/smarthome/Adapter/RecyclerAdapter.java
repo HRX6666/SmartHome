@@ -1,6 +1,7 @@
 package com.example.smarthome.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Helper.AddSmartHelper;
 import com.example.smarthome.R;
+import com.example.smarthome.Scene.More;
 import com.example.smarthome.View.DeleteRecyclerViewDiy.MoveTouchCallback;
 
 import java.util.Collections;
@@ -46,7 +48,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         this.context = parent.getContext();
-
         View itemView = LayoutInflater.from(parent.getContext()).inflate(src, parent, false);
 
         return new MyViewHolder(itemView);

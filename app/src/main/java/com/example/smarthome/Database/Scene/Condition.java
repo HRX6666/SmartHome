@@ -27,7 +27,7 @@ public class Condition extends LitePalSupport {
     //1
     private String isClick;
     //2
-    private C_Time c_time;
+    private C_Time c_time=new C_Time();
     //3
     private Scene c_scene;//XX场景执行就执行
     //4

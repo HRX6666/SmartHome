@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.example.smarthome.Activity.BottomSmartHome;
 import com.example.smarthome.Activity.FirstActivity;
 import com.example.smarthome.Adapter.ConAndMissAdaptor;
+import com.example.smarthome.Adapter.MissionAdaptor;
 import com.example.smarthome.Adapter.SceneAdaptor;
 import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.Database.Scene.C_Time;
@@ -77,6 +78,7 @@ public class More extends AppCompatActivity {
             e.printStackTrace();
         }
         clientMQTT.startReconnect(More.this);
+
         init();
         /*
         1.进入后先遍历删除所有Temp数据，之后再创建一个新的temp来储存
@@ -87,10 +89,11 @@ public class More extends AppCompatActivity {
         4.还有电器的自定义命名
          */
         Intent intent=getIntent();
-        id=intent.getStringExtra("id");
+        int a=intent.getIntExtra(Scene.ID,-1);
         List<Scene> sceneList=new ArrayList<>();
-        if(id!=null)
-            sceneList=LitePal.where("id = ?",id).find(Scene.class);
+        id=String.valueOf(a);
+        if(!id.equals("-1"))
+            sceneList=LitePal.where("id = ?",id).find(Scene.class,true);
         if(sceneList.isEmpty())
             time=null;
         else{
@@ -105,7 +108,7 @@ public class More extends AppCompatActivity {
 
 
     }
-    //@TODO FindDevices好像由于刷新太快，导致用户向下滑动到一半就一朝回到解放前，又到了最顶部
+
 //    private void initContentList(){
 //        //时间为空就查询temp
 //        int temp_id;
@@ -159,16 +162,13 @@ public class More extends AppCompatActivity {
                     return;
                 }
                 if(time==null){
-                    Temp temp=LitePal.findFirst(Temp.class);
+                    Temp temp=LitePal.findFirst(Temp.class,true);
                     temp.setTime(time1);
                     Scene scene=new Scene();
                     scene.setTime(time1);
+                    scene.setName(name_ml);
                     scene.setIsClick(temp.getIsClick());
-                    if(!temp.getConditionList().isEmpty()){
-                        scene.setConditionList(temp.getConditionList());
-                    }
-                    if(!temp.getMissionList().isEmpty())
-                        scene.setMissionList(temp.getMissionList());
+
                     List<S_Device> s_deviceList=new ArrayList<>();
                     s_deviceList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(S_Device.class);
                     List<Condition> conditionList=new ArrayList<>();
@@ -177,26 +177,8 @@ public class More extends AppCompatActivity {
                     missionList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(Mission.class);
                     if(!conditionList.isEmpty())
                         c_timeList=LitePal.where("condition_id = ?",String.valueOf(conditionList.get(0).getId())).find(C_Time.class);
-//                    for(C_Time c_time:c_timeList){
-//
-//                    }
-
-                    for(Condition condition:temp.getConditionList()){
-                        Condition condition1=new Condition();
-                        condition1=condition;
-                        conditionList.add(condition1);
-                        condition1.setScene(scene);
-                        condition1.save();
-                    }
-                    for(Mission mission:temp.getMissionList()){
-                        Mission mission1=mission;
-                        missionList.add(mission1);
-                        mission1.setScene(scene);
-                        mission1.save();
-
-                    }
-
-                    TransferDataFromTempToScene(scene,temp);
+//TODO 发送时间条件的那个还没弄好
+                    TransferDataFromTempToScene(scene,temp,name_ml);
                     //创建场景
                     String input = name_ml; // 中文输入
 
@@ -283,6 +265,7 @@ public class More extends AppCompatActivity {
 
                     //TODO S_Device里面的判断是执行还是条件的还没赋值
                 }
+
                 //TODO 别忘了还有指令发送
                 //TODO 考虑到直接通过get再set可能直接set了个null，还是直接new新的
                 finish();
@@ -400,7 +383,7 @@ public class More extends AppCompatActivity {
         String name=hex.toString();
         return name;
     }
-    private void TransferDataFromTempToScene(Scene scene,Temp temp){
+    private void TransferDataFromTempToScene(Scene scene,Temp temp,String name){
         List<C_Time> c_timeList=new ArrayList<>();//多个时间点
         List<Condition> conditionList=new ArrayList<>();//条件
         List<Mission> missionList=new ArrayList<>();//任务
@@ -414,14 +397,20 @@ public class More extends AppCompatActivity {
         isClick=temp.getIsClick();
         //TODO 每一个c_time还是要通过condition来寻找，因为recycler展示的就是conditionList不是c_timeList，传入的参数有scene_id和创建时间
         //TODO 展示的列表用Map，毕竟也就显示一个标题，
-        c_timeList1=LitePal.where("temp_id = ?",temp.getId()+"").find(C_Time.class);
-        conditionList1=LitePal.where("temp_id = ?",temp.getId()+"").find(Condition.class);
-        s_deviceList1=LitePal.where("temp_id = ?",temp.getId()+"").find(S_Device.class);
-        missionList1=LitePal.where("temp_id = ?",temp.getId()+"").find(Mission.class);
+        c_timeList1=LitePal.where("temp_id = ?",temp.getId()+"").find(C_Time.class,true);
+        conditionList1=LitePal.where("temp_id = ?",temp.getId()+"").find(Condition.class,true);
+        s_deviceList1=LitePal.where("temp_id = ?",temp.getId()+"").find(S_Device.class,true);
+        missionList1=LitePal.where("temp_id = ?",temp.getId()+"").find(Mission.class,true);
         c_timeList=c_timeList1;
         conditionList=conditionList1;
         s_deviceList=s_deviceList1;
         missionList=missionList1;
+        for(int i=0;i<conditionList.size();i++){
+            Condition condition=new Condition();
+            condition=conditionList.get(i);
+            scene.getConditionList().add(condition);
+            condition.save();
+        }
         scene.setMissionList(missionList);
         scene.setConditionList(conditionList);
         scene.setIsClick(isClick);
@@ -431,6 +420,7 @@ public class More extends AppCompatActivity {
         Date date=new Date(System.currentTimeMillis());
         String time1=simpleDateFormat.format(date);
         scene.setTime(time1);
+        scene.setIsOpen(0);
         scene.save();
     }
     class MyRunnable implements Runnable{
@@ -463,17 +453,17 @@ public class More extends AppCompatActivity {
             recy_condition.setAdapter(conAndMissAdaptor);
             conAndMissAdaptor.notifyDataSetChanged();
         }
-
     }
     private void initRecyclerViewMiss(){
         if(time!=null){
             mMissionList.clear();
-            mMissionList=LitePal.where("scene_id = ?",id).find(Mission.class);
+            mMissionList=LitePal.where("scene_id = ?",id).find(Mission.class,true);
             LinearLayoutManager layoutManager=new LinearLayoutManager(More.this);
             recy_mission.setLayoutManager(layoutManager);
-            ConAndMissAdaptor conAndMissAdaptor=new ConAndMissAdaptor(mMissionList,1);
-            recy_mission.setAdapter(conAndMissAdaptor);
-            conAndMissAdaptor.notifyDataSetChanged();
+            MissionAdaptor missionAdaptor=new MissionAdaptor(mMissionList);
+            missionAdaptor.setContext(More.this);
+            recy_mission.setAdapter(missionAdaptor);
+            missionAdaptor.notifyDataSetChanged();
         }
     }
 }

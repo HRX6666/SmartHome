@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.animation.ArgbEvaluator;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.smarthome.Adapter.ManageAdaptor;
+import com.example.smarthome.Adapter.ViewPagerAdapter;
 import com.example.smarthome.MQTT.ClientMQTT;
 import com.example.smarthome.R;
 import com.example.smarthome.View.StepSeekBar;
@@ -73,7 +76,7 @@ public class AdjustTheLights extends AppCompatActivity {
     private TextView tab_new, tab_hot, tab_free, tab_member;
     private float item_width;
     private int screenWidth;
-
+    List<View> viewList=new ArrayList<>();
     int indicatorColorId;
 
     @SuppressLint("MissingInflatedId")
@@ -85,27 +88,30 @@ public class AdjustTheLights extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         view1 = inflater.inflate(R.layout.vp1, null);
-        light_breathe=view1.findViewById(R.id.v_switch_1);
+        view2 = inflater.inflate(R.layout.vp1, null);
+        view3 = inflater.inflate(R.layout.vp1, null);
+        view4 = inflater.inflate(R.layout.vp1, null);
+//        light_breathe=view1.findViewById(R.id.light_breathe);
         indicator = (ViewPagerIndicator) findViewById(R.id.indicator);
-        light_breathe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(view1.getContext(),"点击",Toast.LENGTH_SHORT).show();
-                Toast.makeText(AdjustTheLights.this,"点击",Toast.LENGTH_SHORT).show();
-            }
-        });
-        light_breathe.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
-            @Override
-            public void toggleToOn(SwitchView view) {
-                Toast.makeText(view1.getContext(),"点击",Toast.LENGTH_SHORT).show();
-                Toast.makeText(AdjustTheLights.this,"点击",Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void toggleToOff(SwitchView view) {
-
-            }
-        });
+//        light_breathe.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(view1.getContext(),"点击",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AdjustTheLights.this,"点击",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        light_breathe.setOnStateChangedListener(new SwitchView.OnStateChangedListener() {
+//            @Override
+//            public void toggleToOn(SwitchView view) {
+//                Toast.makeText(view1.getContext(),"点击",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AdjustTheLights.this,"点击",Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void toggleToOff(SwitchView view) {
+//
+//            }
+//        });
         mList = new ArrayList<Fragment>();
         for (int i = 0; i < itemCount; i++) {
             Fragment fragment = new MeFragment();
@@ -117,22 +123,30 @@ public class AdjustTheLights extends AppCompatActivity {
             mDatas.add("灯" + i);
         }
 
-        mAdapter = new FragmentPagerAdapter(getSupportFragmentManager()) {
-            @Override
-            public Fragment getItem(int position) {
-                return mList.get(position);
-            }
-
-            @Override
-            public int getCount() {
-                return mList.size();
-            }
-        };
-
-        viewPager.setAdapter(mAdapter);
+//        mAdapter = new ViewPagerAdapter(getSupportFragmentManager()) {
+//            @Override
+//            public Fragment getItem(int position) {
+//                return mList.get(position);
+//            }
+//
+//            @Override
+//            public int getCount() {
+//                return mList.size();
+//            }
+//        };
+        viewList.add(view1);
+        viewList.add(view2);
+        viewList.add(view3);
+        viewList.add(view4);
+        Intent intent=getIntent();
+        String target_long_address=intent.getStringExtra(ManageAdaptor.TARGET_LONG_ADDRESS);
+        ViewPagerAdapter viewPagerAdapter=new ViewPagerAdapter(viewList,target_long_address);
+        viewPagerAdapter.setContext(AdjustTheLights.this);
+        viewPager.setAdapter(viewPagerAdapter);
         //将viewpager与indicator绑定
         indicator.setDatas(mDatas);
-        indicator.setViewPager(viewPager);
+        indicator.setViewPager(viewPager,4);
+
 //        initattrs();
 //        init();
 
@@ -504,15 +518,15 @@ public class AdjustTheLights extends AppCompatActivity {
 //        indicatorColorAnim.setDuration(INDICATOR_ANIM_DURATION);
 //    }
 //
-//    private void initattrs() {
-//        // TODO Auto-generated method stub
-//        indicatorColorId = R.color.foot_text_press;
-//        radiusMax = getResources().getDimension(R.dimen.si_default_radius_max);
-//        radiusMin = getResources().getDimension(R.dimen.si_default_radius_min);
-//        if (indicatorColorsId != 0) {
-//            indicatorColorArray = getResources().getIntArray(indicatorColorsId);
-//        }
-//        radiusOffset = radiusMax - radiusMin;
-//    }
+////    private void initattrs() {
+////        // TODO Auto-generated method stub
+////        indicatorColorId = R.color.foot_text_press;
+////        radiusMax = getResources().getDimension(R.dimen.si_default_radius_max);
+////        radiusMin = getResources().getDimension(R.dimen.si_default_radius_min);
+////        if (indicatorColorsId != 0) {
+////            indicatorColorArray = getResources().getIntArray(indicatorColorsId);
+////        }
+////        radiusOffset = radiusMax - radiusMin;
+////    }
 
 }

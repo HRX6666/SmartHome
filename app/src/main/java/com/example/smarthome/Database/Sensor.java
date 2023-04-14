@@ -5,19 +5,37 @@ import org.litepal.crud.LitePalSupport;
 public class Sensor extends LitePalSupport {
     private int id;
     private String device_type;
+    private int flag;
     private String target_short_address;
     private String controller_long_address;
-    private String temp;//温度
+    private String temp_air;//温度
+    //只用temp和wetness
     private String i_temp;
+    private String data;
     private String wetness;//空调湿度
     private String i_wetness;//独立湿度
     private String smoking;
     private String valid_data;
     private String time;//点击传感器的时间，通过intent传过去，再通过litepal寻找到sensor
-    private int flag;
     private int isUpdate;
     //独立温度传感器
     private String temp_independent;
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getTemp_air() {
+        return temp_air;
+    }
+
+    public void setTemp_air(String temp_air) {
+        this.temp_air = temp_air;
+    }
 
     public String getTime() {
         return time;
@@ -107,13 +125,7 @@ public class Sensor extends LitePalSupport {
         this.target_short_address = target_short_address;
     }
 
-    public String getTemp() {
-        return temp;
-    }
 
-    public void setTemp(String temp) {
-        this.temp = temp;
-    }
 
     public String getTemp_independent() {
         return temp_independent;

@@ -84,6 +84,20 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".Page_Huiju.HomeManageActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Scene.SmartSensor"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".Scene.SmartDevice.Set_curtain"
             android:exported="false">
             <meta-data
@@ -271,8 +285,16 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".Page_Samrt.GoHome"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Page_Home.WangGuan"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

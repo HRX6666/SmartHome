@@ -13,18 +13,28 @@ public class Device extends LitePalSupport {
 //    private String misc;//
 //    private String network_flag;//电器是否自动入网(电器重启后自动组网)
 //    private String source_data;//这玩意是开关键决定的，不需要保存
-
+    public static final String TARGET_LONG_ADDRESS="target_long_address";
+    private int id;
     private String misc;
     private String target_short_address;
     private String device_type;//设备码
     private String valid_data;
     private String valid_data_length;
-    private String network_flag;
+    private String network_flag;//入网标志
+    //TODO 这个跟isUpdate的作用是一样的，记得去改，毕竟离线设备也会发过来
+    //赋值倒是不必要，因为解析的时候就赋值了，01 入网，00 未入网
     private String target_long_address;
     private String controller_long_address;
     private String data;//存放jsonDate
 
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getData() {
         return data;
@@ -69,9 +79,10 @@ private int curtain_extent;//窗帘程度
     private Model model;//离家模式等等等。。。。。。
     private Home home;//房间
     private List<Scene> sceneList;//一个设备能在多个场景中，添加关联目的是通过储存的
+    private AddHomes addHomes;
    //通过Temp?
 //设备是一个场景中只能用一次，还是说多个条件可以用同一个设备，或者任务里面还可以重用设备
-    private int flag;//是否同意允许该家器接入
+    private int flag;//是否同意允许该家器接入,
     private int isUpdate;//判断app开启电器入网是否收到了这条电器信息,在线标志
     private String light_id;
     private int light_brightness;//亮度
@@ -79,12 +90,29 @@ private int curtain_extent;//窗帘程度
     private String wetness;
     private int air_HotOrCold;//制热还是制冷
     private String air_temp;//空调温度
+    private int use;//是否已经成为场景的执行任务
     //condition_一个电器可以有多个相同类别的条件，比如温度
     //因此condition要对应
     //一个场景多个条件
     //所以一个条件对应几个电器？
     //一个电器可以对应多个同一类的条件，而区分这些条件的就是场景
 
+
+    public AddHomes getAddHomes() {
+        return addHomes;
+    }
+
+    public void setAddHomes(AddHomes addHomes) {
+        this.addHomes = addHomes;
+    }
+
+    public int getUse() {
+        return use;
+    }
+
+    public void setUse(int use) {
+        this.use = use;
+    }
 
     public String getName() {
         return name;

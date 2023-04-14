@@ -25,6 +25,7 @@ import com.google.android.material.button.MaterialButton;
 import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +35,7 @@ public class Set_air extends AppCompatActivity {
     RecyclerView recyclerView;
     private AirListAdaptor airListAdaptor;
     private List<Device> mAirList;
-    private List<Integer> positionList;//储存选择的电器
+    private List<Integer> positionList=new ArrayList<>();//储存选择的电器
     private Mission mission;
     private MaterialButton create;
     private CustomizeGoodsAddView customizeGoodsAddView;
@@ -57,14 +58,24 @@ public class Set_air extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_air);
-        create=findViewById(R.id.create_home);
-        //判断是否为再次编辑
         Intent intent=getIntent();
         timeIn=intent.getStringExtra(Set_air.TIME);
+        create=findViewById(R.id.create_home);
+        //判断是否为再次编辑
+
         if(timeIn==null)
             flag=0;//新的
         else
             flag=1;
+        if(timeIn!=null){
+            mission=LitePal.where("time = ?",timeIn).findFirst(Mission.class,true);
+            for(int i=0;i<mission.getS_deviceList().size();i++){
+                String target_long_address=mission.getS_deviceList().get(i).getTarget_long_address();
+                Device device=LitePal.where("target_long_address = ?",target_long_address).findFirst(Device.class);
+                mAirList.add(device);
+            }
+        }else
+            mAirList=LitePal.where("device_type = ? and flag = ? and use = ?","02","1","0").find(Device.class);
         clickListenerInit();
         recyclerView();
 
@@ -75,7 +86,7 @@ public class Set_air extends AppCompatActivity {
 
     private void recyclerView() {
         recyclerView=findViewById(R.id.select_air);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         airListAdaptor=new AirListAdaptor(this,R.layout.scene_airlist,mAirList);
 //        airListAdaptor.setOnItemClickListener(new AirListAdaptor.OnItemClickListener() {
 //            @Override
@@ -167,7 +178,8 @@ public class Set_air extends AppCompatActivity {
                     mission=new Mission();
                     mission.setTime(time);
                     mission.setTemp(temp);
-                    mission.save();
+                    temp.getMissionList().add(mission);
+
 
                 }else
                 {
@@ -201,14 +213,23 @@ public class Set_air extends AppCompatActivity {
                                         s_device.setWind("2");
                                     if(max!=-1)
                                         s_device.setAir_model("3");
+                                    mission.setJudge(4);
                                     if(flag==0)
                                     {
-
                                         s_device.setMission(mission);
+                                        mission.getS_deviceList().add(s_device);
+                                        temp.getMissionList().add(mission);
+                                        mission.setTemp(temp);
+                                        mission.save();
+                                        Device device=new Device();
+                                        device.setUse(1);
+                                        device.updateAll("target_long_address = ?",target_long_address);
                                         s_device.save();
                                     }
-                                    else
+                                    else{
                                         s_device.updateAll("target_long_address = ?",target_long_address);
+                                        mission.updateAll("time = ?",timeIn);
+                                    }
                                     finish();
                                 }
                             }else

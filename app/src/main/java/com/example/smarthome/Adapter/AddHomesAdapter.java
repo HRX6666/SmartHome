@@ -36,29 +36,17 @@ public class AddHomesAdapter extends RecyclerView.Adapter<AddHomesAdapter.ViewHo
     public AddHomesAdapter(List<AddHomes> homesList) {
         list = homesList;
     }
-
+    public void setContext(Context context){
+        mContext=context;
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_smart, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(parent.getContext().getApplicationContext(), AddHome.class);
-                String  home = viewHolder.h_home.getText().toString().trim();
-                intent.putExtra("home", home);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                parent.getContext().startActivity(intent);
-//                关于Activity跳转，Context中有一个startActivity方法，
-//                Activity继承自Context，重载了startActivity方法。
-//                如果使用Activity的startActivity方法，不会有任何限制，
-//                而如果使用Context的startActivity方法的話，就需要开启一个新的的task，
-//                遇到这个异常，是因为使用了Context的startActivity方法。解决办法是，加一个flag。
-            }
-        });
+        ViewHolder holder = new ViewHolder(view);
 
-        return viewHolder;
+
+        return holder;
     }
     public  interface OnItemLongClickListener{
         void onItemLongClick(View view,int position);
@@ -69,10 +57,16 @@ public class AddHomesAdapter extends RecyclerView.Adapter<AddHomesAdapter.ViewHo
         AddHomes addHomes=list.get(position);
         holder.h_home.setText(addHomes.getHome());
 //        ImageView imageView= (ImageView) holder.view;
-        holder.itemView.setOnClickListener(v -> {
-            onItemClickListener.OnItemClick(v,position);
+        holder.view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mContext, AddHome.class);
+                intent.putExtra("time", addHomes.getTime());
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+            }
         });
-
+        holder.h_home.setText(list.get(position).getHome());
     }
 
 
@@ -81,7 +75,6 @@ public class AddHomesAdapter extends RecyclerView.Adapter<AddHomesAdapter.ViewHo
         TextView h_home;
         View view;
         public ViewHolder(@NonNull View itemView) {
-
             super(itemView);
             h_home=(TextView) itemView.findViewById(R.id.tv_name);
             view=itemView;

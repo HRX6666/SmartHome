@@ -18,7 +18,9 @@ public class Mission extends LitePalSupport {
     private List<String> messageList=new ArrayList<>();//系统通知
     //2
     private List<S_Device> s_deviceList=new ArrayList<>();//执行的设备
-    //3
+    //3 light
+    //4 air
+    //5 curtain
 
 
     public Scene getScene() {
