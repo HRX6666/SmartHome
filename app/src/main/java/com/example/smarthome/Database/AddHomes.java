@@ -5,10 +5,18 @@ import org.litepal.crud.LitePalSupport;
 import java.util.List;
 
 public class AddHomes extends LitePalSupport {
+    private int id;
     private String home;//名称
     private String time;//判断
     private List<Device> deviceList;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public List<Device> getDeviceList() {
         return deviceList;

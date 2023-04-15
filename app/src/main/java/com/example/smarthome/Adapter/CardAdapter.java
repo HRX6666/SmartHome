@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Database.Home;
-import com.example.smarthome.Page_Huiju.AddHome;
+import com.example.smarthome.Objects.Page_Huiju.AddHome;
 import com.example.smarthome.R;
 
 import java.util.ArrayList;

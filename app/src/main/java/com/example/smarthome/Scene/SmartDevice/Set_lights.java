@@ -93,7 +93,7 @@ public class Set_lights extends AppCompatActivity {
         create=findViewById(R.id.create_home);
         linearLayout=findViewById(R.id.linearLayout);
         clickListenerInit();
-        recyclerView();
+
         //判断是否为再次编辑
  
 
@@ -110,6 +110,7 @@ public class Set_lights extends AppCompatActivity {
             }
         }else
             lightList=LitePal.where("device_type = ? and flag = ? and use = ?","01","1","0").find(Device.class);
+        recyclerView();
     }
 
 
@@ -200,7 +201,6 @@ public class Set_lights extends AppCompatActivity {
                     mission = new Mission();
                     mission.setTime(time);
                     mission.setTemp(temp);
-
                     mission.save();
                 } else {
                     List<Mission> missionList = LitePal.where("time = ?", timeIn).find(Mission.class);
@@ -216,6 +216,7 @@ public class Set_lights extends AppCompatActivity {
                             String target_long_address = lightList.get(n).getTarget_long_address();
                             String target_short_address = lightList.get(n).getTarget_short_address();
                             S_Device s_device = new S_Device();
+                            s_device.setDevice_type("01");
                             if (breathe != -1)
                                 s_device.setLight_model("3");
                             if(light1==1)
@@ -242,12 +243,17 @@ public class Set_lights extends AppCompatActivity {
                                 s_device.setBrightness(bright);
                             if (flag == 0) {
                                 Device device=new Device();
-                                device.setUse(1);
+//                                device.setUse(1);
                                 device.updateAll("target_long_address = ?",target_long_address);
                                 s_device.setMission(mission);
+                                mission.getS_deviceList().add(s_device);
                                 s_device.save();
-                            } else
+                                mission.setJudge(3);
+                                mission.save();
+                            } else{
                                 s_device.updateAll("target_long_address = ?", target_long_address);
+
+                            }
 
                         }
                         finish();

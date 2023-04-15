@@ -7,18 +7,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Adapter.HomeAdaptor;
-import com.example.smarthome.Adapter.ManageAdaptor;
 import com.example.smarthome.Database.Home;
 import com.example.smarthome.Helper.AddHomeHelper;
-import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity {
     private ArrayList<AddHomeHelper> addHomeHelperArrayList=new ArrayList<>();

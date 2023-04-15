@@ -3,27 +3,21 @@ package com.example.smarthome.Scene.SmartDevice;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smarthome.Adapter.ManageAdaptor;
 import com.example.smarthome.Adapter.SmartDeviceAdaptor;
-import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Condition;
 import com.example.smarthome.Database.Scene.S_Device;
-import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @description

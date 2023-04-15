@@ -1,29 +1,32 @@
-package com.example.smarthome.Page_Huiju;
+package com.example.smarthome.Objects.Page_Huiju;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.smarthome.Adapter.ManageAdaptor;
 import com.example.smarthome.Database.AddHomes;
-import com.example.smarthome.Database.AddModel;
-import com.example.smarthome.Page_Samrt.Tesk;
+import com.example.smarthome.Database.Device;
 import com.example.smarthome.R;
-import com.example.smarthome.View.SelfTextView;
 
 import org.litepal.LitePal;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 //TODO huiJu没换
 public class AddHome extends AppCompatActivity {
@@ -32,6 +35,8 @@ public class AddHome extends AppCompatActivity {
     Button create_home;
     EditText home_name;
     AddHomes addHomes=new AddHomes();
+    List<Device> deviceList=new ArrayList<>();
+    static int id=0;
     RecyclerView device_list;
     String name_hm;
     String time="0";
@@ -44,14 +49,34 @@ public class AddHome extends AppCompatActivity {
         device_list=findViewById(R.id.device_list);
         Intent intent=getIntent();
         time=intent.getStringExtra("time");
-        if(time!=null)
+        if(time!=null){
             addHomes=LitePal.where("time = ?",time).findFirst(AddHomes.class);
+            id=addHomes.getId();
+        }
         init();
+        recyclerView();
+
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {//加载toolbar.xml这个菜单文件
+        getMenuInflater().inflate(R.menu.homemanage, menu);
+        return true;//表示允许创建菜单
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {//处理各个按钮的点击事件
+        switch (item.getItemId()) {//判断点击的按钮是哪个
+            case R.id.add_device:
+                Intent intent=new Intent(AddHome.this,HomeDeviceManage.class);
+                startActivity(intent);
+                break;
+            default:
+        }
+        return true;
     }
     private void init() {
         create_home=findViewById(R.id.create_home);
         home_name=findViewById(R.id.home_name);
-        if(!time.equals("0"))
+        if(time!=null)
             home_name.setText(addHomes.getHome());
         addHome_back.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,6 +84,7 @@ public class AddHome extends AppCompatActivity {
                 finish();
             }
         });
+
         create_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +109,18 @@ public class AddHome extends AppCompatActivity {
         });
     }
     private void recyclerView(){
-
+        deviceList=LitePal.where("addHomes_id = ?",id+"").find(Device.class);
+        LinearLayoutManager layoutManager=new LinearLayoutManager(AddHome.this);
+        device_list.setLayoutManager(layoutManager);
+        ManageAdaptor manageAdaptor=new ManageAdaptor(deviceList);
+        device_list.setAdapter(manageAdaptor);
+        manageAdaptor.notifyDataSetChanged();
     }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        init();
+    }
+
+
 }

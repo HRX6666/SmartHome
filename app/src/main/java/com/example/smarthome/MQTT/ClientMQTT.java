@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.smarthome.Json.JsonString;
@@ -111,8 +112,6 @@ public class ClientMQTT {
                 System.out.println("deliveryComplete----------");
             }
         });
-
-
     }
     public void Mqtt_connect() {
         new Thread(new Runnable() {
@@ -278,6 +277,7 @@ public void publishMessagePlusForActivity(String misc,String target_short_addres
         MqttMessage message = new MqttMessage();
         JsonString jsonString=new JsonString(timestamp,controller_long_address,device_id,misc,target_short_address,device_type,valid_data,valid_data_length);
         message.setPayload(jsonString.toString().getBytes());
+        Log.e("688888",jsonString.toString());
         try {
             client.publish("APPtoESP32",message);//上传信息
         } catch (MqttException e) {

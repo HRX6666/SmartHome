@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.smarthome.Scene.SmartDevice.Set_air;
 import com.example.smarthome.Scene.SmartDevice.Set_curtain;
@@ -18,6 +19,7 @@ import com.example.smarthome.R;
  */
 public class SmartActivity extends AppCompatActivity {
     TextView set_air,set_light,set_curtain;
+    Toolbar set_tb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +34,16 @@ public class SmartActivity extends AppCompatActivity {
         set_air=findViewById(R.id.set_air);
         set_light=findViewById(R.id.set_lights);
         set_curtain=findViewById(R.id.set_curtain);
+        set_tb=findViewById(R.id.set_tb);
 
     }
     private void m_intent() {
+        set_tb.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         set_air.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

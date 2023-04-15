@@ -11,20 +11,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.smarthome.Database.Scene.C_Time;
-import com.example.smarthome.Database.Scene.S_Device;
-import com.example.smarthome.Database.Scene.Scene;
-import com.example.smarthome.Database.Scene.Temp;
-import com.example.smarthome.Page_Huiju.ManageDevices;
+import com.example.smarthome.Objects.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
-import com.example.smarthome.Scan.ScanActivity;
-import com.example.smarthome.Scene.AddOrEditScene;
-import com.example.smarthome.Test;
 import com.example.smarthome.View.TestScene;
-
-import org.litepal.LitePal;
-
-import java.util.List;
 //import com.example.smarthome.Scan.ScanActivity;
 
 public class HomeFragment extends Fragment {

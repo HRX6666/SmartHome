@@ -1,10 +1,9 @@
-package com.example.smarthome.Page_Huiju;
+package com.example.smarthome.Objects.Page_Huiju;
 
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,30 +13,17 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.smarthome.Activity.BottomSmartHome;
-import com.example.smarthome.Activity.FirstActivity;
-import com.example.smarthome.Adapter.RecyclerAdapter;
 import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.Scene;
 import com.example.smarthome.MQTT.ClientMQTT;
-import com.example.smarthome.Page_Home.FindDevices;
 import com.example.smarthome.R;
 
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.litepal.LitePal;
-import org.litepal.tablemanager.Connector;
 
 
 import android.content.Intent;
 import android.view.MenuItem;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Interpolator;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -47,16 +33,10 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.Fade;
-import androidx.transition.Transition;
-import androidx.transition.TransitionManager;
-import androidx.transition.TransitionSet;
 
 import com.example.smarthome.Adapter.AddHomeAdapter;
 import com.example.smarthome.Adapter.ExtendHeadAdapter;
-import com.example.smarthome.Helper.ExtendHeatHelper;
 import com.example.smarthome.Scene.More;
 import com.example.smarthome.View.CircleWelComeView;
 import com.example.smarthome.View.SeekPage.CardConfig;
@@ -65,9 +45,6 @@ import com.example.smarthome.View.SeekPage.CardLayoutManager;
 import com.example.smarthome.View.SeekPage.OnSwipeListener;
 import com.example.smarthome.View.pullextend.ExtendListHeader;
 import com.example.smarthome.View.pullextend.PullExtendLayout;
-import com.example.smarthome.animation.AddAnimationRotation;
-import com.example.smarthome.animation.RuwangAnimationAlpha;
-import com.example.smarthome.animation.SunAnimatorMoverment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,13 +106,16 @@ public class HuijuFrament extends Fragment {
 //        count=sceneList.size();
         deviceList=LitePal.where("flag = ? and isUpdate = ?","0","1").find(Device.class);
 
-
-
-
-
-
         return inflater.inflate(R.layout.huiju_fragment,container,false);
 
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        sceneList.clear();
+        sceneList= LitePal.findAll(Scene.class);
+        huiJu_recyclerView();
+        initData();
     }
     @SuppressLint("ResourceType")
     @Override
@@ -162,8 +142,7 @@ public class HuijuFrament extends Fragment {
             }
         });
         //TODO 设备显示离线
-        huiju_recyclerView();
-        huiju_recyclerView();
+        huiJu_recyclerView();
 
         initData();
 
@@ -193,11 +172,12 @@ public class HuijuFrament extends Fragment {
 //
 //    }
 
-    private void huiju_recyclerView() {
+    private void huiJu_recyclerView() {
         huiju=(RecyclerView)getActivity().findViewById(R.id.add_view);
         huiju.setItemAnimator(new DefaultItemAnimator());
         List<Scene> scenes=new ArrayList<>();
-        scenes.add(sceneList.get(0));
+        if(!sceneList.isEmpty())
+            scenes.add(sceneList.get(0));
         MyAdapter myAdapter=new MyAdapter(scenes);
         myAdapter.setContext(getContext());
         huiju.setAdapter(myAdapter);

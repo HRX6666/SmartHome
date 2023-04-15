@@ -96,12 +96,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(breath1==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0105","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0105","0x02");
                             breath1=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0106","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0106","0x02");
                             breath1=0;
                         }
 
@@ -111,12 +111,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(open1==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0104"+"05","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0104"+"05","0x03");
                             open1=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x010400","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x010400","0x03");
                             open1=0;
                         }
                     }
@@ -128,7 +128,7 @@ public void setContext(Context context){
                         String bright=String.valueOf(location);
                         if(bright.length()==1)
                             bright="0"+bright;
-                        clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0104"+bright,"0x03");
+                        clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0104"+bright,"0x03");
 
                     }
                 });
@@ -138,12 +138,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(breath2==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0205","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0205","0x02");
                             breath2=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0206","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0206","0x02");
                             breath2=0;
                         }
 
@@ -153,12 +153,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(open2==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0204"+"05","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0204"+"05","0x03");
                             open2=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x020400","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x020400","0x03");
                             open2=0;
                         }
                     }
@@ -169,7 +169,7 @@ public void setContext(Context context){
                         String bright=String.valueOf(location);
                         if(bright.length()==1)
                             bright="0"+bright;
-                        clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x02" +
+                        clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x02" +
                                 "04"+bright,"0x03");
 
 
@@ -181,12 +181,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(breath3==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0305","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0305","0x02");
                             breath3=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0306","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0306","0x02");
                             breath3=0;
                         }
 
@@ -196,12 +196,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(open3==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0304"+"05","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0304"+"05","0x03");
                             open3=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x030400","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x030400","0x03");
                             open3=0;
                         }
                     }
@@ -211,7 +211,7 @@ public void setContext(Context context){
                         String bright=String.valueOf(location);
                         if(bright.length()==1)
                             bright="0"+bright;
-                        clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0304"+bright,"0x03");
+                        clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0304"+bright,"0x03");
 
                     }
                 });
@@ -221,12 +221,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(breath4==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0405","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0405","0x02");
                             breath4=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0406","0x02");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0406","0x02");
                             breath4=0;
                         }
 
@@ -236,12 +236,12 @@ public void setContext(Context context){
                     @Override
                     public void onClick(View v) {
                         if(open4==0){
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0404"+"05","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0404"+"05","0x03");
                             open4=1;
 
                         }
                         else{
-                            clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x040400","0x03");
+                            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x040400","0x03");
                             open4=0;
                         }
                     }
@@ -251,7 +251,7 @@ public void setContext(Context context){
                         String bright=String.valueOf(location);
                         if(bright.length()==1)
                             bright="0"+bright;
-                        clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x0404"+bright,"0x03");
+                        clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x0404"+bright,"0x03");
                     }
                 });
                 break;

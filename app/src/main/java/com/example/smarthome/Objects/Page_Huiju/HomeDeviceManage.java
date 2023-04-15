@@ -1,11 +1,11 @@
-package com.example.smarthome.Page_Huiju;
+package com.example.smarthome.Objects.Page_Huiju;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Adapter.HomeDeviceAdaptor;
@@ -40,8 +40,9 @@ public class HomeDeviceManage extends AppCompatActivity {
         HomeDeviceAdaptor homeDeviceAdaptor=new HomeDeviceAdaptor();
         homeDeviceAdaptor.setDevices(deviceList);
         //TODO 设置为已选择
-        LinearLayoutManager layoutManager=new LinearLayoutManager(HomeDeviceManage.this);
-        recyclerView.setLayoutManager(layoutManager);
-
+        GridLayoutManager gridLayoutManager=new GridLayoutManager(HomeDeviceManage.this,2);
+        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView.setAdapter(homeDeviceAdaptor);
+        homeDeviceAdaptor.notifyDataSetChanged();
     }
 }

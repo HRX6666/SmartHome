@@ -13,11 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smarthome.Activity.SetAllShow;
 import com.example.smarthome.Adapter.AddModelAdapter2;
 import com.example.smarthome.Adapter.AddSmartAdapter;
 import com.example.smarthome.Adapter.ManageAdaptor;
-import com.example.smarthome.Adapter.SceneAdaptor;
 import com.example.smarthome.Database.AddModel;
 import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Scene.C_Time;
@@ -26,11 +24,8 @@ import com.example.smarthome.Database.Scene.Mission;
 import com.example.smarthome.Database.Scene.S_Device;
 import com.example.smarthome.Database.Scene.Scene;
 import com.example.smarthome.Database.Scene.Temp;
-import com.example.smarthome.Helper.AddSmartHelper;
-import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 import com.example.smarthome.Scene.More;
-import com.example.smarthome.Scene.SceneActivity;
 import com.example.smarthome.Scene.SmartSensor;
 
 import org.litepal.LitePal;

@@ -44,7 +44,7 @@ import java.util.Map;
 public class More extends AppCompatActivity {
     public static final String CONTROLLER_LONG_ADDRESS="70E46125004B1200";
     RelativeLayout select_condition,select_tesk;
-    Button create;
+    Button create,delete_scene;
     EditText model_name;
     String name_ml;
     private String  id;
@@ -66,6 +66,7 @@ public class More extends AppCompatActivity {
     private String innerData;//内嵌有效数据
     private String innerDataLength;//内嵌有效数据长度
     private String  validDataLength;//有效数据长度
+    private int a;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +79,8 @@ public class More extends AppCompatActivity {
             e.printStackTrace();
         }
         clientMQTT.startReconnect(More.this);
-
+        Intent intent=getIntent();
+        a=intent.getIntExtra(Scene.ID,-1);
         init();
         /*
         1.进入后先遍历删除所有Temp数据，之后再创建一个新的temp来储存
@@ -88,8 +90,7 @@ public class More extends AppCompatActivity {
         3.编写适配器，暂时只显示名称图标和开关
         4.还有电器的自定义命名
          */
-        Intent intent=getIntent();
-        int a=intent.getIntExtra(Scene.ID,-1);
+
         List<Scene> sceneList=new ArrayList<>();
         id=String.valueOf(a);
         if(!id.equals("-1"))
@@ -99,6 +100,8 @@ public class More extends AppCompatActivity {
         else{
             time=sceneList.get(0).getTime();
             model_name.setText(sceneList.get(0).getName());//TODO 看看显示没有
+            Temp temp=LitePal.findLast(Temp.class);
+            TransferDataFromSceneToTemp(temp,sceneList.get(0));
         }
         //TODO 这个界面记得RecyclerView，要检测传进来的时间是否为空，为空就查询场景，初始化recyclerView,记得通过Adaptor的inputTime传入时间
 
@@ -109,22 +112,6 @@ public class More extends AppCompatActivity {
 
     }
 
-//    private void initContentList(){
-//        //时间为空就查询temp
-//        int temp_id;
-//        if(time==null){
-//            Temp temp=LitePal.findLast(Temp.class);
-//            if(temp!=null){
-//                temp_id=temp.getId();
-//                List<Condition> conditionList1=LitePal.where("temp_id = ?",temp_id+"").find(Condition.class);
-//
-//            }
-//
-//
-//        }
-//
-//
-//    }
     private void init() {
         select_condition =findViewById(R.id.select_condition);
         select_tesk=findViewById(R.id.select_tesk);
@@ -132,7 +119,22 @@ public class More extends AppCompatActivity {
         model_name=findViewById(R.id.model_name);
         recy_mission=findViewById(R.id.recy_mission);
         recy_condition=findViewById(R.id.recy_condition);
-
+        delete_scene=findViewById(R.id.delete_scene);
+        if(a==-1){
+            delete_scene.setVisibility(View.INVISIBLE);
+            delete_scene.setClickable(false);
+        }
+        else {
+            delete_scene.setVisibility(View.VISIBLE);
+            delete_scene.setClickable(true);
+        }
+        delete_scene.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LitePal.deleteAll(Scene.class,"id = ?",a+"");
+                finish();
+            }
+        });
         select_tesk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,17 +170,97 @@ public class More extends AppCompatActivity {
                     scene.setTime(time1);
                     scene.setName(name_ml);
                     scene.setIsClick(temp.getIsClick());
-
+                    if(!temp.getConditionList().isEmpty()){
+                        scene.setConditionList(temp.getConditionList());
+                    }
+//                    if(!temp.getMissionList().isEmpty())
+//                        scene.setMissionList(temp.getMissionList());
                     List<S_Device> s_deviceList=new ArrayList<>();
-                    s_deviceList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(S_Device.class);
+                    s_deviceList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(S_Device.class,true);
                     List<Condition> conditionList=new ArrayList<>();
                     List<Mission> missionList=new ArrayList<>();
-                    conditionList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(Condition.class);
-                    missionList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(Mission.class);
+                    conditionList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(Condition.class,true);
+                    missionList=LitePal.where("temp_id = ?",String.valueOf(temp.getId())).find(Mission.class,true);
                     if(!conditionList.isEmpty())
-                        c_timeList=LitePal.where("condition_id = ?",String.valueOf(conditionList.get(0).getId())).find(C_Time.class);
+                        c_timeList=LitePal.where("condition_id = ?",String.valueOf(conditionList.get(0).getId())).find(C_Time.class,true);
 //TODO 发送时间条件的那个还没弄好
-                    TransferDataFromTempToScene(scene,temp,name_ml);
+//                    for(Condition condition:temp.getConditionList()){
+//                        Condition condition1=new Condition();
+//                        condition1=condition;
+//                        conditionList.add(condition1);
+//                        condition1.setScene(scene);
+//                        condition1.save();
+//                    }
+//                    for(Mission mission:temp.getMissionList()){
+//                        Mission mission1=mission;
+//                        missionList.add(mission1);
+//                        mission1.setScene(scene);
+//                        mission1.save();
+//
+//                    }
+                    List<C_Time> c_timeList=new ArrayList<>();//多个时间点
+                    String isClick;
+                    List<C_Time> c_timeList1=new ArrayList<>();//多个时间点
+                    List<Condition> conditionList1=new ArrayList<>();//条件
+                    List<Mission> missionList1=new ArrayList<>();//任务
+                    List<S_Device> s_deviceList1=new ArrayList<>();
+
+                    isClick=temp.getIsClick();
+                    //TODO 每一个c_time还是要通过condition来寻找，因为recycler展示的就是conditionList不是c_timeList，传入的参数有scene_id和创建时间
+                    //TODO 展示的列表用Map，毕竟也就显示一个标题，
+                    c_timeList1=LitePal.where("temp_id = ?",temp.getId()+"").find(C_Time.class,true);
+                    conditionList1=LitePal.where("temp_id = ?",temp.getId()+"").find(Condition.class,true);
+                    s_deviceList1=LitePal.where("temp_id = ?",temp.getId()+"").find(S_Device.class,true);
+                    missionList1=LitePal.where("temp_id = ?",temp.getId()+"").find(Mission.class,true);
+                    c_timeList=c_timeList1;
+                    s_deviceList=s_deviceList1;
+
+
+                    for(int i=0;i<conditionList1.size();i++){
+                        Condition condition=new Condition();
+                        condition=conditionList1.get(i);
+                        if(condition.getJudge()==3){
+                            C_Time c_time=new C_Time();
+                            C_Time c_time1=new C_Time();
+                            c_time1=conditionList.get(i).getC_time();
+                            c_time=c_time1;
+                            c_time.setCondition(condition);
+                            condition.setC_time(c_time);
+                            c_time.setScene(scene);
+                            c_time.setCondition(condition);
+                            c_time.save();
+                        }
+                        condition.setScene(scene);
+                        scene.getConditionList().add(condition);
+                        condition.save();
+                        scene.save();
+                    }
+                    //TODO 其实完全可以直接setNull来去外键ku
+                    for(int j=0;j<missionList1.size();j++){
+                        Mission mission1 = new Mission();
+                        mission1=missionList1.get(j);
+                        if(mission1.getJudge()==3){
+                            List<S_Device> s_deviceList2=LitePal.where("mission_id = ?",missionList1.get(j).getId()+"").find(S_Device.class);
+                            for(int i=0;i<s_deviceList2.size();i++){
+                                S_Device s_device=new S_Device();
+                                s_device=s_deviceList2.get(i);
+                                s_device.setMission(mission1);
+                                s_device.setScene(scene);
+                                mission1.setTemp(null);
+                                mission1.getS_deviceList().add(s_device);
+                                s_device.save();
+                            }
+                        }
+                        scene.getMissionList().add(mission1);
+                        mission1.setScene(scene);
+                        mission1.save();
+                    }
+
+                    scene.setTime(time1);
+                    scene.setIsOpen(0);
+                    scene.save();
+                    //
+
                     //创建场景
                     String input = name_ml; // 中文输入
 
@@ -199,19 +281,13 @@ public class More extends AppCompatActivity {
                     validData=getValidData("01",name,innerData);//00是内嵌数据长度
                     //创建场景
                     validDataLength=getValidDataLength(validData);
-                    clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,"0x"+validDataLength+"");
+                   clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength+"");
                     if(hexTime!=null){
                         innerData=getInnerDataForTime(More.CONTROLLER_LONG_ADDRESS,"00",hexTime);
                         validData=getValidData("03",name,innerData);
                         //发送时间点条件
                         validDataLength=getValidDataLength(validData);
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,"0x"+validDataLength);
-                                finish();
-                            }
-                        },100);
+                        clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength);
                     }
                     //发送设备执行任务
                     if(!s_deviceList.isEmpty()){
@@ -225,35 +301,21 @@ public class More extends AppCompatActivity {
                             }else {
                                 for(int i=0;i<s_device.getLightList().size();i++){
                                     int light=s_device.getLightList().get(i);
-                                    innerValidData="00"+"0"+light+"0"+brightness;
+                                    innerValidData="0"+light+"0"+brightness;
                                     innerData=getInnerDataForCommand(target_short_address,s_device.getDevice_type(),innerValidData);
                                     validData=getValidData("05",name,innerData);
                                     validDataLength=getValidDataLength(validData);
-                                    new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength);
-                                            finish();
-                                        }
-                                    },100);
-
-
+                                    clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength);
                                 }
                             }
-                            //FIXME  这玩意不知道有用没
                             if(s_device.getLight_model()!=null)
                                 if(s_device.getLight_model().equals("3")){//呼吸灯指令
                                 innerValidData="00"+"06";
                                 innerData=getInnerDataForCommand(target_short_address,s_device.getDevice_type(),innerValidData);
                                 validData=getValidData("05",name,innerData);
                                 validDataLength=getValidDataLength(validData);
-                                new Handler().postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength);
-                                            finish();
-                                        }
-                                    },100);
+                                clientMQTT.publishMessagePlus(null,"0x0000","0xFE",validData,validDataLength);
+
 
 
                             }
@@ -264,12 +326,29 @@ public class More extends AppCompatActivity {
                     }
 
                     //TODO S_Device里面的判断是执行还是条件的还没赋值
-                }
+                }else {
 
+                }
+//                List<Temp> tempList=new ArrayList<>();
+//                tempList=LitePal.findAll(Temp.class);
+//                if(!tempList.isEmpty())//如果暂存数据库不为空，就遍历清空Scene,device.....中与temp有关的数据
+//                {
+//                    //TODO 刚进入界面的那个pull服务器存的用户已连接电器数据，要加定时关闭
+//                    for (int j = 0; j < tempList.size(); j++) {
+//                        String temp_id=String.valueOf(tempList.get(j).getId());
+//                        LitePal.deleteAll(C_Time.class,"temp_id=?",temp_id);
+//                        LitePal.deleteAll(S_Device.class,"temp_id=?",temp_id);
+//                        LitePal.deleteAll(Mission.class,"temp_id=?",temp_id);
+//                        LitePal.deleteAll(Condition.class,"temp_id=?",temp_id);
+//                        j++;
+//                    }
+//                    tempList.clear();
+//                }
                 //TODO 别忘了还有指令发送
                 //TODO 考虑到直接通过get再set可能直接set了个null，还是直接new新的
                 finish();
             }
+
         });
     }
 
@@ -309,7 +388,7 @@ public class More extends AppCompatActivity {
         String validDataLength=Integer.toHexString(validData.length()/2-1);
         if(validDataLength.length()==1)
             validDataLength="0"+validDataLength;
-       return validDataLength;
+       return "0x"+validDataLength;
     }
 
     /**
@@ -347,6 +426,8 @@ public class More extends AppCompatActivity {
      */
     private String getInnerDataForCommand(String target_short_address,String device_type,String innerValidData){
         String innerValidDataLength=Integer.toHexString(innerValidData.length()/2);
+        if(innerValidDataLength.length()==1)
+            innerValidDataLength="0"+innerValidDataLength;
         String innerData=target_short_address+device_type+innerValidDataLength+innerValidData;
         return innerData;
     }
@@ -383,6 +464,46 @@ public class More extends AppCompatActivity {
         String name=hex.toString();
         return name;
     }
+    private void TransferDataFromSceneToTemp(Temp temp,Scene scene){
+        List<C_Time> c_timeList=new ArrayList<>();//多个时间点
+        List<Condition> conditionList=new ArrayList<>();//条件
+        List<Mission> missionList=new ArrayList<>();//任务
+        List<S_Device> s_deviceList=new ArrayList<>();
+        String isClick;
+        List<C_Time> c_timeList1=new ArrayList<>();//多个时间点
+        List<Condition> conditionList1=new ArrayList<>();//条件
+        List<Mission> missionList1=new ArrayList<>();//任务
+        List<S_Device> s_deviceList1=new ArrayList<>();
+
+        isClick=scene.getIsClick();
+        //TODO 每一个c_time还是要通过condition来寻找，因为recycler展示的就是conditionList不是c_timeList，传入的参数有scene_id和创建时间
+        //TODO 展示的列表用Map，毕竟也就显示一个标题，
+        c_timeList1=LitePal.where("scene_id = ?",scene.getId()+"").find(C_Time.class,true);
+        conditionList1=LitePal.where("scene_id = ?",scene.getId()+"").find(Condition.class,true);
+        s_deviceList1=LitePal.where("scene_id = ?",scene.getId()+"").find(S_Device.class,true);
+        missionList1=LitePal.where("scene_id = ?",scene.getId()+"").find(Mission.class,true);
+        c_timeList=c_timeList1;
+        conditionList=conditionList1;
+        s_deviceList=s_deviceList1;
+        missionList=missionList1;
+        for(int i=0;i<conditionList.size();i++){
+            Condition condition=new Condition();
+            condition=conditionList.get(i);
+            temp.getConditionList().add(condition);
+            condition.save();
+        }
+        temp.setMissionList(missionList);
+
+        temp.setIsClick(isClick);
+        temp.setS_deviceList(s_deviceList);
+        temp.setC_timeList(c_timeList);
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
+        Date date=new Date(System.currentTimeMillis());
+        String time1=simpleDateFormat.format(date);
+        temp.setTime(time1);
+        temp.save();
+        int a=0;
+    }
     private void TransferDataFromTempToScene(Scene scene,Temp temp,String name){
         List<C_Time> c_timeList=new ArrayList<>();//多个时间点
         List<Condition> conditionList=new ArrayList<>();//条件
@@ -405,17 +526,24 @@ public class More extends AppCompatActivity {
         conditionList=conditionList1;
         s_deviceList=s_deviceList1;
         missionList=missionList1;
+
         for(int i=0;i<conditionList.size();i++){
             Condition condition=new Condition();
             condition=conditionList.get(i);
+            if(condition.getJudge()==3){
+                C_Time c_time=new C_Time();
+                c_time=condition.getC_time();
+                c_time.setCondition(condition);
+                condition.setC_time(c_time);
+                c_time.setScene(scene);
+                c_time.setCondition(condition);
+                c_time.save();
+            }
+            condition.setScene(scene);
             scene.getConditionList().add(condition);
             condition.save();
+            scene.save();
         }
-        scene.setMissionList(missionList);
-        scene.setConditionList(conditionList);
-        scene.setIsClick(isClick);
-        scene.setS_deviceList(s_deviceList);
-        scene.setCTimeList(c_timeList);
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss");
         Date date=new Date(System.currentTimeMillis());
         String time1=simpleDateFormat.format(date);

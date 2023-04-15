@@ -63,7 +63,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Huiju.AddHome"
+            android:name=".Objects.Page_Huiju.AddHome"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -84,7 +84,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Huiju.HomeManageActivity"
+            android:name=".Objects.Page_Huiju.HomeDeviceManage"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Objects.Page_Huiju.AddHome"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".Objects.Page_Huiju.HomeManageActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -301,7 +315,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".Page_Huiju.ManageDevices"
+            android:name=".Objects.Page_Huiju.ManageDevices"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

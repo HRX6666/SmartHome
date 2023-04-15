@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class ConditionActivity extends AppCompatActivity {
     LinearLayout time;
     LinearLayout smart_sensors;
     LinearLayout scene_control;
+    Switch aSwitch;
     Toolbar toolbar;
     private CustomizeGoodsAddView customizeGoodsAddView;
     private static int temperature;
@@ -31,6 +33,7 @@ public class ConditionActivity extends AppCompatActivity {
         setContentView(R.layout.add_condition);
         hand_click=findViewById(R.id.hand_click);
         time=findViewById(R.id.time);
+        aSwitch=findViewById(R.id.switch1);
         smart_sensors=findViewById(R.id.smart_sensors);
         scene_control=findViewById(R.id.scene_control);
         toolbar=findViewById(R.id.add_condition_back);
@@ -45,17 +48,25 @@ private void initLayout(){
                 finish();
             }
         });
-        hand_click.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Temp temp= LitePal.findLast(Temp.class);
+    Temp temp= LitePal.findLast(Temp.class);
+    if(temp.getIsClick().equals("1"))
+        aSwitch.setChecked(true);
+    else
+        aSwitch.setChecked(false);
+    aSwitch.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(aSwitch.isChecked()==false){
+                temp.setToDefault("isClick");
+                temp.save();
+            }else {
                 temp.setIsClick("1");
                 temp.save();
-                Toast.makeText(ConditionActivity.this,"设置成功",Toast.LENGTH_SHORT).show();
-//conditionList整体用wrapcontent,确保随内容变化大小
-                return true;
+                finish();
             }
-        });
+        }
+    });
+
     time.setOnTouchListener(new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {
@@ -65,7 +76,6 @@ private void initLayout(){
             return true;
         }
     });
-
     smart_sensors.setOnTouchListener(new View.OnTouchListener() {
         @Override
         public boolean onTouch(View v, MotionEvent event) {

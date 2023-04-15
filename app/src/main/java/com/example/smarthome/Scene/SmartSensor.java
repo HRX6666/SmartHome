@@ -8,19 +8,15 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.smarthome.Adapter.ManageAdaptor;
 import com.example.smarthome.Adapter.SensorListAdaptor;
-import com.example.smarthome.Database.Device;
 import com.example.smarthome.Database.Sensor;
 import com.example.smarthome.MQTT.ClientMQTT;
-import com.example.smarthome.Page_Huiju.ManageDevices;
 import com.example.smarthome.R;
 
 import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class SmartSensor extends AppCompatActivity {
     private List<Sensor> sensorList=new ArrayList<>();

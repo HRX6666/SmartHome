@@ -154,6 +154,7 @@ public class Set_curtain extends AppCompatActivity {
                                 int n = positionList.get(i);
                                 String target_long_address = curtainList.get(n).getTarget_long_address();
                                 S_Device s_device = new S_Device();
+                                s_device.setDevice_type("03");
                                 if (open != -1)
                                     s_device.setCurtain_open("1");
                                 else if (close != -1)
@@ -168,8 +169,9 @@ public class Set_curtain extends AppCompatActivity {
                                     mission.getS_deviceList().add(s_device);
                                     mission.setTemp(temp);
                                     mission.save();
+                                    s_device.setTemp(temp);
                                     Device device=new Device();
-                                    device.setUse(1);
+//                                    device.setUse(1);
                                     device.updateAll("target_long_address = ?",target_long_address);
                                     s_device.save();
                                 } else{

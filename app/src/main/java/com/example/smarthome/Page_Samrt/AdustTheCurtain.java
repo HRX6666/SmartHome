@@ -70,7 +70,7 @@ public class AdustTheCurtain extends AppCompatActivity {
                 if(extent.length()==1){
                     extent="0"+extent;
                 }
-                clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x"+extent,"0x01");
+                clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x"+extent,"0x01");
             }
 
             @Override
@@ -86,14 +86,14 @@ public class AdustTheCurtain extends AppCompatActivity {
         bt_openAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x80","0x01");
+                clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x80","0x01");
             }
         });
 
         bt_closeCurtain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clientMQTT.publishMessagePlus(null,target_short_address,"0x"+device_type,"0x00","0x01");
+                clientMQTT.publishMessagePlus(null,"0x"+target_short_address,"0x"+device_type,"0x00","0x01");
             }
         });
     }

@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.smarthome.Database.AddHomes;
-import com.example.smarthome.Database.AddModel;
-import com.example.smarthome.Database.Home;
-import com.example.smarthome.Page_Huiju.AddHome;
-import com.example.smarthome.Page_Huiju.HuijuFrament;
+import com.example.smarthome.Objects.Page_Huiju.AddHome;
 
 import com.example.smarthome.R;
 

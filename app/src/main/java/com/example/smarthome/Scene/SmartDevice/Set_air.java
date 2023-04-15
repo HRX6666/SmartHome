@@ -201,6 +201,7 @@ public class Set_air extends AppCompatActivity {
                                     int n=positionList.get(i);
                                     String target_long_address=mAirList.get(n).getTarget_long_address();
                                     S_Device s_device=new S_Device();
+                                    s_device.setDevice_type("02");
                                     if(warm!=-1)
                                         s_device.setAir_model("1");
                                     if(cold!=-1)
@@ -222,7 +223,9 @@ public class Set_air extends AppCompatActivity {
                                         mission.setTemp(temp);
                                         mission.save();
                                         Device device=new Device();
-                                        device.setUse(1);
+//                                        device.setUse(1);
+
+                                        s_device.setTemp(temp);
                                         device.updateAll("target_long_address = ?",target_long_address);
                                         s_device.save();
                                     }

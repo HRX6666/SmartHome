@@ -115,7 +115,12 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         app:cornerRadius="4dp"/>
-
+<Button
+    android:id="@+id/delete_scene"
+    android:layout_width="60dp"
+    android:layout_height="50dp"
+    android:background="@drawable/deletedevice"
+    />
 
 
 

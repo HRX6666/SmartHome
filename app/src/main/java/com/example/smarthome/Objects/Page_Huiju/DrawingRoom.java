@@ -1,4 +1,4 @@
-package com.example.smarthome.Page_Huiju;
+package com.example.smarthome.Objects.Page_Huiju;
 
 import androidx.appcompat.app.AppCompatActivity;
 

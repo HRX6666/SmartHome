@@ -89,7 +89,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                 else if(temp.length()==2)
                     temperature=temp.substring(0,1);
             String hexTemp=Integer.toHexString(Integer.valueOf(temperature));
-            clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x08"+hexTemp,"0x02");
+            clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x08"+hexTemp,"0x02");
             }
         });
 //        initwindspeed();
@@ -100,19 +100,19 @@ public class AdjustTheAirCondition extends AppCompatActivity {
             ib_worm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x02","0x01");
+                    clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x02","0x01");
                 }
             });
             ib_cold.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x03","0x01");
+                    clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x03","0x01");
                 }
             });
             ib_wind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x05","0x01");
+                    clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x05","0x01");
                 }
             });
             ib_wind_min.setOnClickListener(new View.OnClickListener() {
@@ -133,7 +133,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                         animation_min.pause();
                     }
                     animation_min.start();
-                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x0701","0x02");
+                    clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x0701","0x02");
                 }
             });
             ib_wind_mid.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +154,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                         animation_mid.pause();
                     }
                     animation_mid.start();
-                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x0702","0x02");
+                    clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x0702","0x02");
                 }
             });
             ib_wind_max.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +175,7 @@ public class AdjustTheAirCondition extends AppCompatActivity {
                         animation_max.pause();
                     }
                     animation_max.start();
-                    clientMQTT.publishMessagePlus(null,target_short_address,device_type,"0x0703","0x02");
+                    clientMQTT.publishMessagePlus(null,"0x"+target_short_address,device_type,"0x0703","0x02");
                 }
             });
 

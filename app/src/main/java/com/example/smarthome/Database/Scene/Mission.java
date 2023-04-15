@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Mission extends LitePalSupport {
+    private int id;
     private Temp temp;
     private String time;//设置的时间
     private Scene scene;
@@ -22,6 +23,14 @@ public class Mission extends LitePalSupport {
     //4 air
     //5 curtain
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Scene getScene() {
         return scene;
